@@ -5,12 +5,14 @@ import CardLayout  from './components/CardLayout.jsx'
 import Searchbar from './components/Searchbar.jsx'
 import Card from './components/Card.jsx'
 import './components/styles/App.css'
+import NavBar from './components/NavBar.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
+    <NavBar/>
     <Searchbar placeholder="Search for anything..." />
       <CardLayout>
         <Card title="Card 1" body="This is the first card." img="src\assets\ubc.png" />
