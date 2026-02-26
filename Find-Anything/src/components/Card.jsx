@@ -1,19 +1,17 @@
 import { useState } from "react"
-import "./card.css"
+import "./styles/card.css"
 
 
 function Card(props){
 
-     function console(){
-          console.log("clicked on: " + props.title);
-     }
+     
 
 
      return(<>
-     <div class="card" onClick={console}> 
-          <img src={props.img} class="card-img"></img>
-          <h3 class="card-title">{props.title}</h3>
-          <p class="card-body">{props.body}</p>
+     <div className="card" onClick={() => console.log("clicked on: " + props.title)}> 
+          <img src={props.img} className="card-img"></img>
+          <h3 className="card-title">{props.title}</h3>
+          <p className="card-body">{props.body}</p>
      </div>
      </>);
 }
