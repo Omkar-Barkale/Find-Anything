@@ -16,12 +16,10 @@ function NavBar() {
         </ul>
     </>
   )
-}
-
-function UnregisteredUser(){
+  function UnregisteredUser(){
   return(
     <>
-          <li id = "login"><a href = "#" onClick={()=>alert("Login")}>Log In</a>  </li>  
+          <li id = "login"><a href = "#" onClick={()=>{alert("Login"); setUser("user")}}>Log In</a>  </li>  
           <li id = "register"><a href = "#" onClick={()=>alert("Register")}>Sign Up</a></li>
     </>
   )
@@ -47,5 +45,8 @@ function Admin(){
   )
 
 }
+}
+
+
 
 export default NavBar
