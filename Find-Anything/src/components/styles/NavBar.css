@@ -1,0 +1,55 @@
+body{
+  background-color: white;
+}
+
+#site{
+  color: black;
+  font-weight: bold;
+  font-size: 30px;
+}
+#about, #lib, #home,#mod, .profile a, #mod a{
+  color: gray;
+}
+
+
+#login a{
+  color: gray;
+  font-weight: bold;
+}
+
+#register a{
+  color: white;
+  background-color: black;
+  padding: 8px 15px 8px 15px;
+  border-radius: 4px;
+}
+
+
+ul {
+  display : flex;
+  list-style-type: none;
+  padding-left: 10px;
+  padding-top: 0px;
+  align-items: baseline;
+  position: fixed;
+  top: 0;
+  width: 97%;
+}
+
+
+
+ul li a {
+  padding: 0px 16px;
+  margin-right: 16px;
+}
+
+#login, .profile{
+  margin-left: auto;
+}
+
+
+
+
+
+ 
+
