@@ -1,0 +1,29 @@
+.card{
+    border-color: rgb(140, 140, 140);
+    border-width: 2px;
+    border-style: solid;
+    width: 250px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #ffffff;
+}
+
+.card-img{
+    margin: 25px;
+    border-color: rgb(140, 140, 140);
+    border-width: 2px;
+    border-style: solid;
+}
+
+.card-title{
+    font-size: 20px;
+    text-align: center;
+    margin: 5px 0 0 0;
+}
+
+.card-body{
+    margin-left: 7px;
+    font-family:'Times New Roman', Times, serif;
+}
