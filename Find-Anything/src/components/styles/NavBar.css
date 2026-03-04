@@ -31,7 +31,7 @@ ul {
   padding-left: 10px;
   padding-top: 0px;
   align-items: baseline;
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   width: 97%;
 }
