@@ -14,7 +14,6 @@ function Searchbar({ placeholder}) {
                 <input id = "main-search" type="text" onChange={(e) => setSearch(e.target.value)} placeholder={placeholder} />
         </form>
     )
-}
-
+}   
 
 export default Searchbar;
