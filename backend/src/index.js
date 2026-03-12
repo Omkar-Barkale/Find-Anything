@@ -1,4 +1,5 @@
 import {bookRoutes} from "./modules/books/books.routes.js";
+import { authRoutes } from "./modules/auth/auth.routes.js";
 import express from "express"
 
 const app = express();
@@ -15,7 +16,12 @@ app.listen(port, () => {
 
 //Books route
 app.use("/api/books",bookRoutes);
+app.use("/api/auth", authRoutes);
+
 
 app.get('/*path', (req, res) => {
   res.status(404).send('Page Not Found');
 });
+
+
+
