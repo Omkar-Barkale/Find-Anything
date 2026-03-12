@@ -3,61 +3,61 @@
     "id": 1,
     "name": "The Great Gatsby",
     "author": "F. Scott Fitzgerald",
-    "cover": "backend/src/data/pictures/The Great Gatsby.jpg"
+    "cover": "./pictures/The Great Gatsby.jpg"
   },
   {
     "id": 2,
     "name": "To Kill a Mockingbird",
     "author": "Harper Lee",
-    "cover": "backend/src/data/pictures/To Kill a Mockingbird.jpg"
+    "cover": "./pictures/To Kill a Mockingbird.jpg"
   },
   {
     "id": 3,
     "name": "1984",
     "author": "George Orwell",
-    "cover": "backend/src/data/pictures/1984.jpg"
+    "cover": "./pictures/1984.jpg"
   },
   {
     "id": 4,
     "name": "Animal Farm",
     "author": "George Orwell",
-    "cover": "backend/src/data/pictures/Animal Farm.jpg"
+    "cover": "./pictures/Animal Farm.jpg"
   },
   {
     "id": 5,
     "name": "Frankenstein",
     "author": "Mary Shelley",
-    "cover": "backend/src/data/pictures/Frankenstein.jpg"
+    "cover": "./pictures/Frankenstein.jpg"
   },
   {
     "id": 6,
     "name": "A Court of Thorns and Roses",
     "author": "Sarah J. Maas",
-    "cover": "backend/src/data/pictures/A Court of Thorns and Roses.jpg"
+    "cover": "./pictures/A Court of Thorns and Roses.jpg"
   },
   {
     "id": 7,
     "name": "A Tale of Two Cities",
     "author": "Charles Dickens",
-    "cover": "backend/src/data/pictures/A Tale of Two Cities.jpg"
+    "cover": "./pictures/A Tale of Two Cities.jpg"
   },
   {
     "id": 8,
     "name": "The Hobbit",
     "author": "J. R. R. Tolkien",
-    "cover": "backend/src/data/pictures/The Hobbit.jpg"
+    "cover": "./pictures/The Hobbit.jpg"
   },
   {
     "id": 9,
     "name": "Charlotte's Web",
     "author": "E. B. White",
-    "cover": "backend/src/data/pictures/Charlotte's Web.png"
+    "cover": "./pictures/Charlotte's Web.png"
   },
   {
     "id": 10,
     "name": "The Da Vinci Code",
     "author": "Dan Brown",
-    "cover": "backend/src/data/pictures/The Da Vinci Code.jpg"    
+    "cover": "./pictures/The Da Vinci Code.jpg"    
   }
 
 ]
