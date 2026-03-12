@@ -1,7 +1,7 @@
 
 import * as bookService from "./books.service.js"
 
-export async function getAllBooks(req, res, next){
+ async function getAllBooks(req, res, next){
     res.status(200);
     console.log("Running Controller");
     res.json(bookService.getAllBooks());
@@ -19,3 +19,5 @@ function getBook(req,res){
     res.json({data:book});
     res.end();
 }
+
+export {getAllBooks,getBook}
