@@ -9,7 +9,7 @@ function Login(){
     function handleSubmit(e){
         e.preventDefault();
         
-        fetch("http://localhost:3001/Login", {
+        fetch("http://localhost:3000/api/auth", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -23,7 +23,13 @@ function Login(){
             return response.json();
         })
         .then(function(data){
-            setMessage("Email: " + data.email + " Passowrd: " + data.password);
+            if('error' in data){
+                setMessage(data.error);
+            }
+            else{
+                setMessage("Email: " + data.email + " Passowrd: " + data.password);
+            }
+            
         })
         .catch(function(error){
             console.log("Error:", error);

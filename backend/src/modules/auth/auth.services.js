@@ -6,7 +6,16 @@ function getAllUsers(){
 }
 
 function getUserByEmail(email){
-    return userRepo.getUserByEmail(email);
+    
+    let user = userRepo.getUserByEmail(email);
+    if(user)
+    {
+        return user;
+    }
+    else
+    {
+        return null;
+    }
 }
 
 export {getAllUsers, getUserByEmail}
