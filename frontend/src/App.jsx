@@ -18,13 +18,9 @@ function App() {
     <Searchbar placeholder="Search for anything..." />
       <CardLayout>
         <Card title="Card 1" body="This is the first card." img="src\assets\ubc.png" />
-        <Card title="Card 2" body="This is the first card." img="src\assets\ubc.png" />
-        <Card title="Card 3" body="This is the first card." img="src\assets\ubc.png" />
-        <Card title="Card 4" body="This is the first card." img="src\assets\ubc.png" />
-        <Card title="Card 5" body="This is the first card." img="src\assets\ubc.png" />
-        <Card title="Card 6" body="This is the second card." img="src\assets\Sin Eater.jpg" />
-        <Card title="Card 7" body="This is the third card." img="src\assets\The Beloved girls.jpg" />
-        <Card title="Card 8" body="This is the fourth card." img ="src\assets\Deadly Keyholes.jpg" />
+        <Card title="Card 2" body="This is the second card." img="src\assets\Sin Eater.jpg" />
+        <Card title="Card 3" body="This is the third card." img="src\assets\The Beloved girls.jpg" />
+        <Card title="Card 4" body="This is the fourth card." img ="src\assets\Deadly Keyholes.jpg" />
       </CardLayout>
   </>
   )}
