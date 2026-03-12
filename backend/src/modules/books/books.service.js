@@ -8,5 +8,8 @@ function getAllBooks(){
 function getBook(id){
     return bookRepo.getBook(id);
 }
+function getBookByKeyword(query){
+    return JSON.stringify(bookRepo.getBookByKeyword(query));
+}
 
-export {getAllBooks, getBook}
+export {getAllBooks, getBook, getBookByKeyword}
