@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs, { read } from "fs";
 import path from "path";
 import { DATA_DIR } from "../../constants.ts";
 const BOOKS_FILE = path.join(DATA_DIR,"books.json");
@@ -7,9 +7,13 @@ function readBooks(){
     return JSON.parse(fs.readFileSync(BOOKS_FILE, "utf-8"));
 }
 
-function getBook(id){
+function getBookByKeyword(query){
     const data = readBooks();
-    return data.find(obj => obj.id === id);
+    const queryReturn = data.filter((book,index,data)=>{
+        return(book.name.include(query)||book.id.include(query)||book.author.include(query))
+    });
+    return queryReturn;
+    
 }
 
-export {readBooks,getBook};
+export {readBooks,getBookByKeyword};
