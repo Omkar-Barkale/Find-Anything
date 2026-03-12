@@ -1,6 +1,6 @@
 import "./styles/CardLayout.css";
 
-function CardLayout({ children }) {
+function CardLayout({children}) {
     return (
         <div className = "card-layout">{children}</div>
     )
