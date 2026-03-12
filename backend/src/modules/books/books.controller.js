@@ -1,9 +1,21 @@
-import {Request, Response} from "express";
-import * as bookService from "./books.service";
 
-export function getBook(req = Request, res = Response){
+import * as bookService from "./books.service.js"
+
+export async function getAllBooks(req, res, next){
+    res.status(200);
+    console.log("Running Controller");
+    res.json(bookService.getAllBooks());
+
+    console.log(res);
+    res.end();
+}
+
+
+function getBook(req,res){
     const {id} = req.params.id;
 
     const book = bookService.getBook(id);
+    res.status
     res.json({data:book});
+    res.end();
 }

@@ -1,6 +1,6 @@
 import {bookRoutes} from "./modules/books/books.routes.js";
+import express from "express"
 
-const express = require('express');
 const app = express();
 const port = 3000;
 
@@ -12,4 +12,10 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
-app.use("/api/books",bookRoutes );
+
+//Books route
+app.use("/api/books",bookRoutes);
+
+app.get('/*path', (req, res) => {
+  res.status(404).send('Page Not Found');
+});
