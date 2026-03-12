@@ -1,4 +1,4 @@
-import express from "express";
+/*import express from "express";
 import cors from "cors";
 import { PORT } from "./constants.js";
 import { authRoutes } from "./modules/auth/auth.routes.js";
@@ -17,4 +17,4 @@ app.use(errorHandler);
 
 app.listen(PORT, (): void => {
   console.log(`Server running on http://localhost:${PORT}`);
-});
+});*/
