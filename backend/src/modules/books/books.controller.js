@@ -1,31 +1,26 @@
 
 import * as bookService from "./books.service.js"
 
- async function getAllBooks(req, res){
+export async function getAllBooks(req, res, next){
     res.status(200);
-    res.json(await bookService.getAllBooks());
-
-    console.log(res);
+    res.json(bookService.getAllBooks());
     res.end();
+    return; 
 }
 
 
 function getBook(req,res){
-    const {id} = req.params.id;
-
+    const {id} = req.params;
     const book = bookService.getBook(id);
-    res.status
-    res.json({data:book});
-    res.end();
-}
-
-function getBookByKeyword(req,res){
-    const {query} = req.params.query
-    const data = bookService.getBookByKeyword(query);
-    console.log("Returning:\n" + data);
     res.status(200);
-    res.json(data)
-    res.send();
+    res.json({data:book});
 }
-
-export {getAllBooks,getBook,getBookByKeyword}
+export async function getBookByKeyword(req, res) { 
+    try {
+        const { query } = req.params; // 
+        const result = await bookService.getBookByKeyword(query);
+        return res.status(200).json(result); // chain into one call
+    } catch (e) {
+        return res.status(500).json({ message: e.message }); 
+    }
+}
