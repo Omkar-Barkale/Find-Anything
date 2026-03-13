@@ -1,5 +1,7 @@
 import {useState} from 'react'
 import './components/styles/Login.css'
+
+
 function Login(){
 
     const[email, setEmail] = useState("");
@@ -41,41 +43,42 @@ function Login(){
 
 
     return(    
-        <div className='glass-container'>
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <input 
-                    type='text' 
-                    placeholder='Email' 
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
+        <div id='container'>
+            <div className='glass-container'>
+                <h2>Login</h2>
+                <form onSubmit={handleSubmit}>
+                    <input 
+                        type='text' 
+                        placeholder='Email' 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
 
-                <input 
-                    type='password' 
-                    placeholder='Password' 
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+                    <input 
+                        type='password' 
+                        placeholder='Password' 
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
 
-                <div id='preferences'>
-                    <div id='Remember'>
-                        <input type='checkbox'/>Remeber me
+                    <div id='preferences'>
+                        <div id='Remember'>
+                            <input type='checkbox'/>Remeber me
+                        </div>
+                        <button id='forgotPassword'>Forgot Password?</button>
                     </div>
-                    <button id='forgotPassword'>Forgot Password?</button>
-                </div>
 
-                <div id='continue_btns'>
-                    <button className='toMain_btn' type='submit'>Submit</button>
-                    <button className='toMain_btn' type='button'>Continue as Guest</button>
-                </div>
-                
-                <button id='register'>Don't have an account? Click Here to Register</button>
-                
-            </form>
-        <p>{message}</p>
-        </div>
-        
+                    <div id='continue_btns'>
+                        <button className='toMain_btn' type='submit'>Submit</button>
+                        <button className='toMain_btn' type='button'>Continue as Guest</button>
+                    </div>
+                    
+                    <button id='register'>Don't have an account? Click Here to Register</button>
+                    
+                </form>
+            <p>{message}</p>
+            </div>
+       </div> 
     );
 }
 
