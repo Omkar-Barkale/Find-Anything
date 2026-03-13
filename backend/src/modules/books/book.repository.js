@@ -1,19 +1,29 @@
 import fs, { read } from "fs";
 import path from "path";
-import { DATA_DIR } from "../../constants.ts";
+import { DATA_DIR } from "../../constants.js";
 const BOOKS_FILE = path.join(DATA_DIR,"books.json");
 
-function readBooks(){
+export function readBooks(){
     return JSON.parse(fs.readFileSync(BOOKS_FILE, "utf-8"));
 }
 
-function getBookByKeyword(query){
+export function getBookByKeyword(query){
     const data = readBooks();
+    console.log("Getting specific books");
     const queryReturn = data.filter((book,index,data)=>{
-        return(book.name.include(query)||book.id.include(query)||book.author.include(query))
+        console.log(book.name+" vs. " + query);
+        return(book.name.includes(query)||book.id.toString().includes(query)||book.author.includes(query))
     });
     return queryReturn;
     
 }
-
-export {readBooks,getBookByKeyword};
+export default function checkIfDataExists(){
+    try{
+        const data = readBooks();
+        return true;
+    }
+    catch(e){
+        console.log(e);
+        return false;
+    }
+}

@@ -1,10 +1,9 @@
 
 import * as bookService from "./books.service.js"
 
- async function getAllBooks(req, res, next){
+ async function getAllBooks(req, res){
     res.status(200);
-    console.log("Running Controller");
-    res.json(bookService.getAllBooks());
+    res.json(await bookService.getAllBooks());
 
     console.log(res);
     res.end();
@@ -20,4 +19,13 @@ function getBook(req,res){
     res.end();
 }
 
-export {getAllBooks,getBook}
+function getBookByKeyword(req,res){
+    const {query} = req.params.query
+    const data = bookService.getBookByKeyword(query);
+    console.log("Returning:\n" + data);
+    res.status(200);
+    res.json(data)
+    res.send();
+}
+
+export {getAllBooks,getBook,getBookByKeyword}
