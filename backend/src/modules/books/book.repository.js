@@ -1,6 +1,6 @@
 import fs, { read } from "fs";
 import path from "path";
-import { DATA_DIR } from "../../constants.ts";
+import { DATA_DIR } from "../../constants.js";
 const BOOKS_FILE = path.join(DATA_DIR,"books.json");
 
 function readBooks(){
@@ -13,7 +13,7 @@ function getBookByKeyword(query){
         return(book.name.include(query)||book.id.include(query)||book.author.include(query))
     });
     return queryReturn;
-    
+
 }
 
 export {readBooks,getBookByKeyword};
