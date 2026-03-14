@@ -7,8 +7,6 @@ export async function getAllBooks(req, res, next){
     res.end();
     return; 
 }
-
-
 function getBook(req,res){
     const {id} = req.params;
     const book = bookService.getBook(id);
