@@ -9,7 +9,10 @@ function getBook(id){
     return bookRepo.getBook(id);
 }
 function getBookByKeyword(query){
-    return JSON.stringify(bookRepo.getBookByKeyword(query));
+
+    const data= JSON.stringify(bookRepo.getBookByKeyword(query));
+    console.log("Service returning: " + data);
+    return data;
 }
 
 export {getAllBooks, getBook, getBookByKeyword}
