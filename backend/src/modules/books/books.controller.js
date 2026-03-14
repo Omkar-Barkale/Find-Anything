@@ -17,7 +17,7 @@ function getBook(req,res){
 }
 export async function getBookByKeyword(req, res) { 
     try {
-        const { query } = req.params; // 
+        const { query } = req.params; 
         const result = await bookService.getBookByKeyword(query);
         return res.status(200).json(result); // chain into one call
     } catch (e) {
