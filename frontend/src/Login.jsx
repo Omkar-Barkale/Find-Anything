@@ -1,15 +1,18 @@
-import {useState} from 'react'
-import './components/styles/Login.css'
+import {useState} from 'react';
+import './components/styles/Login.css';
+import {useNavigate} from 'react-router-dom';
+import { use } from 'react';
 function Login(){
 
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
     const[message, setMessage] = useState("");
+    const nav = useNavigate();
 
     function handleSubmit(e){
         e.preventDefault();
         
-        fetch("http://localhost:3001/Login", {
+        fetch("http://localhost:3000/api/auth", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -23,7 +26,14 @@ function Login(){
             return response.json();
         })
         .then(function(data){
-            setMessage("Email: " + data.email + " Passowrd: " + data.password);
+            if('error' in data){
+                setMessage(data.error);
+            }
+            else{
+                setMessage("Email: " + data.email + " Passowrd: " + data.password);
+                nav('/Home');
+            }
+            
         })
         .catch(function(error){
             console.log("Error:", error);
@@ -35,7 +45,8 @@ function Login(){
 
 
     return(    
-        <div className='glass-container'>
+        <div id='container'>
+            <div className='glass-container'>
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <input 
@@ -68,6 +79,7 @@ function Login(){
                 
             </form>
         <p>{message}</p>
+        </div>
         </div>
         
     );

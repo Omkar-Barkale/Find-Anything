@@ -1,6 +1,6 @@
 import fs, { read } from "fs";
 import path from "path";
-import { DATA_DIR } from "../../constants.ts";
+import { DATA_DIR } from "../../constants.js";
 const BOOKS_FILE = path.join(DATA_DIR,"books.json");
 
 function readBooks(){
