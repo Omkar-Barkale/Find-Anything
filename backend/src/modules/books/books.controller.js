@@ -7,8 +7,6 @@ export async function getAllBooks(req, res, next){
     res.end();
     return; 
 }
-
-
 function getBook(req,res){
     const {id} = req.params;
     const book = bookService.getBook(id);
@@ -17,7 +15,7 @@ function getBook(req,res){
 }
 export async function getBookByKeyword(req, res) { 
     try {
-        const { query } = req.params; // 
+        const { query } = req.params; 
         const result = await bookService.getBookByKeyword(query);
         return res.status(200).json(result); // chain into one call
     } catch (e) {

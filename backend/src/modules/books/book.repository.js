@@ -9,13 +9,14 @@ export function readBooks(){
 
 export function getBookByKeyword(query){
     const data = readBooks();
+    const safeQuery = query.toLowerCase();
     console.log("Getting specific books");
     const queryReturn = data.filter((book,index,data)=>{
         console.log(book.name+" vs. " + query);
-        return(book.name.includes(query)||book.id.toString().includes(query)||book.author.includes(query))
+        return(book.name.toLowerCase().includes(safeQuery)||book.id.toString().includes(safeQuery)||book.author.toLowerCase().includes(safeQuery))
     });
     return queryReturn;
-    
+
 }
 export default function checkIfDataExists(){
     try{
