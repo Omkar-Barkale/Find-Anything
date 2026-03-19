@@ -13,7 +13,7 @@ export function getBookByKeyword(query){
     console.log("Getting specific books");
     const queryReturn = data.filter((book,index,data)=>{
         console.log(book.name+ " vs. " + query);
-        return(book.name.toLowerCase().includes(safeQuery)||book.id.toString().includes(safeQuery)||book.author.toLowerCase().includes(safeQuery))
+        return(book.name.toLowerCase().includes(safeQuery)||book.author.toLowerCase().includes(safeQuery))
     });
     return queryReturn;
 
