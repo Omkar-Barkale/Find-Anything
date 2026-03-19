@@ -23,7 +23,7 @@ export function authMiddleware(req,res,next){
     }
     
 
-    if((email && pass)){
+    if((pass)){
         console.log("email: " + req.body.email + "  Password: " + req.body.password);
         next();
     }
