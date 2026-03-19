@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 
 //Books route
 app.use("/search",bookRoutes);
-app.use("/api/auth", authRoutes);
+app.post("/api/auth", authRoutes);
 
 //fallback path
 app.get('/*path', (req, res) => {
