@@ -1,11 +1,13 @@
 
-export function bookMiddleware(req,res,next){
+import bookRepo from "../modules/books/book.repository.js"
 
-    if(req.body.email === "email" && req.body.password === "1234"){
-         console.log("email and password are a match");
+export function bookMiddleware(req,res,next){
+    //Resource doesn't exist
+    if(!(bookRepo)){
+        res.status(404);
+        res.end("File Not Found");
     }
-    else{
-        console.log("email and password do not match");
-    }
+    console.log("File found");
     next();
+    
 }
