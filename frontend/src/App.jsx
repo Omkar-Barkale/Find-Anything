@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import CardLayout  from './components/CardLayout.jsx'
 import Searchbar from './components/Searchbar.jsx'
 import Card from './components/Card.jsx'
-import './components/styles/Home.css'
+import './components/styles/App.css'
 import NavBar from './components/NavBar.jsx'
 
 
