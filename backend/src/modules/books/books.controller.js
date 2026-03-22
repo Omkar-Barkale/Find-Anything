@@ -3,8 +3,7 @@ import * as bookService from "./books.service.js"
 
 export async function getAllBooks(req, res, next){
     res.status(200);
-    res.json(bookService.getAllBooks());
-    res.end();
+    res.json(await bookService.getAllBooks());
     return; 
 }
 function getBook(req,res){

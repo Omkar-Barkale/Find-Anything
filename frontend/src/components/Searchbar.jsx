@@ -5,10 +5,22 @@ import Card from './Card.jsx'
 import bookData from '../../../backend/src/data/books.json'
 
 
-function Searchbar({ placeholder}) {
+ function Searchbar({ placeholder}) {
     
+
+    const[books, setBooks] = useState([]);
+    
+    useEffect(() => { //loads all books from MongoDB on initial render, only once([]) instead of reading from json file
+
+        const load = async () => {
+                const response = await fetch('http://localhost:3000/search/');
+                const data = await response.json();
+                setBooks(data);
+        }
+        load();
+    }, [])
+
     const[search, setSearch] = useState("");
-    const[books, setBooks] = useState(bookData);
     const[text, setText] = useState("");
 
     const handleSubmit = async(e) => {
@@ -29,7 +41,6 @@ function Searchbar({ placeholder}) {
             e.target.reset();
         }
 
-    //error, useState initially uses an array, but response.json returns json obj not an array, so map does not work
         return (
             <>
                 <form className="searchbar" onSubmit={handleSubmit}>
