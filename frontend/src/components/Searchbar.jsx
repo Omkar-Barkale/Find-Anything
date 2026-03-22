@@ -36,7 +36,7 @@ function Searchbar({ placeholder}) {
                     <input id = "main-search" type="text" onChange={(e) => setSearch(e.target.value)} placeholder={placeholder} />
                 </form>
                       <CardLayout>
-                        {books.map((book) => (<Card key = {book.id} name = {book.name} author = {book.author} body = {book.body} cover = {book.cover}></Card>))}
+                        {books.map((book) => (<Card key = {book._id} name = {book.name} author = {book.author} body = {book.body} cover = {book.cover}></Card>))}
                      </CardLayout>
 
                      <h2>{text}</h2>
