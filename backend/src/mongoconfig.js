@@ -1,26 +1,36 @@
+import { MongoClient } from "mongodb";
+import dotenv from "dotenv";
+dotenv.config();
+const uri = process.env.MONGO_URI;
 
-import { MongoClient, ServerApiVersion }  from 'mongodb';
-const uri = "mongodb+srv://chanyeeyoon_db_user:wMGwMk48DqVeAcIX@findanything.vthshm9.mongodb.net/?appName=FindAnything"
-
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
-
-async function run() {
+async function run()
+{
+  const client = new MongoClient(uri);
   try {
-    // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
+    console.log("Connected successfully");
+
+    const db = client.db("find-anything");
+    await db.createCollection("books");
+
+    console.log("Collection created!");
+
+    await db.collection("books").insertOne(
+    {
+     name: "1984",
+     author: "George Orwell",
+     cover: "./pictures/1984.jpg",
+     body : "Dystopian government surveillance."
+    })
+
+
+    } 
+    catch (err) {
+      console.error("Error:", err);
+    } 
+    finally {
+      await client.close();
+    } 
 }
-run().catch(console.dir);
+
+run();
