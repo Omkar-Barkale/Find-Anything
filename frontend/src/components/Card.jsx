@@ -9,16 +9,15 @@ function Card(props){
 
 
 
-     return(<>
-     <div className="card" onClick={() => setShowModel(true)}> 
-          <img src={props.cover} className="card-img"></img>
-          <h3 className="card-title">{props.name}</h3>
-          <h5 className = 'author'>{props.author}</h5>
-          <p className="card-body">{props.body}</p>
-     </div>
-
-
-          {showModal && <BookModal onClose={()=>setShowModel(false)}/>}
+     return(
+     <>
+          <div className="card" onClick={() => setShowModel(true)}> 
+               <img src={props.cover} className="card-img"></img>
+               <h3 className="card-title">{props.name}</h3>
+               <h5 className = 'author'>{props.author}</h5>
+               <p className="card-body">{props.body}</p>
+          </div>
+          {showModal && <BookModal onClose={()=>setShowModel(false)} cover = "mongoDB later"/>}
 
      </>);
 }
