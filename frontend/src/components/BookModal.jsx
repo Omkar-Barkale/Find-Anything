@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import {Link} from 'react-router-dom';
+import './styles/BookModal.css'
 
 function BookModal()
 {
@@ -13,7 +14,11 @@ function BookModal()
     return(
     
         <>
-                <h1>xd</h1>
+            <div id = "modalOverlay">
+                <div id="modalStyle">
+                        <h1> hello </h1>
+                </div>
+            </div>
         </>
     );
 }
