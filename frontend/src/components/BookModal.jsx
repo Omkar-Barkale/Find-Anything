@@ -12,6 +12,8 @@ function BookModal(props)
                 <div id="modalStyle" onClick={(e) => e.stopPropagation()}>  {/*does not notify the parent to close since we only want it to close outside or x*/}
                         <img src={props.cover} id="cover"></img>
                         <button id = "close" onClick={props.onClose}>x</button>
+                        <h4>{props.name}</h4>
+                        <h5> {props.author}</h5>
                 </div>
             </div>
         </>
