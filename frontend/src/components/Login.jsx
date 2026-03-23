@@ -6,12 +6,11 @@ function Login(){
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
     const[message, setMessage] = useState("");
-    
 
     function handleSubmit(e){
         e.preventDefault();
         
-        fetch("http://localhost:3000/api/auth", {
+        fetch("http://localhost:3000/auth/token", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -29,10 +28,11 @@ function Login(){
                 setMessage(data.error);
             }
             else{
-                setMessage("Email: " + data.email + " Passowrd: " + data.password);
-                return(
-                    <Link to="/Home"></Link>
-                );
+                localStorage.setItem('userToken', data.token); //back end returns token inside data json store the token in the browsers local storage
+                console.log(localStorage.getItem('userToken'));
+                // return(
+                //     <Link to="/Home"></Link>
+                // );
             }
             
         })

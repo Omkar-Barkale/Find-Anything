@@ -1,7 +1,8 @@
 import { Router } from "express";
-import {authMiddleware} from "../../middleware/auth.middleware.js"
-import * as userController from "./auth.controller.js"
+import {authMiddleware, sendToken} from "../../middleware/auth.middleware.js"
+
 
 export const authRoutes = Router();
 
-authRoutes.post('/', authMiddleware, userController.getUserByEmail);
+
+authRoutes.post('/token', sendToken);
