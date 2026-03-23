@@ -9,7 +9,7 @@ function NavBar() {
   return (
     <>
         <ul>
-          <li><a href = "#" id = 'site' onClick={()=>alert("Site Clicked")}>SiteName</a></li>
+          <li><a href = "#" id = 'site' onClick={()=>alert("Site Clicked")}>Find Anything</a></li>
           <li><a href = "#" id = 'home' onClick={()=>alert("Home Clicked")}>Home</a></li>
           <li><a href = "#" id = 'about' onClick={()=>alert("About Clicked")}>About</a></li>
           {userMode}
