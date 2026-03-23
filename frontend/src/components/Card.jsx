@@ -18,7 +18,7 @@ function Card(props){
      </div>
 
 
-          {showModal && <BookModal/>}
+          {showModal && <BookModal onClose={()=>setShowModel(false)}/>}
 
      </>);
 }
