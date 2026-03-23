@@ -13,8 +13,8 @@
 }
 
 #modalStyle {
-  width: 700px;
-  height:500px;
+  width: 80%;
+  height: 75%;
   background-color: white;
   border-radius: 20px;
   display: flex;
@@ -23,4 +23,20 @@
   z-index: 1001; 
   padding: 20px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  position: relative; /*children are now relative to this hence not whole page */
+}
+
+#close
+{
+    color: black;
+    display: inline;
+    padding: 2px;
+    top: 5px;
+    right: 15px;
+    position: absolute;
+    border: none; /*no border on hover*/
+    outline: none; /*remove border on click*/
+    background-color: transparent;
+    font-size: 20px;
+        
 }

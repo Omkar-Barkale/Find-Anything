@@ -13,7 +13,7 @@ function BookModal(props)
             <div id = "modalOverlay" >
                 <div id="modalStyle">
                         <h1> hello </h1>
-                        <button onClick={props.onClose}>X</button>
+                        <button id = "close" onClick={props.onClose}>X</button>
                 </div>
             </div>
         </>
