@@ -2,7 +2,7 @@ import { useState } from 'react'
 import {Link} from 'react-router-dom';
 import './styles/BookModal.css'
 
-function BookModal({onClose})
+function BookModal(props)
 {
 
     const[isOpen, setOpen] = useState(false);
@@ -10,10 +10,10 @@ function BookModal({onClose})
     return(
     
         <>
-            <div id = "modalOverlay" onClick={()=>{onClose}}>
+            <div id = "modalOverlay" >
                 <div id="modalStyle">
                         <h1> hello </h1>
-                        <button onClick={onClose}>X</button>
+                        <button onClick={props.onClose}>X</button>
                 </div>
             </div>
         </>
