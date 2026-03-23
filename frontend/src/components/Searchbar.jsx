@@ -2,12 +2,10 @@ import { useState, useEffect } from "react";
 import "./styles/Searchbar.css";
 import CardLayout  from './CardLayout.jsx'
 import Card from './Card.jsx'
-import bookData from '../../../backend/src/data/books.json'
 
 
  function Searchbar({ placeholder}) {
     
-
     const[books, setBooks] = useState([]);
     
     useEffect(() => { //loads all books from MongoDB on initial render, only once([]) instead of reading from json file

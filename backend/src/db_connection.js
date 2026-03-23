@@ -11,12 +11,12 @@ let db;
 export async function connectDB()
 {
   try {
-    if(!db) //prevent multiple connections, reuse same connection if it is already made
-    {
-        await client.connect();
-        console.log("Connected successfully");
-        db = client.db("find-anything");
-    }
+      if(!db) //prevent multiple connections, reuse same connection if it is already made
+      {
+          await client.connect();
+          console.log("Connected successfully");
+          db = client.db("find-anything");
+      }
       return db; //return db so others can use the db connection
     } 
     catch (err) {
