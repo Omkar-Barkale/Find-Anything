@@ -67,6 +67,7 @@
   background-color: rgb(39, 38, 38);
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
+
 }
 
 input::placeholder {
@@ -96,8 +97,10 @@ input::placeholder {
   outline: none;   
 }
 
-#commentSection{
-  color: white
+#postBtn:hover {
+  color: lightblue;
 }
-
+#commentSection{
+  color: white; 
+}
 
