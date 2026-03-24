@@ -21,6 +21,10 @@ function BookModal(props)
                             <h5 id = "bookAuthor"> {props.author}</h5>
                         </div>
                     </div>
+
+
+
+
                     <div id = "commentSide">
                         <div id = "commentSection"> 
                             <h3>No comments yet</h3>

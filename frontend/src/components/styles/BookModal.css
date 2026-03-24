@@ -15,7 +15,7 @@
 #modalStyle {
   width: 60%;
   height: 75%;
-  display: flex;
+  display: flex; /*where children would be bookSide and commentSide*/
   z-index: 1001 ; 
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
   position: relative; /*children are now relative to this hence not whole page */
@@ -24,7 +24,7 @@
 }
 
 #bookSide {
-  flex: 4;
+  flex: 4; /*dividing space for book info and comments*/
   background-color: white;
   overflow-y: auto; /*vertical scroll when content overflows*/
   position: relative;
