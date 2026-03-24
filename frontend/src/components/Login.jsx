@@ -1,13 +1,11 @@
 import {useState} from 'react';
 import './styles/Login.css';
-import {useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 function Login(){
 
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
     const[message, setMessage] = useState("");
-    const nav = useNavigate();
-
     
 
     function handleSubmit(e){
@@ -32,7 +30,9 @@ function Login(){
             }
             else{
                 setMessage("Email: " + data.email + " Passowrd: " + data.password);
-                nav('/Home');
+                return(
+                    <Link to="/Home"></Link>
+                );
             }
             
         })
