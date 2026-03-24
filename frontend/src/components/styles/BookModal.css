@@ -15,15 +15,20 @@
 #modalStyle {
   width: 60%;
   height: 75%;
-  background-color: white;
-  border-radius: 20px;
   display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 1001 ; 
-  padding: 20px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
   position: relative; /*children are now relative to this hence not whole page */
+  background-color: white;
+  border-radius: 30px;
+}
+
+#bookSide {
+  flex: 4;
+  background-color: white;
+  overflow-y: auto; /*vertical scroll when content overflows*/
+  position: relative;
+  border-radius: 30px;
 }
 
 #close
@@ -52,7 +57,17 @@
     left: 230px;
 }
 
+
+
+
 /*comment stuff*/
+
+#commentSide{
+  flex: 3;
+  background-color: rgb(39, 38, 38);
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
 
 input::placeholder {
   color: gray;
@@ -65,9 +80,9 @@ input::placeholder {
   right: 100px;       
   border: 1px solid #ccc;
   outline: none;
-  color: black;
-  padding: 8px 12px;
-  border-radius: 6px;
+  color: white;
+  padding: 5px;
+  border-radius: 3px;
   width: 200px;     
 }
 
@@ -76,12 +91,13 @@ input::placeholder {
   bottom: 30px;      
   right: 50px;
   background-color: transparent;      
-  color: black;
+  color: white;
   border: none;
   outline: none;   
 }
 
 #commentSection{
-  position: absolute;
-  right: 120px;
+  color: white
 }
+
+
