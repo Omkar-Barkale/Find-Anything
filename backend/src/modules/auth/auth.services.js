@@ -7,7 +7,7 @@ function getAllUsers(){
 
 function getUserByEmail(email){
     
-    let user = userRepo.getUserByEmail(email);
+    let user = userRepo.getUser(email);
     if(user)
     {
         return user;

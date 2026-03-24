@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import * as userController from "./auth.controller.js"
-import { getUserByEmail } from '../modules/auth/auth.repository.js';
+//import * as userController from "./auth.controller.js"
+import { getUser } from '../modules/auth/auth.repository.js';
 //authRoutes.post('/', authMiddleware, userController.getUserByEmail);
 
 
@@ -34,21 +34,21 @@ export function authMiddleware(req,res,next){
 
 }
 
-export function sendToken(req, res, next){
+export async function sendToken(req, res, next){
 
     const jwt_secret = process.env.jwt_secret;
-    const {email, passsword} = req.body 
+    const {email, password} = req.body 
 
-    const user = getUserByEmail(email);
+    const db_return = await getUser(req.body); //im going to drop kick a child '[]' has precedence over the 'await'
+    const user = db_return[0];
 
-
-    if(user && passowrd === user.passowrd){
+    if(user && password === String(user.password)){ // if user is non null and passwords match
         
-        const token = jwt.sign(user, jwt_secret, {
+        const token = jwt.sign(user, jwt_secret, {//header
             expiresIn: '24h'
         });
 
-        res.json({
+        res.json({ //payload 
             token: token,
             message: "Login Successful"
         });
@@ -61,3 +61,6 @@ export function sendToken(req, res, next){
     }
 
 }
+
+
+
