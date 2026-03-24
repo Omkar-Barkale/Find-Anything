@@ -13,7 +13,7 @@
 }
 
 #modalStyle {
-  width: 80%;
+  width: 60%;
   height: 75%;
   background-color: white;
   border-radius: 20px;
@@ -35,8 +35,53 @@
     right: 15px;
     position: absolute;
     border: none; /*no border on hover*/
-    outline: none; /*remove border on click*/
+    outline: none; /*hide border on click*/
     background-color: transparent;
     font-size: 20px;
         
+}
+
+#bookContainer{
+  position: absolute;
+  top: 200px;
+  left: 300px;
+}
+
+#bookInfo{
+    position: absolute;
+    left: 230px;
+}
+
+/*comment stuff*/
+
+input::placeholder {
+  color: gray;
+  font-size: 1em;
+}
+
+#commentInput {
+  position: absolute; 
+  bottom: 20px;      
+  right: 100px;       
+  border: 1px solid #ccc;
+  outline: none;
+  color: black;
+  padding: 8px 12px;
+  border-radius: 6px;
+  width: 200px;     
+}
+
+#postBtn{
+  position: absolute; 
+  bottom: 30px;      
+  right: 50px;
+  background-color: transparent;      
+  color: black;
+  border: none;
+  outline: none;   
+}
+
+#commentSection{
+  position: absolute;
+  right: 120px;
 }
