@@ -17,7 +17,8 @@ export async function readBooks(){
 //maybe TODO? query mongodb directly instead of getting to JS array
 export async function getBookByKeyword(query){
     const db = await getDB();
-    const data = await db.collection("books").find({name:/^The/}).toArray(); 
+    console.log(query);
+    const data = await db.collection("books").find({$or:query}).toArray(); 
     return data;
 
 }
