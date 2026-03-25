@@ -8,6 +8,8 @@ function Login(){
     const[message, setMessage] = useState("");
     const[badEmail, setbadEmailMessage] = useState("");
     const[badPassword, setbadPasswordMessage] = useState("");
+    const regex_email = /^(.+)@([^\.].*)\.([a-z]{2,})$/;
+    const regex_password = /^[a-zA-Z]\w{8,16}$/;
 
     const navigate = useNavigate();
 
@@ -47,12 +49,11 @@ function Login(){
 
     function CheckInput(e){
         e.preventDefault();
-        
+
         setbadEmailMessage("");
         setbadPasswordMessage("");
 
-        const regex_email = /^(.+)@([^\.].*)\.([a-z]{2,})$/;
-        const regex_password = /^[a-zA-z]\w{8,16}$/;
+
         let validInput = true;
         if(!regex_email.test(email)){
             //badly formated email
@@ -80,17 +81,21 @@ function Login(){
             <h2>Login</h2>
             <form onSubmit={CheckInput}>
                 <input 
-                    type='text' 
+                    type='text'
+                    className={badEmail ? "badInput" : ""}
                     placeholder='Email' 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    //pattern="(.+)@([^\.].*)\.([a-z]{2,})"
                 />
                 {badEmail ? <span>{badEmail}</span> : <></>}
                 <input 
                     type='password' 
+                    className={badPassword ? "badInput" : ""}
                     placeholder='Password' 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    //pattern="[A-Za-z0-9]\w{8,16}"
                 />
                 {badPassword ? <span>{badPassword}</span> : <></>}
 
@@ -99,7 +104,7 @@ function Login(){
                     <button className='toMain_btn' type='button'>Continue as Guest</button>
                 </div>
                 
-                <button id='register'>Don't have an account? Click Here to Register</button>
+                <button id='register' type='button'>Don't have an account? Click Here to Register</button>
                 
             </form>
         <p>{message}</p>
