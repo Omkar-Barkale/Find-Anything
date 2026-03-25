@@ -1,0 +1,16 @@
+div{
+    background-color: grey;
+    border-radius:25px;
+    width:60vw;
+    height:60vh;
+    margin:auto auto;
+    
+}
+input{
+    color:black;
+    border:1px solid black;
+}   
+
+#name{
+    color:black;
+}
