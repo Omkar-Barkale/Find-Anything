@@ -1,14 +1,14 @@
 import fs, { read } from "fs";
 import path from "path";
 import { DATA_DIR } from "../../constants.js";
-import {connectDB} from '../../db_connection.js'
+import { getDB } from "../../index.js";
 
 
 
 const BOOKS_FILE = path.join(DATA_DIR,"books.json");
 
 export async function readBooks(){ 
-    const db = await connectDB();
+    const db = await getDB();
     const data = await db.collection("books").find({}).toArray(); 
     return data;
 }
@@ -16,25 +16,14 @@ export async function readBooks(){
 
 //maybe TODO? query mongodb directly instead of getting to JS array
 export async function getBookByKeyword(query){
-    const db = await connectDB();
-    const data = await db.collection("books").find({}).toArray(); 
-    const safeQuery = query.toLowerCase();
-    console.log("Getting specific books from MongoDB");
-    const queryReturn = data.filter((book,index,data)=>{
-        console.log(book.name+ " vs " + query);
-        return(book.name.toLowerCase().includes(safeQuery)||book.author.toLowerCase().includes(safeQuery))
-    });
-    return queryReturn;
+    const db = await getDB();
+    const data = await db.collection("books").find({name:/^The/}).toArray(); 
+    return data;
 
 }
 
-export default function checkIfDataExists(){
-    try{
-        const data = readBooks();
-        return true;
-    }
-    catch(e){
-        console.log(e);
-        return false;
-    }
+export default async function checkIfCollectionExists(){
+    let db = await getDB();
+    let collections = await db.listCollections.toArray();
+    console.log(collections);
 }

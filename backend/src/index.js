@@ -2,6 +2,7 @@ import {bookRoutes} from "./modules/books/books.routes.js";
 import { authRoutes } from "./modules/auth/auth.routes.js";
 import express from 'express';
 import cors from 'cors';
+import { connectDB } from "./db_connection.js";
 
 
 //IMPORTANT : NEED TO RUN THIS IN THE BACKEND FOLDER NOT SRC AND RUN VIA node src/index.js since we are using .env file for the MONGO connection,
@@ -9,6 +10,12 @@ import cors from 'cors';
 
 const app = express();
 const port = 3000;
+const db = connectDB();
+
+export function getDB(){
+  //Allows other file to use the existing db connection without having to make a new connection.
+  return db;
+}
 
 app.use(cors({ 
   origin: "http://localhost:5173",
