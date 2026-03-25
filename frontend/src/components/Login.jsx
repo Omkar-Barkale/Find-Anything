@@ -69,7 +69,7 @@ function Login(){
         }
 
         if(validInput){
-            //authenticator();
+            authenticator();
         }
     }
 
