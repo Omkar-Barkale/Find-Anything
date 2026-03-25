@@ -1,17 +1,17 @@
 import {useState} from 'react';
 import './styles/Login.css';
-import {Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 function Login(){
 
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
     const[message, setMessage] = useState("");
-    
+    const navigate = useNavigate();
 
     function handleSubmit(e){
         e.preventDefault();
         
-        fetch("http://localhost:3000/api/auth", {
+        fetch("http://localhost:3000/auth/token", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -26,13 +26,15 @@ function Login(){
         })
         .then(function(data){
             if('error' in data){
+                console.log("error was sent");
                 setMessage(data.error);
             }
             else{
-                setMessage("Email: " + data.email + " Passowrd: " + data.password);
-                return(
-                    <Link to="/Home"></Link>
-                );
+                console.log("gotten token");
+                localStorage.setItem('userToken', data.token); //back end returns token inside data json store the token in the browsers local storage
+                //at this point i have the token
+                setMessage(data.message);
+                navigate("/Home");
             }
             
         })
@@ -40,7 +42,7 @@ function Login(){
             console.log("Error:", error);
             setMessage("Request failed (check CORS / server response).");
         });
-        //add fetch method with post to port 3001 (port 3000 is the search bar listener)
+
     }
 
 

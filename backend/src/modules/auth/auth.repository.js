@@ -1,15 +1,20 @@
 import fs from 'fs';
 import path from 'path';
 import { DATA_DIR } from "../../constants.js";
+import {connectDB} from "../../db_connection.js"
+
 const users_file = path.join(DATA_DIR, "test_users.json");
 
-function getUserByEmail(email){
-    const allUsers = getAllUsers();
-    return allUsers.find(user => user.email === email );
+async function getUser(user){
+    const db = await connectDB();
+    const data = await db.collection('users').find(user).toArray();
+    return data;
 }
 
-function getAllUsers(){
-    return JSON.parse(fs.readFileSync(users_file, 'utf-8'));
+async function getAllUsers(){
+    const db = await connectDB();
+    const data = await db.collection("users").find().toArray();
+    return data;
 }
 
-export {getAllUsers, getUserByEmail};
+export {getAllUsers, getUser};
