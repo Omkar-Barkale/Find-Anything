@@ -10,8 +10,8 @@ async function getAllUsers(req, res){
 
 async function getUserByEmail(req, res){
     res.status(200);
-    console.log("Rnning User Controller");
-    console.log("email in contoller: "+ req.body.email);
+    console.log("Running User Controller");
+    console.log("email in controller: "+ req.body.email);
     let user = userServices.getUserByEmail(req.body.email);
     if(user !== null){
         res.json(user);

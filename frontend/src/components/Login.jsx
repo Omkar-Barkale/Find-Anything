@@ -31,7 +31,7 @@ function Login(){
             }
             else{
                 console.log("gotten token");
-                localStorage.setItem('userToken', data.token); //back end returns token inside data json store the token in the browsers local storage
+                localStorage.setItem('userToken', data.token); //backend returns token inside data json store the token in the browsers local storage
                 //at this point i have the token
                 setMessage(data.message);
                 navigate("/Home");
@@ -68,7 +68,7 @@ function Login(){
 
                 <div id='preferences'>
                     <div id='Remember'>
-                        <input type='checkbox'/>Remeber me
+                        <input type='checkbox'/>Remember me
                     </div>
                     <button id='forgotPassword'>Forgot Password?</button>
                 </div>
