@@ -9,7 +9,7 @@ function Login(){
     const[badEmail, setbadEmailMessage] = useState("");
     const[badPassword, setbadPasswordMessage] = useState("");
     const regex_email = /^(.+)@([^\.].*)\.([a-z]{2,})$/;
-    const regex_password = /^[a-zA-Z]\w{8,16}$/;
+    const regex_password = /^[a-zA-Z0-9]\w{8,16}$/;
 
     const navigate = useNavigate();
 

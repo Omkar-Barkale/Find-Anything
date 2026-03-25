@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { getUser } from '../modules/auth/auth.repository.js';
 
 const regex_email = /^(.+)@([^\.].*)\.([a-z]{2,})$/;
-const regex_password = /^[a-zA-Z]\w{8,16}$/;
+const regex_password = /^[a-zA-Z0-9]\w{8,16}$/;
 
 function invalidToken(res){ //helper function
     console.log("token is bad");
