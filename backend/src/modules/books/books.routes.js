@@ -3,5 +3,5 @@ import * as bookController from "./books.controller.js";
 import {authMiddleware} from "../../middleware/auth.middleware.js"
 export const bookRoutes = Router();
 
-bookRoutes.get('/', authMiddleware, bookController.getAllBooks);
+bookRoutes.get('/',authMiddleware, bookController.getAllBooks);
 bookRoutes.get('/:query',authMiddleware, bookController.getBookByKeyword)
