@@ -93,12 +93,6 @@ function Login(){
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 {badPassword ? <span>{badPassword}</span> : <></>}
-                <div id='preferences'>
-                    <div id='Remember'>
-                        <input type='checkbox'/>Remeber me
-                    </div>
-                    <button id='forgotPassword'>Forgot Password?</button>
-                </div>
 
                 <div id='continue_btns'>
                     <button className='toMain_btn' type='submit'>Submit</button>
@@ -116,3 +110,12 @@ function Login(){
 }
 
 export default Login;
+
+
+
+    /* <div id='preferences'>
+                    <div id='Remember'>
+                        <input type='checkbox'/>Remeber me
+                    </div>
+                    <button id='forgotPassword'>Forgot Password?</button>
+                </div> */
