@@ -8,9 +8,7 @@ function Login(){
     const[message, setMessage] = useState("");
     const navigate = useNavigate();
 
-    function handleSubmit(e){
-        e.preventDefault();
-        
+    function authenticator(){
         fetch("http://localhost:3000/auth/token", {
             method: "POST",
             headers: {
@@ -42,6 +40,29 @@ function Login(){
             console.log("Error:", error);
             setMessage("Request failed (check CORS / server response).");
         });
+    }
+
+
+
+    function handleSubmit(e){
+        e.preventDefault();
+        
+        const regex_email = /^(.+)@([^\.].*)\.([a-z]{2,})$/;
+        const regex_password = /^[a-zA-z]\w{8,16}/;
+        let validInput = true;
+        if(!regex_email.text(email)){
+            //badly formated email
+            validInput = false;
+        }
+        if(!regex_password.text(password)){
+            //badly formated password
+            validInput = false;
+        }
+
+
+
+
+        
 
     }
 
