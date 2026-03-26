@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 97vh;
   width: 100%;
   background-image: url("../../assets/LoginPageBackground.png");
   background-size: cover;     
@@ -11,8 +11,11 @@
 }
 
 #registerBox{
-  width: 45vw;
-  height: 75vh;
+  max-width: 700px;
+  min-height: 500px;
+  flex-wrap: wrap;
+  width: 90%;
+  height: 90%;
   display: flex; 
   position: relative; 
   box-shadow: 0 5px 15px rgba(255,255,255,0.5);
