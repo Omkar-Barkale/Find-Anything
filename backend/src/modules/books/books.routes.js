@@ -4,5 +4,5 @@ import {authMiddleware} from "../../middleware/auth.middleware.js"
 export const bookRoutes = Router();
 
 bookRoutes.get('/', bookController.getAllBooks);
-bookRoutes.get('/:name/:multiple', bookController.getBookByKeyword)
+bookRoutes.get('/:query', bookController.getBookByKeyword)
 bookRoutes.get('/delete', authMiddleware, bookController.deleteBooks);
