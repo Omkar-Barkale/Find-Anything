@@ -13,34 +13,27 @@ function Register()
     const [confirmPassword, setConfirmPassword] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [confirmError, setConfirmError] = useState("");
-
+    const [selectedFile, setSelectedFile] = useState(null);
 
     function handleSubmit(e){
         e.preventDefault();
 
-
-        if(password !== confirmPassword)
-        {
-            alert("Passwords do not match");
-            return;
-        }
-
+        const formData = new FormData(); //need this as cant send picture as JSON
+        formData.append("email", email);
+        formData.append("username", username);
+        formData.append("password", password);
+        formData.append("image", selectedFile);
 
         fetch("http://localhost:3000/registration", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                email: email,
-                username: username,
-                password: password
-            })
-        })
+            body: formData
+        })//removed header as we not only sending JSON
         .then(res => res.json())
         .then(data => {console.log("Success:", data); alert("Registration successful!");})
         .catch(err => console.error("Error: ", err));
-    }
+
+        e.target.reset();
+    }   
 
     return(    
         <>
@@ -48,7 +41,7 @@ function Register()
                 <div id = "registerBox">
                     <div id = "leftRegister">
                         <h3>Register</h3>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} enctype="multipart/form-data">
                             <div className = "inputGroup">
                                 <label>Email</label>
                                 <input type="email" placeholder="Enter your email"  required onChange={(e) => setEmail(e.target.value)}/>   
@@ -97,7 +90,7 @@ function Register()
 
                     <div id = "rightRegister">
                                 <h2 id = "uploadText">Add a profile photo</h2>
-                                <FileUploader/>
+                                <FileUploader setFile={setSelectedFile}/> {/*child sends data to parent*/}
                     </div>
                 </div>
                 
