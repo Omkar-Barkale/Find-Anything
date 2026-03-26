@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 });
 
 //Books route
-app.use("/search",bookRoutes);
+app.use("/books",bookRoutes);
 app.post("/api/auth", authRoutes);
 
 //fallback path

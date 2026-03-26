@@ -22,3 +22,9 @@ export async function getBookByKeyword(req, res) {
         return res.status(500).json({ message: e.message }); 
     }
 }
+
+export async function createPost(req, res){
+    console.log(JSON.stringify(req.body));
+    res.status(200);
+    res.json(req.body);
+}
