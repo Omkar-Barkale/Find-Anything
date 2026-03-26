@@ -95,20 +95,20 @@ function FileUpload(){
             <div className="modalOverlay">
                 <form className = "modalStyle" onSubmit={handleSubmit}>
                     <div className="uploadContainer">
-                        <input id='file' type='file' hidden required accept = ".pdf" onChange = {(e)=>handleTargetFile(e)}></input>
+                        <input id='file' type='file' hidden accept = ".pdf" onChange = {(e)=>handleTargetFile(e)}></input>
                         <label htmlFor="file" className={targetError?"actualUploadBtn invalid":"actualUploadBtn"}><span>{targetFile?targetFile.name:"Click to upload a pdf"}</span></label> 
                         
                         <span>{targetError}</span>   
                     </div>
 
                     <div className="fields">
-                        <input className={nameError?"name invalid":"name"} type='text' required onChange ={(e)=>handleNameChange(e)} placeholder='Name'></input>
+                        <input className={nameError?"name invalid":"name"} type='text' onChange ={(e)=>handleNameChange(e)} placeholder='Name'></input>
                         <span>{nameError}</span>
 
-                        <input className ={authorError?"author invalid":"author"} type='text' required onChange={(e)=>handleAuthorChange(e)} placeholder='Author'></input>
+                        <input className ={authorError?"author invalid":"author"} type='text' onChange={(e)=>handleAuthorChange(e)} placeholder='Author'></input>
                         <span>{authorError}</span>
 
-                        <input className ={descriptionError?"description invalid":"description"} type='text' required onChange={(e)=>handleDescriptionChange(e)} placeholder='Description'></input>
+                        <input className ={descriptionError?"description invalid":"description"} type='text'   onChange={(e)=>handleDescriptionChange(e)} placeholder='Description'></input>
                         <span>{descriptionError}</span>
 
                         <button type="submit">Submit</button>
