@@ -19,7 +19,7 @@ function NavBar() {
   return(
     <>
           <li id = "login"><Link to = "/login" onClick={()=>{setUser("user")}}>Log In</Link> </li>  
-          <li id = "register"><Link to = "/login">Sign Up</Link></li>
+          <li id = "register"><Link to = "/register">Sign Up</Link></li>
     </>
   )
 

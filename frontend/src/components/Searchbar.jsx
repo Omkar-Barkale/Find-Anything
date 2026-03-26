@@ -18,7 +18,9 @@ import Card from './Card.jsx'
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     }
-                });
+                }); 
+                //TODO 
+                // added if statement is the fetch fails due to bad token 
                 const data = await response.json();
                 setBooks(data);
         }
