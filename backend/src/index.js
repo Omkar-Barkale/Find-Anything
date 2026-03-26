@@ -30,7 +30,7 @@ app.use("/search",bookRoutes);
 app.use("/auth", authRoutes);
 
 //Register route
- app.use("/register", registrationRoutes);
+ app.use("/registration", registrationRoutes);
 
 //fallback path
 app.get('/*path', (req, res) => {

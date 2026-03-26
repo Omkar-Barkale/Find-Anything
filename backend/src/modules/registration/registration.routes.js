@@ -1,5 +1,5 @@
 import {Router} from "express";
-import * as registrationController from "./books.controller.js";
+import * as registrationController from "./registration.controller.js";
 export const registrationRoutes = Router();
 
-registrationRoutes.post('/', );
+registrationRoutes.post('/', registrationController.createAccount);
