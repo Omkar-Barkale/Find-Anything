@@ -14,15 +14,28 @@ function Register()
                     <div id = "leftRegister">
                         <h3>Register</h3>
                         <form>
-                            <label>Email</label>
-                            <input type="email" placeholder="Enter your email" />
+                            <div className = "inputGroup">
+                                <label>Email</label>
+                                <input type="email" placeholder="Enter your email" />   
+                            </div>
 
-                            <label>Password</label>
-                            <input type="password" placeholder="Enter your password" />
 
-                            <label>Confirm password</label>
-                            <input type="password" placeholder="Confirm your password" />
+                            <div className = "inputGroup">
+                                <label>Password</label>
+                                <input type="password" placeholder="Enter your password" />
+                            </div>
+
+
+                            <div className = "inputGroup">
+                                <label>Confirm password</label>
+                                <input type="password" placeholder="Confirm your password" />
+                            </div>
+
+                              <button id = "registerBtn"type="submit">Register now</button>
+
+   
                         </form>
+                        <p>Already have an account? Log in</p>
                     </div>
 
                     <div id = "rightRegister">
