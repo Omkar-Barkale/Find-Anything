@@ -37,9 +37,9 @@ export async function deleteBooks(book){
 
     let result;
     if(!multiple){
-        result = await db.collection("deletebooks").deleteOne(safeQuery);
+        result = await db.collection("books").deleteOne(safeQuery);
     }else{
-        result = await db.collection("deletebooks").deleteMany(safeQuery);
+        result = await db.collection("books").deleteMany(safeQuery);
     }
 
     if(result.deletedCount > 0 && result.acknowledged){
