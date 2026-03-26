@@ -1,15 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { getUser } from '../modules/auth/auth.repository.js';
 
-function invalidToken(res){ //helper function
-    console.log("token is bad");
-    return res.status(403).json(
-            {
-            error: "Invalid Token"
-            }
-        );
-}
-
 export function authMiddleware(req,res,next){
 
     console.log("Running Auth middleware");
@@ -18,7 +9,10 @@ export function authMiddleware(req,res,next){
                                                                 // .split seperates 'auth and 'token' and [1] is the token value after the split
     // if token is null send error json
     if(!token){
-       return invalidToken(res)
+       return res.status(403).json(
+            {
+            error: "Invalid Token"
+            });
     } 
  
     // try to verify token is good call the controller functions
@@ -29,7 +23,11 @@ export function authMiddleware(req,res,next){
         next();
        
     }catch(err){ // if token is bad send invalid token error
-        return invalidToken(res);
+        return res.status(403).json(
+            {
+            error: "Invalid Token"
+            }
+        );
     }
 
 }
