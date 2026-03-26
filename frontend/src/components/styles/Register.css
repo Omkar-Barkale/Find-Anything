@@ -78,6 +78,11 @@ label{
   border-radius: 8px;
 }
 
+#registerBtn:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); 
+}
+
 p{
-    color: black;
+    color: #444;
+    font-size: 0.95em;
 }

@@ -1,6 +1,8 @@
 import {useState} from 'react';
 import './styles/Login.css';
 import {useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+
 function Login(){
 
     const[email, setEmail] = useState("");
@@ -78,7 +80,7 @@ function Login(){
                     <button className='toMain_btn' type='button'>Continue as Guest</button>
                 </div>
                 
-                <button id='register'>Don't have an account? Click Here to Register</button>
+                <p id='registerLink'>Don't have an account? Click Here to <Link to="/register">Register</Link></p>
                 
             </form>
         <p>{message}</p>

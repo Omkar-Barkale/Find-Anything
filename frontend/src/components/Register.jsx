@@ -19,6 +19,12 @@ function Register()
                                 <input type="email" placeholder="Enter your email" />   
                             </div>
 
+                            <div className = "inputGroup">
+                                <label>Username</label>
+                                <input type="text" placeholder="Enter your username" />   
+                            </div>
+
+
 
                             <div className = "inputGroup">
                                 <label>Password</label>
@@ -35,7 +41,8 @@ function Register()
 
    
                         </form>
-                        <p>Already have an account? Log in</p>
+                        <p>Already have an account? <Link to="/login">Log in</Link></p>
+
                     </div>
 
                     <div id = "rightRegister">
