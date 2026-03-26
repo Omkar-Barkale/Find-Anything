@@ -46,7 +46,7 @@ function Register()
                     </div>
 
                     <div id = "rightRegister">
-
+                        
                     </div>
                 </div>
                 
