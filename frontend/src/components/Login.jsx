@@ -80,7 +80,7 @@ function Login(){
                     <button className='toMain_btn' type='button'>Continue as Guest</button>
                 </div>
                 
-                <p id='registerLink'>Don't have an account? Click Here to <Link to="/register">Register</Link></p>
+                <p id='registerLink'>Don't have an account? <Link to="/register">Register</Link></p>
                 
             </form>
         <p>{message}</p>
