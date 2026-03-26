@@ -1,5 +1,7 @@
 import {bookRoutes} from "./modules/books/books.routes.js";
 import { authRoutes } from "./modules/auth/auth.routes.js";
+import { registrationRoutes } from "./modules/registration/registration.routes.js";
+
 import express from 'express';
 import cors from 'cors';
 
@@ -28,7 +30,7 @@ app.use("/search",bookRoutes);
 app.use("/auth", authRoutes);
 
 //Register route
-// app.use("/register")
+ app.use("/register", registrationRoutes);
 
 //fallback path
 app.get('/*path', (req, res) => {
