@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import {Link} from 'react-router-dom';
 import "./styles/Register.css"
+import FileUploader from './FileUploader';
 
 
 
@@ -41,12 +42,13 @@ function Register()
 
    
                         </form>
-                        <p>Already have an account? <Link to="/login">Log in</Link></p>
+                        <p className = "registerP">Already have an account? <Link to="/login">Log in</Link></p>
 
                     </div>
 
                     <div id = "rightRegister">
-                        
+                                <h3 id = "uploadText">Add a profile photo</h3>
+                                <FileUploader/>
                     </div>
                 </div>
                 

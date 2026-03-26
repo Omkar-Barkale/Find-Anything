@@ -37,10 +37,15 @@
 
 #rightRegister{
     flex: 3;
-    background-color: rgb(126, 152, 206);
+    background: linear-gradient(500deg, #6a5af9, #9b59b6);
     position: relative;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 
 }
 
@@ -85,7 +90,12 @@ label{
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); 
 }
 
-p{
+#registerP{
     color: #444;
     font-size: 0.95em;
 }
+
+#uploadText{
+  color: white;
+}
+

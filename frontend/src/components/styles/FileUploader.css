@@ -1,0 +1,17 @@
+#imgPreview {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;   
+  object-fit: cover; 
+  border: 2px solid white;
+  margin-bottom: 20px;
+}
+
+::file-selector-button{
+    padding: 10px 20px;
+    border: none;
+    background-color: white;
+    color: #333;
+    border-radius: 3px;
+    cursor: pointer;
+}
