@@ -47,7 +47,7 @@ function Register()
                     </div>
 
                     <div id = "rightRegister">
-                                <h3 id = "uploadText">Add a profile photo</h3>
+                                <h2 id = "uploadText">Add a profile photo</h2>
                                 <FileUploader/>
                     </div>
                 </div>
