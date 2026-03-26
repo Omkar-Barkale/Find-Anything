@@ -20,7 +20,7 @@ export async function createAccount(email, username, password){
         role: "user"
     });
 
-    return result.insertedId;
+    return result.insertedId; //return _id from mongodb
 }
 
 function readAccount(){

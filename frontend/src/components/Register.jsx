@@ -19,13 +19,6 @@ function Register()
         e.preventDefault();
 
 
-        if(password !== confirmPassword)
-        {
-            alert("Passwords do not match");
-            return;
-        }
-
-
         fetch("http://localhost:3000/registration", {
             method: "POST",
             headers: {
