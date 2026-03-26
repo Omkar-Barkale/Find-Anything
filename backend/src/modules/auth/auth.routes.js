@@ -1,8 +1,8 @@
 import { Router } from "express";
-import {authMiddleware, sendToken} from "../../middleware/auth.middleware.js"
-
-
+import * as auth from "../../middleware/auth.middleware.js" 
+import * as authController from "./auth.controller.js";
 export const authRoutes = Router();
 
 
-authRoutes.post('/token', sendToken);
+authRoutes.get('/token', auth.sendToken);
+authRoutes.get('/delete', auth.authMiddleware, authController.deleteUsers);

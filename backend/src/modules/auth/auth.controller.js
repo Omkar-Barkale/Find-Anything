@@ -14,8 +14,10 @@ async function getUserByEmail(req, res){
     console.log("email in contoller: "+ req.body.email);
     let user = userServices.getUserByEmail(req.body.email);
     if(user !== null){
+        res.status(200);
         res.json(user);
     }else{
+        res.status(404);
         res.json({
             error: "Incorrect Email or Password"
         });
@@ -26,4 +28,14 @@ async function getUserByEmail(req, res){
     res.send();
 }
 
-export {getAllUsers, getUserByEmail};
+function deleteUsers(req, res){
+    const response = userServices.deleteUsers(req.body);
+    if(response){
+        res.status(200);
+    }
+    else{
+        res.status(404);
+    }
+}
+
+export {getAllUsers, getUserByEmail, deleteUsers};

@@ -17,4 +17,29 @@ async function getAllUsers(){
     return data;
 }
 
-export {getAllUsers, getUser};
+async function deleteUsers(user){
+    const db = await connectDB();
+    const regex = /^[a-zA-Z0-9_!?, '"()\$]+$/;
+
+    const safeQuery = Object.fromEntries(
+        Object.entries(user).filter(([_, value]) => value !== 'null' && value !== null && regex.test(String(value)) && value != null)
+    );
+
+    let result;
+    if(!multiple){
+        result = await db.collection("users").deleteOne(safeQuery);
+    }else{
+        result = await db.collection("users").deleteMany(safeQuery);
+    }
+
+    if(result.deletedCount > 0 && result.acknowledged){
+        console.log("Number of users deleted: " + result.deletedCount);
+        return true;
+    }else{
+        console.log("Could not delete any users check attributes");
+        return false;
+    }
+}
+
+
+export {getAllUsers, getUser, deleteUsers};

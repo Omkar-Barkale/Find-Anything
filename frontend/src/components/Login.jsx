@@ -12,7 +12,7 @@ function Login(){
         e.preventDefault();
         
         fetch("http://localhost:3000/auth/token", {
-            method: "POST",
+            method: "GET",
             headers: {
                 "Content-Type": "application/json"
             },

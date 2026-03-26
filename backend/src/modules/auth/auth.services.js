@@ -18,4 +18,11 @@ function getUserByEmail(email){
     }
 }
 
-export {getAllUsers, getUserByEmail}
+function deleteUsers(user){
+    const response = userRepo.deleteUsers(user);
+    return response;
+}
+
+
+
+export {getAllUsers, getUserByEmail, deleteUsers}

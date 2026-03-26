@@ -29,9 +29,10 @@ export async function getBookByKeyword(query){
 
 export async function deleteBooks(book){
     const db = await connectDB();
+    const regex = /^[a-zA-Z0-9_!?, '"()\$]+$/;
 
     const safeQuery = Object.fromEntries(
-        Object.entries(book).filter(([_, value]) => value !== 'null' && value !== null)
+        Object.entries(book).filter(([_, value]) => value !== 'null' && value !== null && regex.test(String(value)) && value != null)
     );
 
     let result;
