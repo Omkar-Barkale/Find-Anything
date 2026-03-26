@@ -1,9 +1,9 @@
 import {Schema} from 'mongoose';
 
 const bookSchema = new Schema({
-    name: String,
-    author: String,
-    description: String,
+    name: {type:String,required:true},
+    author: {type:String, required:true},
+    description: {String, required:true},
     comments: [{user: String, date: Date, body:String}],
     date:{type: Date, default: Date.now},
     meta:{

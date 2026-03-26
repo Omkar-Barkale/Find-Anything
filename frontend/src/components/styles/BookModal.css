@@ -1,0 +1,107 @@
+#modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; 
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /*some darkness to background*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  
+}
+
+#modalStyle {
+  width: 60%;
+  height: 75%;
+  display: flex; /*where children would be bookSide and commentSide*/
+  z-index: 1001 ; 
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  position: relative; /*children are now relative to this hence not whole page */
+  background-color: white;
+  border-radius: 30px;
+}
+
+#bookSide {
+  flex: 4; /*dividing space for book info and comments*/
+  background-color: white;
+  overflow-y: auto; /*vertical scroll when content overflows*/
+  position: relative;
+  border-radius: 30px;
+}
+
+#close
+{
+    color: black;
+    display: inline;
+    padding: 2px;
+    top: 5px;
+    right: 15px;
+    position: absolute;
+    border: none; /*no border on hover*/
+    outline: none; /*hide border on click*/
+    background-color: transparent;
+    font-size: 20px;
+        
+}
+
+#bookContainer{
+  position: absolute;
+  top: 200px;
+  left: 300px;
+}
+
+#bookInfo{
+    position: absolute;
+    left: 230px;
+}
+
+
+
+
+/*comment stuff*/
+
+#commentSide{
+  flex: 3;
+  background-color: rgb(39, 38, 38);
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+
+}
+
+input::placeholder {
+  color: gray;
+  font-size: 1em;
+}
+
+#commentInput {
+  position: absolute; 
+  bottom: 20px;      
+  right: 100px;       
+  border: 1px solid #ccc;
+  outline: none;
+  color: white;
+  padding: 5px;
+  border-radius: 3px;
+  width: 200px;     
+}
+
+#postBtn{
+  position: absolute; 
+  bottom: 30px;      
+  right: 50px;
+  background-color: transparent;      
+  color: white;
+  border: none;
+  outline: none;   
+}
+
+#postBtn:hover {
+  color: lightblue;
+}
+#commentSection{
+  color: white; 
+}
+
