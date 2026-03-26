@@ -56,7 +56,7 @@ export async function sendToken(req, res, next){
             user, //payload email, password and role
             jwt_secret, // key
             {
-            expiresIn: '24h' //payload
+                expiresIn: '24h' //payload
             }
         );
 

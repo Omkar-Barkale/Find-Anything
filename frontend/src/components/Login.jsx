@@ -34,7 +34,7 @@ function Login(){
             }
             else{
                 console.log("gotten token");
-                localStorage.setItem('userToken', data.token); //back end returns token inside data json store the token in the browsers local storage
+                localStorage.setItem('userToken', data.token); //backend returns token inside data json store the token in the browsers local storage
                 //at this point i have the token
                 setMessage(data.message);
                 navigate("/Home");
@@ -97,7 +97,13 @@ function Login(){
                     onChange={(e) => setPassword(e.target.value)}
                     //pattern="[A-Za-z0-9]\w{8,16}"
                 />
-                {badPassword ? <span>{badPassword}</span> : <></>}
+
+                <div id='preferences'>
+                    <div id='Remember'>
+                        <input type='checkbox'/>Remember me
+                    </div>
+                    <button id='forgotPassword'>Forgot Password?</button>
+                </div>
 
                 <div id='continue_btns'>
                     <button className='toMain_btn' type='submit'>Submit</button>
