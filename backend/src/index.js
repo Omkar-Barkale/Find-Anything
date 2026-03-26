@@ -4,9 +4,6 @@ import express from 'express';
 import cors from 'cors';
 
 
-//IMPORTANT : NEED TO RUN THIS IN THE BACKEND FOLDER NOT SRC AND RUN VIA node src/index.js since we are using .env file for the MONGO connection,
-//TLDR: basically do not run node index.js, do node src/index.js from backend folder
-
 const app = express();
 const port = 3000;
 
@@ -29,6 +26,9 @@ app.use("/search",bookRoutes);
 
 //Login route
 app.use("/auth", authRoutes);
+
+//Register route
+// app.use("/register")
 
 //fallback path
 app.get('/*path', (req, res) => {

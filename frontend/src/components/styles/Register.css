@@ -99,3 +99,13 @@ label{
   color: white;
 }
 
+.errorText
+{
+  color: red;
+  color: red;
+  font-size: 0.9em;
+  margin-top: 4px;
+  display: block;
+  margin-left: 10px;
+}
+
