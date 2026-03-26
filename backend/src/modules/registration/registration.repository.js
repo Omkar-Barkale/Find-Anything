@@ -10,10 +10,10 @@ import {connectDB} from '../../db_connection.js'
 //_id
 
 
-async function createAccount(email, username, password){
+export async function createAccount(email, username, password){
     let db = await connectDB();
     
-    const result = await db.collections("users").insertOne({
+    const result = await db.collection("users").insertOne({
         email: email,
         username: username,
         password: password,
