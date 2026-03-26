@@ -14,5 +14,11 @@ function getBookByKeyword(query){
     console.log("Service returning: " + data);
     return data;
 }
+function deleteBooks(book){
+    const response = bookRepo.deleteBooks(book);
+    console.log("Service returning: " + response);
+    return response;
+}
 
-export {getAllBooks, getBook, getBookByKeyword}
+
+export {getAllBooks, getBook, getBookByKeyword, deleteBooks}

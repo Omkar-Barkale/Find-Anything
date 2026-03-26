@@ -25,8 +25,31 @@ export async function getBookByKeyword(query){
         return(book.name.toLowerCase().includes(safeQuery)||book.author.toLowerCase().includes(safeQuery))
     });
     return queryReturn;
-
 }
+
+export async function deleteBooks(book){
+    const db = await connectDB();
+
+    const safeQuery = Object.fromEntries(
+        Object.entries(book).filter(([_, value]) => value !== 'null' && value !== null)
+    );
+
+    let result;
+    if(!multiple){
+        result = await db.collection("deletebooks").deleteOne(safeQuery);
+    }else{
+        result = await db.collection("deletebooks").deleteMany(safeQuery);
+    }
+
+    if(result.deletedCount > 0 && result.acknowledged){
+        console.log("Number of books deleted: " + result.deletedCount);
+        return true;
+    }else{
+        console.log("Could not delete any books check attributes");
+        return false;
+    }
+}
+
 
 export default function checkIfDataExists(){
     try{

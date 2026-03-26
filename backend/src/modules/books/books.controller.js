@@ -22,3 +22,12 @@ export async function getBookByKeyword(req, res) {
         return res.status(500).json({ message: e.message }); 
     }
 }
+
+export function deleteBooks(req, res){
+    const response = bookService.deleteBooks(req.body);
+    if(response){
+        res.status(200);
+    }else{
+        res.status(404);
+    }
+}
