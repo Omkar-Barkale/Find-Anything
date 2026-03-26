@@ -26,5 +26,5 @@ export async function getBookByKeyword(req, res) {
 export async function createPost(req, res){
     console.log(JSON.stringify(req.body));
     res.status(200);
-    res.json(req.body);
+    res.json({"message":"Successfully pinged backend"});
 }

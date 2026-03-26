@@ -71,18 +71,17 @@ function FileUpload(){
         e.preventDefault();
 
         if(!formValidator()){
-        
+            
+            const formData = new FormData();
+            formData.append("name",name);
+            formData.append("author",author);
+            formData.append("description",description);
+            formData.append("file",targetFile);
 
-            const res = fetch("http://localhost:3000/books/create",{
+            const res = fetch("http://localhost:3000/search/create",{
                 method:"POST",
-                headers:{
-                    "Content-Type":"application/octet-stream",
-                    "name":name,
-                    "author":author,
-                    "description":description,
-                },
-                body:targetFile,
-            }).then((res) => res.json())
+                body:formData
+            }).then((res) => {console.log(res);return res.json();})
             .then((data)=>{
                 console.log(data);
             }).catch((error)=>{
