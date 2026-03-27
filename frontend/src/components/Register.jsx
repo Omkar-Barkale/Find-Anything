@@ -2,6 +2,7 @@ import { useState } from 'react'
 import {Link} from 'react-router-dom';
 import "./styles/Register.css"
 import FileUploader from './FileUploader';
+import NavBar from './NavBar'
 
 
 
@@ -15,7 +16,6 @@ function Register()
     const [confirmError, setConfirmError] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
     const [avatarError, setAvatarError] = useState("");
-    const [invalidTypeError, setInvalidTypeError] = useState("");
 
     function handleSubmit(e){
         e.preventDefault();
@@ -34,7 +34,7 @@ function Register()
         formData.append("email", email);
         formData.append("username", username);
         formData.append("password", password);
-        formData.append("image", selectedFile); //has an error where multer reads from undefined
+        formData.append("image", selectedFile);
 
 
 

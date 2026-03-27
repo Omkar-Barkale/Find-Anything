@@ -1,5 +1,6 @@
 body{
   background-color: white;
+  margin: 0;
 }
 
 #site{
@@ -7,6 +8,7 @@ body{
   font-weight: bold;
   font-size: 30px;
 }
+
 #about, #lib, #home,#mod, .profile a, #mod a{
   color: gray;
 }
