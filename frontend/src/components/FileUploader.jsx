@@ -7,19 +7,24 @@ export default function FileUploader(props) //we use prop since need to send par
 {
     const [selectedImage, setSelectedImage] = useState("");
     
-    function handleFileChange(e){
+    function handleFileChange(e)
+    {
 
-        if(e.target.files){ //checks filelist object
+        if(e.target.files)//checks filelist object
+        { 
             const newFile = e.target.files[0]; //need this as state updates are async, so cant use file
-            if((newFile.type == 'image/png' || newFile.type == 'image/jpeg')) //TODO SIZE VALIDATION
+            if((newFile.type == 'image/png' || newFile.type == 'image/jpeg')) 
             {
+                //TODO SIZE VALIDATION
                 setSelectedImage(newFile ? URL.createObjectURL(newFile) : undefined);
                 props.setFile(newFile); //pass file to parent
+                props.setAvatarError("");
             } 
             else
             {
                 e.target.value = '';
-                console.log('Invalid file type');
+                console.log('Only png and jpeg files are supported');
+                props.setAvatarError("Only png and jpeg files are supported")
             }
         }
 

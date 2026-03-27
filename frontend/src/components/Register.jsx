@@ -14,15 +14,29 @@ function Register()
     const [passwordError, setPasswordError] = useState("");
     const [confirmError, setConfirmError] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
+    const [avatarError, setAvatarError] = useState("");
+    const [invalidTypeError, setInvalidTypeError] = useState("");
 
     function handleSubmit(e){
         e.preventDefault();
+
+        
+        if(selectedFile == null){
+            console.log("Avatar not uploaded")
+            setAvatarError("Please upload an avatar");
+            return;
+        }
+        else{
+            setAvatarError("");
+        }
 
         const formData = new FormData(); //need this as cant send picture as JSON
         formData.append("email", email);
         formData.append("username", username);
         formData.append("password", password);
-        formData.append("image", selectedFile);
+        formData.append("image", selectedFile); //has an error where multer reads from undefined
+
+
 
         fetch("http://localhost:3000/registration", {
             method: "POST",
@@ -30,9 +44,9 @@ function Register()
         })//removed header as we not only sending JSON
         .then(res => res.json())
         .then(data => {console.log("Success:", data); alert("Registration successful!");})
-        .catch(err => console.error("Error: ", err));
+        .catch(err => {console.error("Error: ", err);});
 
-        e.target.reset();
+        //e.target.reset();
     }   
 
     return(    
@@ -41,7 +55,7 @@ function Register()
                 <div id = "registerBox">
                     <div id = "leftRegister">
                         <h3>Register</h3>
-                        <form onSubmit={handleSubmit} enctype="multipart/form-data">
+                        <form onSubmit={handleSubmit}>
                             <div className = "inputGroup">
                                 <label>Email</label>
                                 <input type="email" placeholder="Enter your email"  required onChange={(e) => setEmail(e.target.value)}/>   
@@ -90,7 +104,9 @@ function Register()
 
                     <div id = "rightRegister">
                                 <h2 id = "uploadText">Add a profile photo</h2>
-                                <FileUploader setFile={setSelectedFile}/> {/*child sends data to parent*/}
+                                <FileUploader setFile={setSelectedFile} setAvatarError={setAvatarError}/> {/*child sends data to parent*/}
+                                {<p class ="errorText">{avatarError}</p>}
+
                     </div>
                 </div>
                 
