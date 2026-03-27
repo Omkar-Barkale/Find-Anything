@@ -7,7 +7,7 @@
     border-style: solid;
     width: 35em;
     height: 35em;
-    backdrop-filter: blur(0.2em);
+    backdrop-filter: blur(0.29em);
 
 }
 
@@ -106,6 +106,6 @@ input::placeholder{
 }
 
 p{
-    color: #444;
+    color: black;
     font-size: 0.95em;
 }

@@ -18,7 +18,7 @@
   height: 90%;
   display: flex; 
   position: relative; 
-  box-shadow: 0 5px 15px rgba(255,255,255,0.5);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
   border-radius: 10px;
 }
 
@@ -101,11 +101,11 @@ label{
 
 .errorText
 {
-  color: red;
-  color: red;
+  color: rgb(202, 10, 42);
   font-size: 0.9em;
   margin-top: 4px;
   display: block;
   margin-left: 10px;
+  font-size: small;
 }
 
