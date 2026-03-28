@@ -1,0 +1,75 @@
+#AdminDashboard{
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(143, 143, 143);
+}
+
+#info{
+    gap: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 20em;
+    height: 88%;
+    background-color: rgb(43, 43, 43);
+    
+    
+}
+
+#menu{
+    background-color: rgb(43, 43, 43);
+    border-radius: 1.5em;
+    height: 90%;
+    margin-right: 18%;
+    color: white;
+}
+
+#pages{
+
+    gap: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1em;
+}
+
+#info button{
+    width: 10em;
+    height: 2em;
+    margin: 0.5em 0.5em 0.5em 0.5em;
+    border-radius: 1em;
+    background-color: rgb(80, 80, 80);
+    color: white;
+    font-size: 1.4em;
+    border: none;           
+    outline: none;
+}
+
+
+#root{
+    height: 100%;
+}
+
+body, html{
+    height: 100%;
+    margin: 0;
+}
+
+#bottom_buttons #logout{
+    color: rgb(177, 0, 0);
+    font-weight: bold;
+}
+
+#left-menu{
+    height: 100%;
+    background-color: rgb(43, 43, 43);
+}
+
+#left-menu p{
+    font-size: 2em;
+    color: white;
+}

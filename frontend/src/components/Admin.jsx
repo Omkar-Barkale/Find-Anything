@@ -1,65 +1,76 @@
-import { useState, useNavigation } from 'react'
+import { useState, useNavigation, useEffect } from 'react'
 import Searchbar from './Searchbar.jsx'
 import CardLayout  from './CardLayout.jsx'
 import UserCards  from './UserCards.jsx'
-import Card from './Card.jsx'
+import './styles/Admin.css'
+// import "./styles/Searchbar.css";
+
 function Admin(){
 
-    const [menu, setMenu] = useState("books");
-    const [path, setPath] = useState();
-    const [itmes, setItems] = useState();
+    const [menu, setMenu] = useState("users");
+    const [path, setPath] = useState(); //for profile
+    const [items, setItems] = useState();
+    
     useEffect(() => { //loads all books from MongoDB on initial render, only once([]) instead of reading from json file
     
-            const token = localStorage.getItem('userToken');
+            //const token = localStorage.getItem('userToken');
             const load = async () => {
-                    const response = await fetch('http://localhost:3000/search/', {
+                   try{
+                     const response = await fetch('http://localhost:3000/auth/users', {
                         method: 'GET',
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
+                            'Content-Type': 'application/json'
                         }
                     }); 
                     //TODO 
                     // added if statement is the fetch fails due to bad token 
                     const data = await response.json();
+                    console.log(data);
                     setItems(data);
+                   }catch(error){
+                        console.log("error");
+                   }
+                    
             }
             load();
         }, [])
 
-        function mapItems(item){
-            switch(menu){
-                case "books":
-                    return <Card key = {item._id} name = {book.name} author = {book.author} body = {book.body} cover = {book.cover}></Card>
-                case "users":
-                    return <UserCards key = {book._id} name = {book.name} author = {book.author} body = {book.body} cover = {book.cover}></UserCards>
-            }
-
-
-            //<Card key = {book._id} name = {book.name} author = {book.author} body = {book.body} cover = {book.cover}></Card>
+        function getAvatar(user){
+            return "./path.png";
+        }
+``
+        function numPosts(user){
+            return 0;
         }
 
-
-    
+        function Logout(){
+            console.log("logged out")
+            //alert("User Logged out");
+        }
+        
     return(
     <div id='AdminDashboard'>
         <div id='menu'>
-            <Searchbar placeholder={"Search for " + menu} />
-            <CardLayout id="cardlayout">
-                {items.map((item) => (mapItems(item)))}
+            {/* <Searchbar placeholder={"Search for " + menu} /> */}
+            <h2>Moderation</h2>
+            <CardLayout id="adminCardLayout">
+                {items.map((item) => (<UserCards key = {item._id} username = {item.username} avatar = {getAvatar(item._id)} role = {item.role} email = {item.email} numPosts = {numPosts(item._id)}></UserCards>))}
             </CardLayout>
 
         </div>
         
-        <div id='info'>
-            <div id='pages'>
-                <button>Home</button>
-                <button>Users</button>
-                <button>Books</button>
-                <button>Logs</button>
-            </div>
-            <div id='bottom buttons'>
-                <button>Log out</button>
+        <div id="left-menu">
+            <p>Username</p>
+            <div id='info'>
+                <div id='pages'>
+                    <button onClick={() => setMenu("home")}>Home</button>
+                    <button onClick={() => setMenu("users")}>Users</button>
+                    <button onClick={() => setMenu("books")}>Books</button>
+                    <button onClick={() => setMenu("logs")}>Logs</button>
+                </div>
+                <div id='bottom_buttons'>
+                    <button id="logout" onClick={() => Logout()}>Log out</button>
+                </div>
             </div>
         </div>
     </div>

@@ -57,6 +57,7 @@ export async function sendToken(req, res, next){
     }
     else
         {
+            console.log("Badly formated password or email");
         return res.status(400).json({
             error: "Badly formated password or email"
         })

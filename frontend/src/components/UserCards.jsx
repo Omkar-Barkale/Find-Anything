@@ -1,5 +1,5 @@
 import { useState } from "react"
-import BookModal from "./BookModal";
+import "./styles/Usercards.css";
 
 
 function UserCards(props){
@@ -7,10 +7,13 @@ function UserCards(props){
 
      return(
      <>
-          <div className="card" onClick={alert("This was clicked")}> 
-               <h3 className="username">{props.username}</h3>
-               <h5 className = 'author'>{props.email}</h5>
-               <p className="card-body">{props.numPosts}</p>
+          <div className="Usercard" onClick={() => alert("This was clicked")}> 
+               
+               <p className="username">{props.username}</p>
+               <img src={props.avatar}></img>
+               <p className = 'email'>{props.email}</p>
+               <p className="role">{props.role}</p>
+               <p className="numPosts">{props.numPosts}</p>
           </div>
 
      </>);
