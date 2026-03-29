@@ -17,6 +17,7 @@ function Register()
     const [emailError, setEmailError] = useState();
     const [selectedFile, setSelectedFile] = useState(null);
     const [avatarError, setAvatarError] = useState("");
+    const [userNameError, setUserNameError] = useState("");
     const password_regex = /^[a-zA-Z][A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,16}$/;
     const email_regex = /^(.+)@([^\.].*)\.([a-z]{2,})$/;
     
@@ -28,25 +29,26 @@ function Register()
             setEmailError("Enter an email");
             return;   
         }
-        else
-            setEmailError("");
-
-        
+        if(username == "")
+        {
+            setUserNameError("Enter a username");
+            return;
+        }
         if(password == "")
         {
             setPasswordError("Enter a password");
             return;
         }
-        else
-            setPasswordError("")
-        
+        if(confirmPassword== "")
+        {
+            setConfirmError("Confirm your password");
+            return;
+        }
         if(selectedFile == null){
-            console.log("Avatar not uploaded");
             setAvatarError("Please upload an avatar");
             return;
         }
-        else
-            setAvatarError("");
+
         
 
 
@@ -78,14 +80,25 @@ function Register()
                         <form onSubmit={handleSubmit} noValidate>
                             <div className = "inputGroup">
                                 <label>Email</label>
-                                <input type="email" placeholder="Enter your email"  required onChange={(e) => setEmail(e.target.value)}/>   
+                                <input type="email" placeholder="Enter your email"  required onChange={(e) => {setEmail(e.target.value)
+                                    const val = e.target.value;
+                                    if(val != "")
+                                        setEmailError("");
+
+
+                                }}/>   
                                 {<p className="errorText">{emailError}</p>}
                             </div>
 
 
                             <div className = "inputGroup">
                                 <label>Username</label>
-                                <input type="text" placeholder="Enter your username" required onChange={(e) => setUsername(e.target.value)}/>   
+                                <input type="text" placeholder="Enter your username" required onChange={(e) => {setUsername(e.target.value)
+                                     const val = e.target.value;
+                                    if(val != "")
+                                        setUserNameError("");
+                                }}/>   
+                                {<p className="errorText">{userNameError}</p>}
                             </div>
 
 
@@ -95,6 +108,8 @@ function Register()
                                 <input type="password" placeholder="Enter your password" required 
                                 onChange={(e) => {setPassword(e.target.value)
                                     const val = e.target.value;
+                                    if(val != "")
+                                        setPasswordError("");
   
                                 }}/>
                                 {<p className="errorText">{passwordError}</p>}
