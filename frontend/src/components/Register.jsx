@@ -18,9 +18,9 @@ function Register()
     const [emailError, setEmailError] = useState();
     const [selectedFile, setSelectedFile] = useState(null);
     const [avatarError, setAvatarError] = useState("");
-    const [userNameError, setUserNameError] = useState("");
+    const [userNameError, setUserNameError] = useState(""); 
 
-    const password_regex = /^[a-zA-Z][A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,16}$/;
+    const password_regex = /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{9,17}$/;
     const email_regex = /^(.+)@([^\.].*)\.([a-z]{2,})$/;
     
     function handleSubmit(e){
@@ -30,6 +30,11 @@ function Register()
         {
             setEmailError("Enter an email");
             return;   
+        }
+        if(!email_regex.test(email))
+        {
+            setEmailError("Enter a valid email");
+            return;
         }
         if(username == "")
         {
@@ -41,10 +46,20 @@ function Register()
             setPasswordError("Enter a password");
             return;
         }
+        if(!password_regex.test(password))
+        {
+            setPasswordError("Password must be 9–17 characters long");
+            return;
+        }
         if(confirmPassword== "")
         {
             setConfirmError("Confirm your password");
             return;
+        }
+        if(confirmPassword !== password) 
+        {
+            setConfirmError("Passwords do not match");
+          return;
         }
         if(selectedFile == null){
             setAvatarError("Please upload an avatar");
@@ -77,7 +92,7 @@ function Register()
         })
         .catch(err => {
             console.error("Registration error: ", err.message);
-            alert(err.message);
+            setUserNameError(err.message);
         });
 
     }   
@@ -95,8 +110,6 @@ function Register()
                                     const val = e.target.value;
                                     if(val != "")
                                         setEmailError("");
-
-
                                 }}/>   
                                 {<p className="errorText">{emailError}</p>}
                             </div>
@@ -134,12 +147,6 @@ function Register()
                                     const val = e.target.value;
                                     if(val === password || val == "")
                                         setConfirmError("");
-                                    else
-                                    {
-                                        setConfirmError("Passwords do not match");
-                                        e.preventDefault(); 
-                                    }
-
                                 }}/>
                                 {<p className="errorText">{confirmError}</p>}
                             </div>
@@ -156,7 +163,7 @@ function Register()
                     <div id = "rightRegister">
                                 <h2 id = "uploadText">Add a profile photo</h2>
                                 <FileUploader setFile={setSelectedFile} setAvatarError={setAvatarError}/> {/*child sends data to parent*/}
-                                {<p class ="errorText">{avatarError}</p>}
+                                {<p className ="errorText">{avatarError}</p>}
 
                     </div>
                 </div>
