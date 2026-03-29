@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
 import { getUser } from '../modules/auth/auth.repository.js';
+import { log } from './logging.middleware.js';
 
 const regex_email = /^(.+)@([^\.].*)\.([a-z]{2,})$/;
 const regex_password = /^[a-zA-Z]\w{8,16}$/;
 
 function invalidToken(res){ //helper function
-    console.log("token is bad");
     return res.status(403).json(
             {
             error: "Invalid Token"
@@ -13,7 +13,7 @@ function invalidToken(res){ //helper function
         );
 }//dont use causes dublicate requests to be sent (too lazy to delete)
 
-export function authMiddleware(req,res,next){
+export async function authMiddleware(req,res,next){
 
     console.log("Running Auth middleware");
 
@@ -21,7 +21,7 @@ export function authMiddleware(req,res,next){
                                                                 // .split seperates 'bearer and 'token' and [1] is the token value after the split
     // if token is null send error json
     if(!token){
-       return res.status(403).json(
+        return res.status(403).json(
             {
             error: "Invalid Token"
             }
@@ -32,7 +32,6 @@ export function authMiddleware(req,res,next){
     try{
         const decoded = jwt.verify(token, process.env.jwt_secret);
         req.user = decoded; //create a user json object in the request
-        console.log("token is good");
         next();
        
     }catch(err){ // if token is bad send invalid token error

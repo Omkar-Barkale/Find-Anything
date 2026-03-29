@@ -1,21 +1,25 @@
 
 import * as bookService from "./books.service.js"
+import {log} from '../../middleware/logging.middleware.js';
 
 export async function getAllBooks(req, res, next){
+    await log("getAllBooks() in book.controller was called");
     res.status(200);
     const data = await bookService.getAllBooks()
-    console.log(data)
+    // console.log(data)
     res.json(data);
 
     return; 
 }
-function getBook(req,res){
+async function getBook(req,res){
+    await log("getBook() in book.controller was called");
     const {id} = req.params;
     const book = bookService.getBook(id);
     res.status(200);
     res.json({data:book}); 
 }
 export async function getBookByKeyword(req, res) { 
+    await log("getBookByKeyword() was called in book.controller");
     try {
         const { query } = req.params;  //object destructuring of getting query from request.
         const result = await bookService.getBookByKeyword(query);
@@ -26,11 +30,17 @@ export async function getBookByKeyword(req, res) {
     }
 }
 
-export function deleteBooks(req, res){
-    const response = bookService.deleteBooks(req.body);
+export async function deleteBooks(req, res){
+    await log("deleteBooks() was called in book.controller");
+    const {id} = req.params;
+    const response = await bookService.deleteBooks(id);
     if(response){
         res.status(200);
+        res.send();
     }else{
         res.status(404);
+        res.json({
+            error: "Could not delete any books"
+        });
     }
 }

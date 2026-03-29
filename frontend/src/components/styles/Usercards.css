@@ -19,3 +19,15 @@
 .Usercard p{
        color: white;
 }
+
+#delete{
+    background-color: transparent;
+    border: none;
+    color:red;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+#delete:hover{
+    cursor: pointer;
+}

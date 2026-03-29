@@ -17,7 +17,7 @@ function Login(){
 
     function authenticator(){
         fetch("http://localhost:3000/auth/token", {
-            method: "GET",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },

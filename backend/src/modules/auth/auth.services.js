@@ -1,6 +1,7 @@
 import * as userRepo from "./auth.repository.js"
 
 function getAllUsers(){
+    console.log("running services : all");
     const users = userRepo.getAllUsers();
     return users;
 }
@@ -18,8 +19,8 @@ function getUserByEmail(email){
     }
 }
 
-function deleteUsers(user){
-    const response = userRepo.deleteUsers(user);
+function deleteUsers(id){
+    const response = userRepo.deleteUsers(id);
     return response;
 }
 

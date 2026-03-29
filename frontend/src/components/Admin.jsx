@@ -3,67 +3,139 @@ import Searchbar from './Searchbar.jsx'
 import CardLayout  from './CardLayout.jsx'
 import UserCards  from './UserCards.jsx'
 import './styles/Admin.css'
+import {useNavigate} from 'react-router-dom';
 // import "./styles/Searchbar.css";
 
 function Admin(){
 
+    const navigate = useNavigate();
     const [menu, setMenu] = useState("users");
     const [path, setPath] = useState(); //for profile
-    const [items, setItems] = useState();
-    
-    useEffect(() => { //loads all books from MongoDB on initial render, only once([]) instead of reading from json file
-    
-            //const token = localStorage.getItem('userToken');
-            const load = async () => {
-                   try{
-                     const response = await fetch('http://localhost:3000/auth/users', {
-                        method: 'GET',
-                        headers: {
+    const [items, setItems] = useState([]);
+    const [trigger, setTrigger] = useState(0);
+    const [books, setBooks] = useState([])
+ 
+    function loadUsers(){
+        fetch('http://localhost:3000/auth/users', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function(res){
+            return res.json();
+        }).then(function(users){
+            console.log("users set");
+            setItems(users);
+        })
+    } 
+
+    function loadBooks(){
+        fetch('http://localhost:3000/search/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function(res){
+            return res.json();
+        }).then(function(books){
+            console.log("books set");
+            setBooks(books);
+        })
+    }
+
+    useEffect(() => {
+            loadUsers();
+            loadBooks();
+        }, [])
+
+    function getAvatar(user){
+            return "./path.png";
+        }
+
+    function numPosts(user){
+            return 0;
+    }
+
+    function goHome(){
+        navigate("/Home");
+    }
+
+    function getCover(id){
+         return "./path.png";
+    }
+
+    function Logout(){
+            console.log("logged out")
+            //TODO delete token
+            navigate("/login");
+        }
+        
+    const deleteUser = async (id) => {
+        console.log("delete was clicked " + id);  
+        const response = await fetch(`http://localhost:3000/auth/delete/${id}`, 
+                    {
+                        method: 'DELETE',
+                        headers: 
+                        {
                             'Content-Type': 'application/json'
                         }
                     }); 
-                    //TODO 
-                    // added if statement is the fetch fails due to bad token 
-                    const data = await response.json();
-                    console.log(data);
-                    setItems(data);
-                   }catch(error){
-                        console.log("error");
-                   }
-                    
-            }
-            load();
-        }, [])
+        if(!response.ok){
+            console.log(response.ok);           
+        }else{
+            //useEffect
+            console.log(response.ok);
+            loadUsers();
+        }
+          
+     }
 
-        function getAvatar(user){
-            return "./path.png";
+    const deleteBook = async (id) => {
+        console.log("delete was clicked " + id);  
+        const response = await fetch(`http://localhost:3000/search/delete/${id}`, 
+                    {
+                        method: 'DELETE',
+                        headers: 
+                        {
+                            'Content-Type': 'application/json'
+                        }
+                    }); 
+        if(!response.ok){
+            console.log(response.ok);           
+        }else{
+            //useEffect
+            console.log(response.ok);
+            loadBooks();
         }
-``
-        function numPosts(user){
-            return 0;
-        }
+    }
 
-        function Logout(){
-            console.log("logged out")
-            //alert("User Logged out");
-        }
-        
+
+    function showbooks(){
+        return <CardLayout id="adminCardLayout">
+                {books.map((item) => (<UserCards key = {item._id} name = {item.name} author = {item.author} cover = {getCover(item._id)} body = {item.body} onDelete={deleteBook} id={item._id} menu={menu}></UserCards>))}
+            </CardLayout>;
+    }
+
+    function users(){
+        return <CardLayout id="adminCardLayout">
+                {items.map((item) => (<UserCards key = {item._id} username = {item.username} avatar = {getAvatar(item)} role = {item.role} email = {item.email} numPosts = {numPosts(item)} onDelete={deleteUser} id={item._id} menu={menu}></UserCards>))}
+            </CardLayout>;
+    }
+
     return(
     <div id='AdminDashboard'>
         <div id='menu'>
             {/* <Searchbar placeholder={"Search for " + menu} /> */}
             <h2>Moderation</h2>
-            <CardLayout id="adminCardLayout">
-                {items.map((item) => (<UserCards key = {item._id} username = {item.username} avatar = {getAvatar(item._id)} role = {item.role} email = {item.email} numPosts = {numPosts(item._id)}></UserCards>))}
-            </CardLayout>
-
+            {menu === "users" ? users() : ""}
+            {menu === "books" ? showbooks() : ""}
         </div>
         
         <div id="left-menu">
             <p>Username</p>
             <div id='info'>
                 <div id='pages'>
-                    <button onClick={() => setMenu("home")}>Home</button>
+                    <button onClick={() => goHome()}>Home</button>
                     <button onClick={() => setMenu("users")}>Users</button>
                     <button onClick={() => setMenu("books")}>Books</button>
                     <button onClick={() => setMenu("logs")}>Logs</button>

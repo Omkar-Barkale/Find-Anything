@@ -1,7 +1,7 @@
 import fs, { read } from "fs";
 import path from "path";
 import {connectDB} from '../../db_connection.js'
-
+import {log} from '../../middleware/logging.middleware.js';
 
 //username
 //email
@@ -19,7 +19,7 @@ export async function createAccount(email, username, password){
         password: password,
         role: "user"
     });
-
+    await log("User : " + email + " successfully registered with username : " + username);
     return result.insertedId;
 }
 

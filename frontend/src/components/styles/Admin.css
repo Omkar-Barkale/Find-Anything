@@ -27,6 +27,19 @@
     height: 90%;
     margin-right: 18%;
     color: white;
+    min-width: 54em;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Standard property for Firefox */
+    scrollbar-width: none; 
+
+    /* Standard property for Internet Explorer and Edge */
+    -ms-overflow-style: none; 
+
+    /* Properties for Chrome, Safari, and newer Edge */
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 #pages{
@@ -72,4 +85,8 @@ body, html{
 #left-menu p{
     font-size: 2em;
     color: white;
+}
+
+button:hover{
+    cursor: pointer;
 }

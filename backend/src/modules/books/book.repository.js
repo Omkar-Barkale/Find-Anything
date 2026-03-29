@@ -2,12 +2,14 @@ import fs, { read } from "fs";
 import path from "path";
 import { DATA_DIR } from "../../constants.js";
 import {connectDB} from '../../db_connection.js'
+import {log} from '../../middleware/logging.middleware.js';
 
 
 
 const BOOKS_FILE = path.join(DATA_DIR,"books.json");
 
 export async function readBooks(){ 
+    await log("readBooks() in book.repository was called");
     const db = await connectDB();
     const data = await db.collection("books").find({}).toArray(); 
     return data;
@@ -16,6 +18,7 @@ export async function readBooks(){
 
 //maybe TODO? query mongodb directly instead of getting to JS array
 export async function getBookByKeyword(query){
+    await log("getBookByKeyword() in book.repository was called");
     const db = await connectDB();
     const data = await db.collection("books").find({}).toArray(); 
     const safeQuery = query.toLowerCase();
@@ -27,22 +30,12 @@ export async function getBookByKeyword(query){
     return queryReturn;
 }
 
-export async function deleteBooks(book){
+export async function deleteBooks(id){
+    await log("deleteBooks in book.repository was called");
     const db = await connectDB();
-    const regex = /^[a-zA-Z0-9_!?, '"()\$]+$/;
-
-    const safeQuery = Object.fromEntries(
-        Object.entries(book).filter(([_, value]) => value !== 'null' && value !== null && regex.test(String(value)) && value != null)
-    );
-
-    let result;
-    if(!multiple){
-        result = await db.collection("books").deleteOne(safeQuery);
-    }else{
-        result = await db.collection("books").deleteMany(safeQuery);
-    }
-
-    if(result.deletedCount > 0 && result.acknowledged){
+    const result = await db.collection("books").deleteOne({_id : new ObjectId(id)});
+    console.log(id);
+    if(result.acknowledged){
         console.log("Number of books deleted: " + result.deletedCount);
         return true;
     }else{
@@ -62,3 +55,4 @@ export default function checkIfDataExists(){
         return false;
     }
 }
+
