@@ -11,6 +11,7 @@ function Register()
     const[email, setEmail] = useState("");
     const[username, setUsername] = useState("");
     const[password, setPassword] = useState("");
+
     const [confirmPassword, setConfirmPassword] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [confirmError, setConfirmError] = useState("");
@@ -18,6 +19,7 @@ function Register()
     const [selectedFile, setSelectedFile] = useState(null);
     const [avatarError, setAvatarError] = useState("");
     const [userNameError, setUserNameError] = useState("");
+
     const password_regex = /^[a-zA-Z][A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,16}$/;
     const email_regex = /^(.+)@([^\.].*)\.([a-z]{2,})$/;
     
@@ -49,9 +51,6 @@ function Register()
             return;
         }
 
-        
-
-
         const formData = new FormData(); //need this as cant send picture as JSON
         formData.append("email", email);
         formData.append("username", username);
@@ -64,11 +63,23 @@ function Register()
             method: "POST",
             body: formData
         })//removed header as we not only sending JSON
-        .then(res => res.json())
-        .then(data => {console.log("Success:", data); alert("Registration successful!");})
-        .catch(err => {console.error("Error: ", err);});
+        .then(async res => {
+            const data = await res.json();
+            if(!res.ok)
+                throw new Error(data.message);
+            return data;
 
-        //e.target.reset();
+        })
+        .then(data => {
+            console.log("Registration successful:", data); 
+            alert("Registration successful!");
+            e.target.reset();
+        })
+        .catch(err => {
+            console.error("Registration error: ", err.message);
+            alert(err.message);
+        });
+
     }   
 
     return(    
@@ -124,7 +135,10 @@ function Register()
                                     if(val === password || val == "")
                                         setConfirmError("");
                                     else
-                                        setConfirmError("Passwords do not match")
+                                    {
+                                        setConfirmError("Passwords do not match");
+                                        e.preventDefault(); 
+                                    }
 
                                 }}/>
                                 {<p className="errorText">{confirmError}</p>}

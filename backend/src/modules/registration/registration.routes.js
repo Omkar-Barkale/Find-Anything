@@ -16,3 +16,4 @@ registrationRoutes.post('/',upload.single('image'), registrationController.creat
 
 
 
+

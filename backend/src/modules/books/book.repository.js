@@ -14,7 +14,8 @@ export async function readBooks(){
 }
 
 
-//maybe TODO? query mongodb directly instead of getting to JS array
+
+//TODO, need to adjust to use mongodb query directly, not a local array 
 export async function getBookByKeyword(query){
     const db = await connectDB();
     const data = await db.collection("books").find({}).toArray(); 
