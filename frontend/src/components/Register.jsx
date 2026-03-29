@@ -83,7 +83,7 @@ function Register()
             if(!res.ok)
                 throw new Error(data.message);
             return data;
-
+            
         })
         .then(data => {
             console.log("Registration successful:", data); 
