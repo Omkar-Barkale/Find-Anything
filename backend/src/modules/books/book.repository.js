@@ -28,3 +28,36 @@ export default async function checkIfCollectionExists(){
     let collections = await db.listCollections.toArray();
     console.log(collections);
 }
+
+export async function updateBooks(_id, name, author, description) {
+    const db = await connectDB();
+    
+    const result = await db.collection("books").updateOne(
+        {_id: _id},
+        {$set: {name: name, author:author, description:description}}
+    );
+
+    return result.updatedId;
+}
+
+export async function incrementLikes(_id, amount) {
+    const db = await connectDB();
+
+    const result = await db.collection("books").updateOne(
+        {_id: _id},
+        {$inc: {votes: amount}}
+    );
+
+    return result.updatedId;
+}
+
+export async function incrementDownloads(_id) {
+    const db = await connectDB();
+
+    const result = await db.collection("books").updateOne(
+        {_id: _id},
+        {$inc: {downloads: 1}}
+    );
+
+    return result.updatedId;
+}
