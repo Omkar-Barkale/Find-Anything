@@ -19,12 +19,16 @@ async function getBookByKeyword(query, queryFields = ["name", "author"]){
     return data;
 }
 
-async function addBook({name,author,description,file}){
+async function addBook({name,author,description},file){
+    console.log(name,author,description,file);
     const book = new Book({
         name:name,
         author:author,
+        description:description,
+        filepath:file.path,
         
     });
+    await bookRepo.createBook(book);
 }
 
-export {getAllBooks, getBook, getBookByKeyword}
+export {getAllBooks, getBook, getBookByKeyword, addBook}

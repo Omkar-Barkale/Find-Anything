@@ -1,28 +1,34 @@
-
-import bookRepo from "../modules/books/book.repository.js"
-import {multer} from 'multer';
+import fs from "fs";
+import multer from 'multer';
 import path from 'path'
-import {checkIfCollectionExists} from bookRepo
+
+const maxSize = 16 * 1024 * 1024;
+const UPLOAD_DIR = path.join(process.cwd(),"documents");
+
+if (!fs.existsSync(UPLOAD_DIR)) {
+    fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+}
+
 const storage = multer.diskStorage({
     destination:function(req,file,cb){
-        cb(null,"documents/");
+        cb(null,UPLOAD_DIR);
     },
     filename: function(req,file,cb){
         const uniqueName = Date.now()+path.extname(file.originalname);
         cb(null, uniqueName);
     }
 });
-export const upload = multer({storage});
-
-export function bookMiddleware(req,res,next){
-
-    //Resource doesn't exist
-    checkIfCollectionExists();
-    if(!(checkIfCollectionExists())){
-        res.status(404);
-        res.end("File Not Found");
+export const upload = multer({storage,
+    limits:{fieldSize:maxSize},
+    fileFilter:function(req,file,cb){
+        //Allowed Extentions
+        const filetypes = /pdf|epub/;
+        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+        if(extname){
+            return cb(null, true);
+        }
+        cb(new Error('Only PDF and EPUB files are allowed!'), false);
     }
-    console.log("File found");
-    next();
-    
-}
+
+});
+

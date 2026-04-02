@@ -26,6 +26,7 @@ export async function getBookByKeyword(req, res) {
 export async function createPost(req, res){
     res.status(200);
     console.log("Creating book...");
-    bookService()
+    await bookService.addBook(req.body, req.file);
+    res.json({message:"Book created successfully"});
 
 }

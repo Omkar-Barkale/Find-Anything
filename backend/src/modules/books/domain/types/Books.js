@@ -1,4 +1,4 @@
-import {Schema} from 'mongoose';
+import mongoose,{Schema} from 'mongoose';
 
 const bookSchema = new Schema({
     name: {type:String,required:true},
@@ -8,9 +8,9 @@ const bookSchema = new Schema({
     comments: [{user: String, date: Date, body:String}],
     date:{type: Date, default: Date.now},
     meta:{
-        votes:Number,
-        downloads:Number
+        votes:{type:Number, default:0},
+        downloads:{type:Number, default:0}
     }
 });
-
-export const Book = mongoose.model('Book',bookSchema);
+const Book = mongoose.model('Book',bookSchema);
+export default Book;
