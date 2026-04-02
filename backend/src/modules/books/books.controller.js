@@ -9,11 +9,7 @@ export async function getAllBooks(req, res, next){
 
     return; 
 }
-export async function getBook(req,res) {
-    const {id} = req.params;
-    const book = await bookService.getBook(id);
-    return res.status(200).json(book); 
-}
+
 export async function getBookByKeyword(req, res) { 
     try {
         const { query } = req.params;  //object destructuring of getting query from request.

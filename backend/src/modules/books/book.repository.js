@@ -1,18 +1,10 @@
-
+import fs, { read } from "fs";
 import path from "path";
 import { DATA_DIR } from "../../constants.js";
-import {connectDB} from '../../db_connection.js';
-import { ObjectId } from "mongodb";
+import {connectDB} from '../../db_connection.js'
 
 
 
-const BOOKS_FILE = path.join(DATA_DIR,"books.json");
-
-export async function getBook(id) {
-    const db = await connectDB();
-    const book = await db.collection("books").findOne({_id: new ObjectId(id)});
-    return book;
-}
 
 export async function readBooks(){ 
     const db = await connectDB();
@@ -22,20 +14,6 @@ export async function readBooks(){
 
 
 export async function getBookByKeyword(query){
-    const db = await getDB();
-    console.log(query);
-    const data = await db.collection("books").find({$or:query}).toArray(); 
-    return data;
-
-}
-
-export async function createBook(book){
-    const db = await getDB();
-    await db.collection("books").insertOne(book);
-    console.log("Book created successfully");
-}
-
-export default async function checkIfCollectionExists(){
     const db = await connectDB();
     const data = await db.collection("books").find({$or: [
         {name: {$regex: query, $options: 'i'}},
@@ -43,12 +21,28 @@ export default async function checkIfCollectionExists(){
     ]}).toArray(); 
 
     console.log("Getting specific books from MongoDB");
-    const queryReturn = data.filter((book,index,data)=>{
-        console.log(book.name+ " vs " + query);
-        return(book.name.toLowerCase().includes(safeQuery)||book.author.toLowerCase().includes(safeQuery))
-    });
-    return queryReturn;
+
+    return data;
 }
+
+export default function checkIfDataExists(){
+    try{
+        const data = readBooks();
+        return true;
+    }
+    catch(e){
+        console.log(e);
+        return false;
+    }
+}
+
+
+export async function createBook(book){
+    const db = await getDB();
+    await db.collection("books").insertOne(book);
+    console.log("Book created successfully");
+}
+
 
 export async function deleteBooks(id){
     const db = await connectDB();

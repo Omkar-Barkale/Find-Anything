@@ -7,13 +7,10 @@ async function getAllBooks(){
     const books = await bookRepo.readBooks();
     return books;
 }
-function getBook(id){
-    return bookRepo.getBook(id);
-}
-async function getBookByKeyword(query, queryFields = ["name", "author"]){
-    const normalizedQuery = new RegExp(query,'i');
-    const queryBody = queryFields.map(field => ({[field]: normalizedQuery}));
-    const data = await (bookRepo.getBookByKeyword(queryBody));
+
+function getBookByKeyword(query){
+    const data = (bookRepo.getBookByKeyword(query));
+    console.log("Service returning: " + data);
     return data;
 }
 function deleteBooks(id){
@@ -38,4 +35,4 @@ async function addBook({name,author,description},file){
     return await bookRepo.createBook(book);
 }
 
-export {getAllBooks, getBook, getBookByKeyword, addBook, updateBook, deleteBooks}
+export {getAllBooks, getBookByKeyword, addBook, updateBook, deleteBooks}

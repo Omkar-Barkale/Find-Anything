@@ -6,7 +6,6 @@ export const bookRoutes = Router();
 //
 
 bookRoutes.get('/', bookController.getAllBooks);
-bookRoutes.get('/:id', bookController.getBook);
 bookRoutes.post('/create', validateBookUpload, bookController.createPost);
 bookRoutes.get('/:query', bookController.getBookByKeyword)
 bookRoutes.post('/update/:id', bookController.updateBook);
