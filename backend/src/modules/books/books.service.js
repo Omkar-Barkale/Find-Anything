@@ -28,7 +28,7 @@ async function addBook({name,author,description},file){
         filepath:file.path,
         
     });
-    await bookRepo.createBook(book);
+    return await bookRepo.createBook(book);
 }
 
 export {getAllBooks, getBook, getBookByKeyword, addBook}

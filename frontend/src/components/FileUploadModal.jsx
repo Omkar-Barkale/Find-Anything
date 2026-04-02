@@ -67,7 +67,7 @@ function FileUpload(){
         return hasError;
     }
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault();
 
         if(!formValidator()){
@@ -78,22 +78,24 @@ function FileUpload(){
             formData.append("description",description);
             formData.append("file",targetFile);
 
-            const res = fetch("http://localhost:3000/search/create",{
+            const res = await fetch("http://localhost:3000/search/create",{
                 method:"POST",
                 body:formData
-            }).then((res) => {console.log(res);return res.json();})
-            .then((data)=>{
-                console.log(data);
-            }).catch((error)=>{
-                console.log(error);
-            })
+            });
+            let data;
+                data = await res.json();
+            if(res.status === 201){
+                setTargetError("Upload successful");
+            } else {
+                setTargetError(data.message || "Upload failed");
+            }
         }
     }
     
     return(
         <>
             <div className="modalOverlay">
-                <form className = "modalStyle" onSubmit={handleSubmit}>
+                <form className = "modalStyle" onSubmit={handleSubmit} method>
                     <div className="uploadContainer">
                         <input id='file' type='file' hidden accept = ".pdf" onChange = {(e)=>handleTargetFile(e)}></input>
                         <label htmlFor="file" className={targetError?"actualUploadBtn invalid":"actualUploadBtn"}><span>{targetFile?targetFile.name:"Click to upload a pdf"}</span></label> 

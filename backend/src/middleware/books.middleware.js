@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
 });
 export const upload = multer({storage,
     limits:{fieldSize:maxSize},
-    fileFilter:function(req,file,cb){
+    fileFilter:function(req,file,res,cb){
         //Allowed Extentions
         const filetypes = /pdf|epub/;
         const extname = filetypes.test(path.extname(file.originalname).toLowerCase());

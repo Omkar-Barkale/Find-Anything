@@ -24,9 +24,25 @@ export async function getBookByKeyword(req, res) {
 }
 
 export async function createPost(req, res){
-    res.status(200);
     console.log("Creating book...");
-    await bookService.addBook(req.body, req.file);
-    res.json({message:"Book created successfully"});
+    try{
+        const {name, author, description} = req.body;
+        const file = req.file;
+        if(!file)
+            return res.status(400).json({message:"File is required"});
+        if(!name)
+            return res.status(400).json({message:"Name is required"});
+        if(!author)
+            return res.status(400).json({message:"Author is required"});
+        if(!description)
+            return res.status(400).json({message:"Description is required"}); 
+
+        await bookService.addBook({name,author,description},file);
+        res.status(201).json({message:"Book created successfully"});
+    
+    }
+    catch(e){
+        res.status(500).json({message:e.message});
+    }
 
 }
