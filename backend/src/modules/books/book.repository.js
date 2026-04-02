@@ -1,7 +1,6 @@
 
 import path from "path";
 import { DATA_DIR } from "../../constants.js";
-
 import {connectDB} from '../../db_connection.js'
 import {log} from '../../middleware/logging.middleware.js';
 
@@ -18,7 +17,7 @@ export async function readBooks(){
 
 
 export async function getBookByKeyword(query){
-    const db = await getDB();
+    const db = await connectDB();
     console.log(query);
     const data = await db.collection("books").find({$or:query}).toArray(); 
     return data;
@@ -26,7 +25,8 @@ export async function getBookByKeyword(query){
 }
 
 export async function createBook(book){
-    const db = await getDB();
+    console.log("Creating book in repository...");
+    const db = await connectDB();
     await db.collection("books").insertOne(book);
     console.log("Book created successfully");
 }
