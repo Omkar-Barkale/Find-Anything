@@ -35,7 +35,7 @@ function Login(){
             }
             else{
                 console.log("gotten token");
-                localStorage.setItem('userToken', data.token); //backend returns token inside data json store the token in the browsers local storage
+                localStorage.setItem('token', data.token); //backend returns token inside data json store the token in the browsers local storage
                 //at this point i have the token
                 setMessage(data.message);
                 navigate("/home");

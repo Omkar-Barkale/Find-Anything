@@ -3,12 +3,6 @@ import Searchbar from './Searchbar.jsx'
 import './styles/Home.css'
 import NavBar from './NavBar.jsx'
 
-
-
-
-
-
-
 function Home() {
   return (
     <>
