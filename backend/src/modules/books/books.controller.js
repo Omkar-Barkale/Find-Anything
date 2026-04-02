@@ -6,9 +6,9 @@ export async function getAllBooks(req, res, next){
     res.json(await bookService.getAllBooks());
     return; 
 }
-function getBook(req,res){
+export async function getBook(req,res){
     const {id} = req.params;
-    const book = bookService.getBook(id);
+    const book = await bookService.getBook(id);
     res.status(200);
     res.json({data:book}); 
 }
@@ -24,13 +24,11 @@ export async function getBookByKeyword(req, res) {
 }
 
 export async function updateBook(req, res) {
-    const _id = req.body._id;
-    const name = req.body.name;
-    const author = req.body.author;
-    const description = req.body.description;
+    const {id} = req.params;
+    const {name, author, description} = req.body;
 
-    const book = await bookService.updateBook(_id, name, author, description);
-    res.json(book);
+    const result = await bookService.updateBook(id, name, author, description);
+    res.json(result);
 }
 
 export async function createPost(req, res){

@@ -3,6 +3,7 @@ import * as bookController from "./books.controller.js";
 export const bookRoutes = Router();
 
 bookRoutes.get('/', bookController.getAllBooks);
-bookRoutes.get('/search=:query',bookController.getBookByKeyword)
+bookRoutes.get('/search=:query',bookController.getBookByKeyword);
+bookRoutes.get('/search/:id', bookController.getBook);
 bookRoutes.post('/create', bookController.createPost);
-bookRoutes.post('/update', bookController.updateBook);
+bookRoutes.post('/update/:id', bookController.updateBook);

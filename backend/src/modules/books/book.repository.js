@@ -2,6 +2,7 @@ import fs, { read } from "fs";
 import path from "path";
 import { DATA_DIR } from "../../constants.js";
 import { getDB } from "../../index.js";
+import { ObjectId } from "mongodb";
 
 
 
@@ -13,6 +14,11 @@ export async function readBooks(){
     return data;
 }
 
+export async function getBook(id) {
+    const db = await getDB();
+    const book = await db.collection("books").findOne({_id: new ObjectId(id)});
+    return book;
+}
 
 //maybe TODO? query mongodb directly instead of getting to JS array
 export async function getBookByKeyword(query){
@@ -29,15 +35,15 @@ export default async function checkIfCollectionExists(){
     console.log(collections);
 }
 
-export async function updateBooks(_id, name, author, description) {
+export async function updateBook(id, name, author, description) {
     const db = await connectDB();
     
     const result = await db.collection("books").updateOne(
-        {_id: _id},
+        {_id: new ObjectId(id)},
         {$set: {name: name, author:author, description:description}}
     );
 
-    return result.updatedId;
+    return result.modifiedCount;
 }
 
 export async function incrementLikes(_id, amount) {
