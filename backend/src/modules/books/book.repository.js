@@ -25,18 +25,6 @@ export async function getBookByKeyword(query){
     return data;
 }
 
-export default function checkIfDataExists(){
-    try{
-        const data = readBooks();
-        return true;
-    }
-    catch(e){
-        console.log(e);
-        return false;
-    }
-}
-
-
 export async function createBook(book){
     console.log("Creating book in repository...");
     const db = await connectDB();

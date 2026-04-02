@@ -5,7 +5,6 @@ import './styles/NavBar.css'
 
 function NavBar() {
 
-  //i think react does not know localStorage changes
 
   const[role, setRole] = useState("");
   const[token, setToken] = useState(localStorage.getItem('token'));
@@ -62,9 +61,9 @@ function User(props){
   return(
     <>
     <li><a href = "#" id = 'lib' onClick={()=>alert("Library Clicked")}>Your Library</a></li>
+        <li className = "upload"><Link to = "/test">Upload</Link> </li>
     <li className = "profile"> <a href = "#" onClick={()=>alert("Profile Clicked")}>Profile</a>    </li>
     <li className = "logout"> <a href = "#" onClick={()=>{localStorage.removeItem('token'); props.setToken(null);}}>Logout</a> </li>
-    <li className = "upload"><Link to = "/test">Upload</Link> </li>
 
     </>
   )
@@ -75,7 +74,7 @@ function Admin(props){
   return(  
   <>
     <li><a href = "#" id = 'lib' onClick={()=>alert("Library Clicked")}>Your Library</a></li>
-        <li className = "upload"> <a href = "#" onClick={()=>{alert("Post clicked")}}>Post+</a>    </li>
+        <li className = "upload"> <a href = "#" onClick={()=>{alert("Post clicked")}}>Upload</a>    </li>
     <li id = "mod"> <a href = "#"  onClick={()=>alert("Mod Clicked")}>Moderation Dashboard</a> </li>
     <li className = "profile"> <a href = "#"  onClick={()=>alert("Profile Clicked")}>Profile</a> </li>
         <li className = "logout"> <a href = "#" onClick={()=>{localStorage.removeItem('token'); props.setToken(null);}}>Logout</a>    </li>
