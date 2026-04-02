@@ -64,7 +64,7 @@ function User(props){
     <li><a href = "#" id = 'lib' onClick={()=>alert("Library Clicked")}>Your Library</a></li>
     <li className = "profile"> <a href = "#" onClick={()=>alert("Profile Clicked")}>Profile</a>    </li>
     <li className = "logout"> <a href = "#" onClick={()=>{localStorage.removeItem('token'); props.setToken(null);}}>Logout</a> </li>
-    <li className = "upload"> <a href = "#" onClick={()=>{}}>Post+</a>    </li>
+    <li className = "upload"><Link to = "/test">Upload</Link> </li>
 
     </>
   )
