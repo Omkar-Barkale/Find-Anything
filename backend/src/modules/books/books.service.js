@@ -11,8 +11,13 @@ function getBook(id){
 function getBookByKeyword(query){
     //Removed JSON.stringify as it returned a JSON string instead of an array, I need it to return an array as I use map() function to display cards properly with Search 
     const data = (bookRepo.getBookByKeyword(query));
-    console.log("Service returning: " + data);
+    //console.log("Service returning: " + data);
     return data;
 }
+function deleteBooks(id){
+    const response = bookRepo.deleteBooks(id);
+    return response;
+}
 
-export {getAllBooks, getBook, getBookByKeyword}
+
+export {getAllBooks, getBook, getBookByKeyword, deleteBooks}

@@ -4,3 +4,4 @@ export const bookRoutes = Router();
 
 bookRoutes.get('/', bookController.getAllBooks);
 bookRoutes.get('/:query', bookController.getBookByKeyword)
+bookRoutes.delete('/delete/:id', bookController.deleteBooks);

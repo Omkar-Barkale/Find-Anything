@@ -30,7 +30,7 @@ import Card from './Card.jsx'
             e.preventDefault();
             const response = await fetch(`http://localhost:3000/search/${search}`);
             const data = await response.json();
-            console.log(data);   
+            console.log(data + "book data");   
             if(data.length > 0)         
             {
                 setBooks(data);

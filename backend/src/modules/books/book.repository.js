@@ -2,12 +2,14 @@ import fs, { read } from "fs";
 import path from "path";
 import { DATA_DIR } from "../../constants.js";
 import {connectDB} from '../../db_connection.js'
+import {log} from '../../middleware/logging.middleware.js';
 
 
 
 const BOOKS_FILE = path.join(DATA_DIR,"books.json");
 
 export async function readBooks(){ 
+    await log("readBooks() in book.repository was called");
     const db = await connectDB();
     const data = await db.collection("books").find({}).toArray(); 
     return data;
@@ -15,6 +17,7 @@ export async function readBooks(){
 
 
 export async function getBookByKeyword(query){
+    await log("getBookByKeyword() in book.repository was called");
     const db = await connectDB();
     const data = await db.collection("books").find({$or: [
         {name: {$regex: query, $options: 'i'}},
@@ -22,24 +25,27 @@ export async function getBookByKeyword(query){
     ]}).toArray(); 
 
     console.log("Getting specific books from MongoDB");
-
-    return data;
+    const queryReturn = data.filter((book,index,data)=>{
+        console.log(book.name+ " vs " + query);
+        return(book.name.toLowerCase().includes(safeQuery)||book.author.toLowerCase().includes(safeQuery))
+    });
+    return queryReturn;
 }
 
+export async function deleteBooks(id){
+    await log("deleteBooks in book.repository was called");
+    const db = await connectDB();
+    const result = await db.collection("books").deleteOne({_id : new ObjectId(id)});
+    console.log(id);
+    if(result.acknowledged){
+        console.log("Number of books deleted: " + result.deletedCount);
+        return true;
+    }else{
+        console.log("Could not delete any books check attributes");
+        return false;
+    }
+}
 
-//TODO, need to adjust to use mongodb query directly, not a local array 
-// export async function getBookByKeyword(query){
-//     const db = await connectDB();
-//     const data = await db.collection("books").find({}).toArray(); 
-//     const safeQuery = query.toLowerCase();
-//     console.log("Getting specific books from MongoDB");
-//     const queryReturn = data.filter((book,index,data)=>{
-//         console.log(book.name + " vs " + query);
-//         return(book.name.toLowerCase().includes(safeQuery)||book.author.toLowerCase().includes(safeQuery))
-//     });
-//     return queryReturn;
-
-// }
 
 export default function checkIfDataExists(){
     try{
@@ -51,3 +57,4 @@ export default function checkIfDataExists(){
         return false;
     }
 }
+

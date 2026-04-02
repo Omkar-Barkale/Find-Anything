@@ -6,6 +6,16 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 25px;
-    margin: 50px auto;
+    margin:50px auto
+   
 }
 
+#adminCardLayout{
+    display: flex;
+    flex-direction: column;
+    padding-right: auto;
+    padding-left: auto;
+    width: fit-content;
+    margin:1em 1em 1em 1em;
+    min-width: min-content;
+}
