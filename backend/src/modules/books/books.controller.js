@@ -23,6 +23,16 @@ export async function getBookByKeyword(req, res) {
     }
 }
 
+export async function updateBook(req, res) {
+    const _id = req.body._id;
+    const name = req.body.name;
+    const author = req.body.author;
+    const description = req.body.description;
+
+    const book = await bookService.updateBook(_id, name, author, description);
+    res.json(book);
+}
+
 export async function createPost(req, res){
     console.log(JSON.stringify(req.body));
     res.status(200);

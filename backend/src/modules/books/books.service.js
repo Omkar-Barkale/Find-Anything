@@ -18,4 +18,8 @@ async function getBookByKeyword(query, queryFields = ["name", "author"]){
     return data;
 }
 
+export async function updateBook(_id, name, author, description) {
+    return await registrationRepo.updateAccount(_id, name, author, description);
+}
+
 export {getAllBooks, getBook, getBookByKeyword}
