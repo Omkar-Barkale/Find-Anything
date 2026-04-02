@@ -1,4 +1,4 @@
-import fs, { read } from "fs";
+
 import path from "path";
 import { DATA_DIR } from "../../constants.js";
 import { getDB } from "../../index.js";
@@ -21,6 +21,12 @@ export async function getBookByKeyword(query){
     const data = await db.collection("books").find({$or:query}).toArray(); 
     return data;
 
+}
+
+export async function createBook(book){
+    const db = await getDB();
+    await db.collection("books").insertOne(book);
+    console.log("Book created successfully");
 }
 
 export default async function checkIfCollectionExists(){

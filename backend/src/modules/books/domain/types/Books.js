@@ -1,13 +1,16 @@
-import {Schema} from 'mongoose';
+import mongoose,{Schema} from 'mongoose';
 
 const bookSchema = new Schema({
     name: {type:String,required:true},
     author: {type:String, required:true},
-    description: {String, required:true},
+    description: {type:String, required:true},
+    filepath:{type:String,required:true},
     comments: [{user: String, date: Date, body:String}],
     date:{type: Date, default: Date.now},
     meta:{
-        votes:Number,
-        downloads:Number
+        votes:{type:Number, default:0},
+        downloads:{type:Number, default:0}
     }
 });
+const Book = mongoose.model('Book',bookSchema);
+export default Book;

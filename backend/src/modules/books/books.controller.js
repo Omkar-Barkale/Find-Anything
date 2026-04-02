@@ -24,7 +24,34 @@ export async function getBookByKeyword(req, res) {
 }
 
 export async function createPost(req, res){
-    console.log(JSON.stringify(req.body));
-    res.status(200);
-    res.json({"message":"Successfully pinged backend"});
+    console.log("Creating book...");
+
+   
+    try{
+         
+
+        const {name, author, description} = req.body;
+        const file = req.file;
+         
+
+        await bookService.addBook({name,author,description},file);
+        console.log("Book created successfully");
+        res.status(201).json({message:"Book created successfully"});
+    
+    }
+    catch(e){
+
+        if(req.fileValidationError){
+            return res.status(400).json({message:req.fileValidationError});
+        }
+        if(!file)
+            return res.status(400).json({message:"File is required"});
+        if(!name)
+            return res.status(400).json({message:"Name is required"});
+        if(!author)
+            return res.status(400).json({message:"Author is required"});
+        if(!description)
+            return res.status(400).json({message:"Description is required"});
+    }
+
 }

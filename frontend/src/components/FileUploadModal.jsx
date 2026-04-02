@@ -66,8 +66,9 @@ function FileUpload(){
 
         return hasError;
     }
+    
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault();
 
         if(!formValidator()){
@@ -78,17 +79,30 @@ function FileUpload(){
             formData.append("description",description);
             formData.append("file",targetFile);
 
-            const res = fetch("http://localhost:3000/search/create",{
-                method:"POST",
-                body:formData
-            }).then((res) => {console.log(res);return res.json();})
-            .then((data)=>{
-                console.log(data);
-            }).catch((error)=>{
-                console.log(error);
-            })
-        }
+            try{
+                const res = await fetch("http://localhost:3000/search/create",{
+                    method:"POST",
+                    body:formData
+                });
+                let data;
+                try{
+                     data = await res.json();
+                }catch{
+                    data = {message:"Failed to parse response from server"};
+                }
+                    if(res.status === 201){
+                        setTargetError("Upload successful!");
+                    }
+                    else{
+                        setTargetError(data.message || "Failed to upload file. Please try again.");
+                    }
+            } catch (error) {
+                setTargetError("Failed to upload file. Please try again.");
+                console.error("Error uploading file:", error);
+            }
+            
     }
+}
     
     return(
         <>

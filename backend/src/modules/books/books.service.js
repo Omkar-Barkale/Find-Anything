@@ -1,6 +1,6 @@
 
-import { authMiddleware } from "../../middleware/auth.middleware.js";
 import * as bookRepo from "./book.repository.js";
+import Book from "./domain/types/Books.js"
 
 
 async function getAllBooks(){
@@ -18,4 +18,16 @@ async function getBookByKeyword(query, queryFields = ["name", "author"]){
     return data;
 }
 
-export {getAllBooks, getBook, getBookByKeyword}
+async function addBook({name,author,description},file){
+    console.log(name,author,description,file);
+    const book = new Book({
+        name:name,
+        author:author,
+        description:description,
+        filepath:file.path,
+        
+    });
+    return await bookRepo.createBook(book);
+}
+
+export {getAllBooks, getBook, getBookByKeyword, addBook}

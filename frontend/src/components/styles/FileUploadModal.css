@@ -52,7 +52,7 @@ input{
 
 }
 input::placeholder{
-    color:gray;
+    color:gray; 
     font-size: 1em;
 }
 
