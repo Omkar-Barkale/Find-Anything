@@ -4,7 +4,7 @@ import path from 'path'
 
 
 const maxSize = 16 * 1024 * 1024;
-const UPLOAD_DIR = path.join(process.cwd(),"documents");
+const UPLOAD_DIR = "./uploads/documents";
 
 if (!fs.existsSync(UPLOAD_DIR)) {
     fs.mkdirSync(UPLOAD_DIR, { recursive: true });

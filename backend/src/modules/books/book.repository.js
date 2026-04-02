@@ -38,7 +38,8 @@ export default function checkIfDataExists(){
 
 
 export async function createBook(book){
-    const db = await getDB();
+    console.log("Creating book in repository...");
+    const db = await connectDB();
     await db.collection("books").insertOne(book);
     console.log("Book created successfully");
 }

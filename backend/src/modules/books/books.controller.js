@@ -31,15 +31,20 @@ export async function getBookByKeyword(req, res) {
   
   export async function createPost(req, res){
     console.log("Creating book...");
+    
     try{
         const {name, author, description} = req.body;
         const file = req.file;
+        console.log("Received file:", file);
+        
         await bookService.addBook({name,author,description},file);
         console.log("Book created successfully");
         res.status(201).json({message:"Book created successfully"});
     
     }
     catch(e){
+        const {name, author, description} = req.body;
+        const file = req.file;
 
         if(req.fileValidationError){
             return res.status(400).json({message:req.fileValidationError});
@@ -52,7 +57,9 @@ export async function getBookByKeyword(req, res) {
             return res.status(400).json({message:"Author is required"});
         if(!description)
             return res.status(400).json({message:"Description is required"});
+        return res.status(500).json({message:e.message});
     }
+   
 }
 
 export async function deleteBooks(req, res){
