@@ -1,4 +1,6 @@
+
 import * as bookRepo from "./book.repository.js";
+import Book from "./domain/types/Books.js"
 
 
 async function getAllBooks(){
@@ -8,10 +10,11 @@ async function getAllBooks(){
 function getBook(id){
     return bookRepo.getBook(id);
 }
-function getBookByKeyword(query){
+async function getBookByKeyword(query, queryFields = ["name", "author"]){
+    const normalizedQuery = new RegExp(query,'i');
+    const queryBody = queryFields.map(field => ({[field]: normalizedQuery}));
     //Removed JSON.stringify as it returned a JSON string instead of an array, I need it to return an array as I use map() function to display cards properly with Search 
-    const data = (bookRepo.getBookByKeyword(query));
-    //console.log("Service returning: " + data);
+    const data = await (bookRepo.getBookByKeyword(queryBody));
     return data;
 }
 function deleteBooks(id){
@@ -24,4 +27,16 @@ async function updateBook(id, name, author, description) {
     return await bookRepo.updateBook(id, name, author, description);
 }
 
-export {getAllBooks, getBook, getBookByKeyword, updateBook, deleteBooks}
+async function addBook({name,author,description},file){
+    console.log(name,author,description,file);
+    const book = new Book({
+        name:name,
+        author:author,
+        description:description,
+        filepath:file.path,
+        
+    });
+    return await bookRepo.createBook(book);
+}
+
+export {getAllBooks, getBook, getBookByKeyword, addBook, updateBook, deleteBooks}

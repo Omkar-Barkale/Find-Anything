@@ -1,8 +1,9 @@
-import fs, { read } from "fs";
+
 import path from "path";
 import { DATA_DIR } from "../../constants.js";
 import {connectDB} from '../../db_connection.js';
 import { ObjectId } from "mongodb";
+import { getDB } from "../../index.js";
 import {log} from '../../middleware/logging.middleware.js';
 
 
@@ -16,6 +17,7 @@ export async function getBook(id) {
 }
 
 export async function readBooks(){ 
+    const db = await getDB();
     await log("readBooks() in book.repository was called");
     const db = await connectDB();
     const data = await db.collection("books").find({}).toArray(); 
@@ -24,6 +26,24 @@ export async function readBooks(){
 
 
 export async function getBookByKeyword(query){
+    const db = await getDB();
+    console.log(query);
+    const data = await db.collection("books").find({$or:query}).toArray(); 
+    return data;
+
+}
+
+export async function createBook(book){
+    const db = await getDB();
+    await db.collection("books").insertOne(book);
+    console.log("Book created successfully");
+}
+
+export default async function checkIfCollectionExists(){
+    let db = await getDB();
+    let collections = await db.listCollections.toArray();
+    console.log(collections);
+}
     await log("getBookByKeyword() in book.repository was called");
     const db = await connectDB();
     const data = await db.collection("books").find({$or: [

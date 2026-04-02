@@ -29,13 +29,44 @@ export async function getBookByKeyword(req, res) {
     }
 }
 
-export async function updateBook(req, res) {
+  export async function updateBook(req, res) {
     const {id} = req.params;
     const {name, author, description} = req.body;
 
     const result = await bookService.updateBook(id, name, author, description);
     res.json(result);
-}
+  }
+  
+  export async function createPost(req, res){
+    console.log("Creating book...");
+
+   
+    try{
+         
+
+        const {name, author, description} = req.body;
+        const file = req.file;
+         
+
+        await bookService.addBook({name,author,description},file);
+        console.log("Book created successfully");
+        res.status(201).json({message:"Book created successfully"});
+    
+    }
+    catch(e){
+
+        if(req.fileValidationError){
+            return res.status(400).json({message:req.fileValidationError});
+        }
+        if(!file)
+            return res.status(400).json({message:"File is required"});
+        if(!name)
+            return res.status(400).json({message:"Name is required"});
+        if(!author)
+            return res.status(400).json({message:"Author is required"});
+        if(!description)
+            return res.status(400).json({message:"Description is required"});
+    }
 
 export async function deleteBooks(req, res){
     await log("deleteBooks() was called in book.controller");
