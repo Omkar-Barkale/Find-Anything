@@ -6,5 +6,6 @@ export const bookRoutes = Router();
 //
 
 bookRoutes.get('/', bookController.getAllBooks);
-bookRoutes.get('/search=:query',bookController.getBookByKeyword)
 bookRoutes.post('/create', validateBookUpload, bookController.createPost);
+bookRoutes.get('/:query', bookController.getBookByKeyword)
+bookRoutes.delete('/delete/:id', bookController.deleteBooks);

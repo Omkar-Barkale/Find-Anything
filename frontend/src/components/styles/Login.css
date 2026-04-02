@@ -7,7 +7,7 @@
     border-style: solid;
     width: 35em;
     height: 35em;
-    backdrop-filter: blur(0.2em);
+    backdrop-filter: blur(0.29em);
 
 }
 
@@ -87,7 +87,7 @@ input::placeholder{
     font-weight: bold;
 }
 
-#register{
+#registerLink{
     background-color: transparent;
     border: none;
     color: white;
@@ -96,7 +96,7 @@ input::placeholder{
 #Remember input{
     width: 1.5em;
 }
-
+    
 #Remember {
     display: flex;
     align-items: center;
@@ -106,7 +106,6 @@ input::placeholder{
 }
 
 p{
-    color: white;
-    font-weight: bold;
-    margin-top: 0;
+    color: black;
+    font-size: 0.95em;
 }

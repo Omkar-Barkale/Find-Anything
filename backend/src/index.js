@@ -1,12 +1,11 @@
 import {bookRoutes} from "./modules/books/books.routes.js";
 import { authRoutes } from "./modules/auth/auth.routes.js";
+import { registrationRoutes } from "./modules/registration/registration.routes.js";
+
 import express from 'express';
 import cors from 'cors';
 import { connectDB } from "./db_connection.js";
 
-
-//IMPORTANT : NEED TO RUN THIS IN THE BACKEND FOLDER NOT SRC AND RUN VIA node src/index.js since we are using .env file for the MONGO connection,
-//TLDR: basically do not run node index.js, do node src/index.js from backend folder
 
 const app = express();
 const port = 3000;
@@ -26,13 +25,19 @@ app.use(cors({
 
 app.use(express.json());
 
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
 //Books route
 app.use("/search",bookRoutes);
-app.post("/api/auth", authRoutes);
+
+//Login route
+app.use("/auth", authRoutes);
+
+//Register route
+ app.use("/registration", registrationRoutes);
 
 //fallback path
 app.get('/*path', (req, res) => {
@@ -42,6 +47,8 @@ app.get('/*path', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+
 
 
 

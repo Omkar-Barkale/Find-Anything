@@ -11,7 +11,12 @@ import Card from './Card.jsx'
     useEffect(() => { //loads all books from MongoDB on initial render, only once([]) instead of reading from json file
 
         const load = async () => {
-                const response = await fetch('http://localhost:3000/search/');
+                const response = await fetch('http://localhost:3000/search/', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                }); 
                 const data = await response.json();
                 setBooks(data);
         }
@@ -25,7 +30,7 @@ import Card from './Card.jsx'
             e.preventDefault();
             const response = await fetch(`http://localhost:3000/search/${search}`);
             const data = await response.json();
-            console.log(data);   
+            console.log(data + "book data");   
             if(data.length > 0)         
             {
                 setBooks(data);

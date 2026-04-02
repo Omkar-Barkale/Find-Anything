@@ -17,6 +17,11 @@ async function getBookByKeyword(query, queryFields = ["name", "author"]){
     const data = await (bookRepo.getBookByKeyword(queryBody));
     return data;
 }
+function deleteBooks(id){
+    const response = bookRepo.deleteBooks(id);
+    return response;
+}
+
 
 async function addBook({name,author,description},file){
     console.log(name,author,description,file);
@@ -30,4 +35,4 @@ async function addBook({name,author,description},file){
     return await bookRepo.createBook(book);
 }
 
-export {getAllBooks, getBook, getBookByKeyword, addBook}
+export {getAllBooks, getBook, getBookByKeyword, addBook,deleteBooks}

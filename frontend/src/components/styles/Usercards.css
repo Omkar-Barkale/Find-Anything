@@ -1,0 +1,33 @@
+.Usercard{
+
+    display: flex;
+    gap: 5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    width: 50em;
+    justify-content: center;
+    background-color: rgb(80, 80, 80);
+    border-radius: 1em;
+
+}
+
+.Usercard img{
+    border-color: black;
+    border-style: solid;
+}
+
+.Usercard p{
+       color: white;
+}
+
+#delete{
+    background-color: transparent;
+    border: none;
+    color:red;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+#delete:hover{
+    cursor: pointer;
+}
