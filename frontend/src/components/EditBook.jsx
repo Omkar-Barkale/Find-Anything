@@ -21,7 +21,7 @@ function EditBook(){
 
     useEffect(() => {
         async function fetchBook(params) {
-            const res = await fetch("http://localhost:3000/search/${id}");
+            const res = await fetch(`http://localhost:3000/search/${id}`);
             const book = await res.json();
 
             setName(book.name);
@@ -89,7 +89,7 @@ function EditBook(){
 
         if(!formValidator()){
             
-            fetch("http://localhost:3000/search/update/${id}",{
+            fetch(`http://localhost:3000/search/update/${id}`,{
                 method:"POST",
                 headers: {
                     "Content-Type": "application/json"

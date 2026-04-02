@@ -8,7 +8,7 @@ function Card(props){
 
      //Clicking the cards brings you to the page to edit that book
      function handleClick() {
-          navigate("/book/edit/${props.key}")
+          navigate(`/book/edit/${props.id}`)
      }
 
      return(<>

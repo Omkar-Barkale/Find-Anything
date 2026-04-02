@@ -9,8 +9,7 @@ export async function getAllBooks(req, res, next){
 export async function getBook(req,res){
     const {id} = req.params;
     const book = await bookService.getBook(id);
-    res.status(200);
-    res.json({data:book}); 
+    return res.status(200).json(book);
 }
 export async function getBookByKeyword(req, res) { 
     try {
