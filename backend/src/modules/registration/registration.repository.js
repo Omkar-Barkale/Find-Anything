@@ -1,5 +1,4 @@
 import {connectDB} from '../../db_connection.js'
-import {log} from '../../middleware/logging.middleware.js';
 
 export async function createAccount(email, username, password, imgBuffer){
     let db = await connectDB();

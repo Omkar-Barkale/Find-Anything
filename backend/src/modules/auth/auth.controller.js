@@ -1,8 +1,6 @@
 import * as userServices from "./auth.services.js";
-import {log} from '../../middleware/logging.middleware.js';
 
 async function getAllUsers(req, res){
-    await log("getAllUSers in auth.controller was called");
     res.status(200);
     console.log("Running User Controller : all");
     const data = await userServices.getAllUsers()
@@ -10,7 +8,6 @@ async function getAllUsers(req, res){
 }
 
 async function getUserByEmail(req, res){
-    await log("getUserByEmail() in auth.controller was called");
     res.status(200);
     let user = await userServices.getUserByEmail(req.body.email);
     if(user !== null){
@@ -24,7 +21,6 @@ async function getUserByEmail(req, res){
 }
 
 async function deleteUsers(req, res){
-    await log("deleteUsers() in auth.controller was called");
     const {id} = req.params;
     const response = await userServices.deleteUsers(id);
     if(response){

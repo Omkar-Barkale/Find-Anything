@@ -15,7 +15,6 @@ export async function getBook(id) {
 }
 
 export async function readBooks(){ 
-    await log("readBooks() in book.repository was called");
     const db = await connectDB();
     const data = await db.collection("books").find({}).toArray(); 
     return data;
@@ -37,7 +36,6 @@ export async function createBook(book){
 }
 
 export default async function checkIfCollectionExists(){
-    await log("getBookByKeyword() in book.repository was called");
     const db = await connectDB();
     const data = await db.collection("books").find({$or: [
         {name: {$regex: query, $options: 'i'}},
@@ -53,7 +51,6 @@ export default async function checkIfCollectionExists(){
 }
 
 export async function deleteBooks(id){
-    await log("deleteBooks in book.repository was called");
     const db = await connectDB();
     const result = await db.collection("books").deleteOne({_id : new ObjectId(id)});
     console.log(id);

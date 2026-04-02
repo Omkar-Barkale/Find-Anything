@@ -1,5 +1,4 @@
 import * as registrationService from "./registration.service.js"
-import {log} from '../../middleware/logging.middleware.js';
 import bcrypt from 'bcrypt';
 
 
