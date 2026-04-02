@@ -1,10 +1,11 @@
 import {useState, useEffect} from "react"
-import {useParams} from "react-router-dom"
+import {useParams, useNavigate} from "react-router-dom"
 import "./styles/FileUploadModal.css"
 
 
 function EditBook(){
     const {id} = useParams();
+    const navigate = useNavigate();
 
     const[name, setName] = useState("");
     const[author, setAuthor] = useState("");
@@ -26,7 +27,7 @@ function EditBook(){
 
             setName(book.name);
             setAuthor(book.author);
-            setDescription(data.description);
+            setDescription(book.body);
         }
         fetchBook();
     }, [id]);
@@ -66,10 +67,10 @@ function EditBook(){
             hasError = true;
             setDescriptionError("This field is required");
         }
-        if(!targetFile){
-            hasError = true;
-            setTargetError("This field is required");
-        }
+        // if(!targetFile){
+        //     hasError = true;
+        //     setTargetError("This field is required");
+        // }
     
 
         if(hasError){
@@ -101,6 +102,7 @@ function EditBook(){
                 })
             });
         }
+        navigate(`/`);
     }
     
     return(

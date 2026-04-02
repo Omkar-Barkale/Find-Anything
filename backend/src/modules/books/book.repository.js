@@ -36,11 +36,11 @@ export default async function checkIfCollectionExists(){
 }
 
 export async function updateBook(id, name, author, description) {
-    const db = await connectDB();
+    const db = await getDB();
     
     const result = await db.collection("books").updateOne(
         {_id: new ObjectId(id)},
-        {$set: {name: name, author:author, description:description}}
+        {$set: {name:name, author:author, body:description}}
     );
 
     return result.modifiedCount;
