@@ -70,6 +70,7 @@ function Register()
         formData.append("email", email);
         formData.append("username", username);
         formData.append("password", password);
+        formData.append("confirmPassword", confirmPassword);
         formData.append("image", selectedFile);
 
 
