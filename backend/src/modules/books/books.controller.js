@@ -11,12 +11,11 @@ export async function getAllBooks(req, res, next){
 
     return; 
 }
-async function getBook(req,res){
+export async function getBook(req,res) {
     await log("getBook() in book.controller was called");
     const {id} = req.params;
-    const book = bookService.getBook(id);
-    res.status(200);
-    res.json({data:book}); 
+    const book = await bookService.getBook(id);
+    return res.status(200).json(book); 
 }
 export async function getBookByKeyword(req, res) { 
     await log("getBookByKeyword() was called in book.controller");
@@ -28,6 +27,14 @@ export async function getBookByKeyword(req, res) {
     catch (e) {
         return res.status(500).json({ message: e.message }); 
     }
+}
+
+export async function updateBook(req, res) {
+    const {id} = req.params;
+    const {name, author, description} = req.body;
+
+    const result = await bookService.updateBook(id, name, author, description);
+    res.json(result);
 }
 
 export async function deleteBooks(req, res){

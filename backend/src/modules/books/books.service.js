@@ -20,4 +20,8 @@ function deleteBooks(id){
 }
 
 
-export {getAllBooks, getBook, getBookByKeyword, deleteBooks}
+async function updateBook(id, name, author, description) {
+    return await bookRepo.updateBook(id, name, author, description);
+}
+
+export {getAllBooks, getBook, getBookByKeyword, updateBook, deleteBooks}
