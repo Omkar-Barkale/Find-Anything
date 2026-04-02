@@ -11,10 +11,7 @@ const app = express();
 const port = 3000;
 const db = connectDB();
 
-export function getDB(){
-  //Allows other file to use the existing db connection without having to make a new connection.
-  return db;
-}
+
 
 app.use(cors({ 
   origin: "http://localhost:5173",
