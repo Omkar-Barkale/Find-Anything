@@ -1,13 +1,18 @@
 
 import path from "path";
 import { DATA_DIR } from "../../constants.js";
-
-import {connectDB} from '../../db_connection.js'
-import {log} from '../../middleware/logging.middleware.js';
+import {connectDB} from '../../db_connection.js';
+import { ObjectId } from "mongodb";
 
 
 
 const BOOKS_FILE = path.join(DATA_DIR,"books.json");
+
+export async function getBook(id) {
+    const db = await connectDB();
+    const book = await db.collection("books").findOne({_id: new ObjectId(id)});
+    return book;
+}
 
 export async function readBooks(){ 
     await log("readBooks() in book.repository was called");
@@ -63,4 +68,37 @@ export async function deleteBooks(id){
 
 
 
+
+export async function updateBook(id, name, author, description) {
+    const db = await connectDB();
+    
+    const result = await db.collection("books").updateOne(
+        {_id: new ObjectId(id)},
+        {$set: {name:name, author:author, body:description}}
+    );
+
+    return result.modifiedCount;
+}
+
+export async function incrementLikes(_id, amount) {
+    const db = await connectDB();
+
+    const result = await db.collection("books").updateOne(
+        {_id: new ObjectId(id)},
+        {$inc: {votes: amount}}
+    );
+
+    return result.modifiedCount;
+}
+
+export async function incrementDownloads(_id) {
+    const db = await connectDB();
+
+    const result = await db.collection("books").updateOne(
+        {_id: new ObjectId(id)},
+        {$inc: {downloads: 1}}
+    );
+
+    return result.modifiedCount;
+}
 

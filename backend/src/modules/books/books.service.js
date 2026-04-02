@@ -23,6 +23,10 @@ function deleteBooks(id){
 }
 
 
+async function updateBook(id, name, author, description) {
+    return await bookRepo.updateBook(id, name, author, description);
+}
+
 async function addBook({name,author,description},file){
     console.log(name,author,description,file);
     const book = new Book({
@@ -35,4 +39,4 @@ async function addBook({name,author,description},file){
     return await bookRepo.createBook(book);
 }
 
-export {getAllBooks, getBook, getBookByKeyword, addBook,deleteBooks}
+export {getAllBooks, getBook, getBookByKeyword, addBook, updateBook, deleteBooks}
