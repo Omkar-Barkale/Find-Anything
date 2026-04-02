@@ -23,6 +23,10 @@ export async function getBookByKeyword(query){
 
 }
 
+export async function addBook(){
+    
+}
+
 export default async function checkIfCollectionExists(){
     let db = await getDB();
     let collections = await db.listCollections.toArray();
