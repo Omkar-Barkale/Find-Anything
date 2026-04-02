@@ -3,8 +3,6 @@ import path from "path";
 import { DATA_DIR } from "../../constants.js";
 import {connectDB} from '../../db_connection.js';
 import { ObjectId } from "mongodb";
-import { getDB } from "../../index.js";
-import {log} from '../../middleware/logging.middleware.js';
 
 
 
@@ -17,7 +15,6 @@ export async function getBook(id) {
 }
 
 export async function readBooks(){ 
-    const db = await getDB();
     await log("readBooks() in book.repository was called");
     const db = await connectDB();
     const data = await db.collection("books").find({}).toArray(); 
@@ -40,10 +37,6 @@ export async function createBook(book){
 }
 
 export default async function checkIfCollectionExists(){
-    let db = await getDB();
-    let collections = await db.listCollections.toArray();
-    console.log(collections);
-}
     await log("getBookByKeyword() in book.repository was called");
     const db = await connectDB();
     const data = await db.collection("books").find({$or: [
@@ -74,16 +67,7 @@ export async function deleteBooks(id){
 }
 
 
-export default function checkIfDataExists(){
-    try{
-        const data = readBooks();
-        return true;
-    }
-    catch(e){
-        console.log(e);
-        return false;
-    }
-}
+
 
 export async function updateBook(id, name, author, description) {
     const db = await connectDB();

@@ -39,15 +39,9 @@ export async function getBookByKeyword(req, res) {
   
   export async function createPost(req, res){
     console.log("Creating book...");
-
-   
     try{
-         
-
         const {name, author, description} = req.body;
         const file = req.file;
-         
-
         await bookService.addBook({name,author,description},file);
         console.log("Book created successfully");
         res.status(201).json({message:"Book created successfully"});
@@ -67,6 +61,7 @@ export async function getBookByKeyword(req, res) {
         if(!description)
             return res.status(400).json({message:"Description is required"});
     }
+}
 
 export async function deleteBooks(req, res){
     await log("deleteBooks() was called in book.controller");
