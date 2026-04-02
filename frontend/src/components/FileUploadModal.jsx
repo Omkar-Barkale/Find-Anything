@@ -66,6 +66,7 @@ function FileUpload(){
 
         return hasError;
     }
+    
 
     async function handleSubmit(e){
         e.preventDefault();
@@ -78,24 +79,35 @@ function FileUpload(){
             formData.append("description",description);
             formData.append("file",targetFile);
 
-            const res = await fetch("http://localhost:3000/search/create",{
-                method:"POST",
-                body:formData
-            });
-            let data;
-                data = await res.json();
-            if(res.status === 201){
-                setTargetError("Upload successful");
-            } else {
-                setTargetError(data.message || "Upload failed");
+            try{
+                const res = await fetch("http://localhost:3000/search/create",{
+                    method:"POST",
+                    body:formData
+                });
+                let data;
+                try{
+                     data = await res.json();
+                }catch{
+                    data = {message:"Failed to parse response from server"};
+                }
+                    if(res.status === 201){
+                        setTargetError("Upload successful!");
+                    }
+                    else{
+                        setTargetError(data.message || "Failed to upload file. Please try again.");
+                    }
+            } catch (error) {
+                setTargetError("Failed to upload file. Please try again.");
+                console.error("Error uploading file:", error);
             }
-        }
+            
     }
+}
     
     return(
         <>
             <div className="modalOverlay">
-                <form className = "modalStyle" onSubmit={handleSubmit} method>
+                <form className = "modalStyle" onSubmit={handleSubmit}>
                     <div className="uploadContainer">
                         <input id='file' type='file' hidden accept = ".pdf" onChange = {(e)=>handleTargetFile(e)}></input>
                         <label htmlFor="file" className={targetError?"actualUploadBtn invalid":"actualUploadBtn"}><span>{targetFile?targetFile.name:"Click to upload a pdf"}</span></label> 

@@ -1,5 +1,4 @@
 
-import { authMiddleware } from "../../middleware/auth.middleware.js";
 import * as bookRepo from "./book.repository.js";
 import Book from "./domain/types/Books.js"
 

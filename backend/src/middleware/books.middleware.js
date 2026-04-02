@@ -2,6 +2,7 @@ import fs from "fs";
 import multer from 'multer';
 import path from 'path'
 
+
 const maxSize = 16 * 1024 * 1024;
 const UPLOAD_DIR = path.join(process.cwd(),"documents");
 
@@ -19,16 +20,16 @@ const storage = multer.diskStorage({
     }
 });
 export const upload = multer({storage,
-    limits:{fieldSize:maxSize},
-    fileFilter:function(req,file,res,cb){
-        //Allowed Extentions
+    limits:{fileSize:maxSize},
+    fileFilter:function(req,file,cb){
         const filetypes = /pdf|epub/;
         const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-        if(extname){
-            return cb(null, true);
-        }
-        cb(new Error('Only PDF and EPUB files are allowed!'), false);
+        const mimetype = filetypes.test(file.mimetype);
+        if(mimetype && extname){
+            return cb(null,true);
+        }        
+        const error = new Error("Only PDF and EPUB files are allowed!");
+        cb(error, false);
     }
-
 });
 
