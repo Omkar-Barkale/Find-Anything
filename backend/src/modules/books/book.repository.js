@@ -22,7 +22,7 @@ export async function getBookByKeyword(query){
     ]}).toArray(); 
 
     console.log("Getting specific books from MongoDB");
-    
+
     return data;
 }
 

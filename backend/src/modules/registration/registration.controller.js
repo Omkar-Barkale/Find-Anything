@@ -15,7 +15,6 @@ export async function createAccount(req, res)
         if(!email_regex.test(email))
             throw new Error("Invalid email format");
 
-
         if(!password_regex.test(password))
             throw new Error("Invalid password format");
 

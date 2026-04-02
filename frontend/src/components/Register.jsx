@@ -2,12 +2,17 @@ import { useState } from 'react'
 import {Link} from 'react-router-dom';
 import "./styles/Register.css"
 import FileUploader from './FileUploader';
+import {useNavigate} from 'react-router-dom';
 import NavBar from './NavBar'
 
 
 
 function Register()
 {
+
+
+      const navigate = useNavigate();
+
     const[email, setEmail] = useState("");
     const[username, setUsername] = useState("");
     const[password, setPassword] = useState("");
@@ -96,7 +101,8 @@ function Register()
             setUserNameError(err.message);
         });
 
-    }   
+            navigate("/login");
+        }   
 
     return(    
         <>

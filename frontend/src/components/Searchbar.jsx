@@ -16,7 +16,6 @@ import Card from './Card.jsx'
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
                     }
                 }); 
                 //TODO 

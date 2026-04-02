@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import { getUser } from '../modules/auth/auth.repository.js';
+import bcrypt from 'bcrypt'
 
-const regex_email = /^(.+)@([^\.].*)\.([a-z]{2,})$/;
-const regex_password = /^[a-zA-Z]\w{8,16}$/;
+const regex_password = /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{9,17}$/;;
 
 function invalidToken(res){ //helper function
     console.log("token is bad");
@@ -48,23 +48,27 @@ export function authMiddleware(req,res,next){
 export async function sendToken(req, res, next){
 
     const jwt_secret = process.env.jwt_secret;
-    const {email, password} = req.body;
+    const username = req.body.username;
+    const password = req.body.password;
     let db_return;
 
-    if(regex_email.test(email) && regex_password.test(password))
+    if(username && regex_password.test(password))
     {
-        db_return = await getUser(req.body); //im going to drop kick a child '[]' has precedence over the 'await'
+        db_return = await getUser({username});
     }
     else
-        {
-        return res.status(400).json({
-            error: "Badly formated password or email"
-        })
+    {
+        return res.status(401).json({
+            error: "Badly formated password or username"
+        });
     }
 
     const user = db_return[0];
 
-    if(user && password === String(user.password)){ // if user is non null and passwords match
+    if(!user)
+        return res.status(400).json({error: "Incorrect username"});
+
+    if(await bcrypt.compare(password, user.password)){ // if user is non null and passwords match
         
         const token = jwt.sign( 
             user, //payload email, password and role
@@ -82,7 +86,7 @@ export async function sendToken(req, res, next){
     }
     else{
         return res.status(401).json({
-            error: "Incorrect Email or Password"
+            error: "Incorrect Password"
         })
     }
 

@@ -5,13 +5,12 @@ import {Link} from 'react-router-dom';
 
 function Login(){
 
-    const[email, setEmail] = useState("");
+    const[username, setUsername] = useState("");
     const[password, setPassword] = useState("");
     const[message, setMessage] = useState("");
-    const[badEmail, setbadEmailMessage] = useState("");
-    const[badPassword, setbadPasswordMessage] = useState("");
-    const regex_email = /^(.+)@([^\.].*)\.([a-z]{2,})$/;
-    const regex_password = /^[a-zA-Z]\w{8,16}$/;
+    const[badUsername, setBadUsername] = useState("");
+    const[badPasswordMessage, setBadPasswordMessage] = useState("");
+    const regex_password = /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{9,17}$/;
 
     const navigate = useNavigate();
 
@@ -22,7 +21,7 @@ function Login(){
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                email: email,
+                username: username,
                 password: password
             })
         })
@@ -39,7 +38,7 @@ function Login(){
                 localStorage.setItem('userToken', data.token); //backend returns token inside data json store the token in the browsers local storage
                 //at this point i have the token
                 setMessage(data.message);
-                navigate("/Home");
+                navigate("/home");
             }
             
         })
@@ -52,21 +51,16 @@ function Login(){
     function CheckInput(e){
         e.preventDefault();
 
-        setbadEmailMessage("");
-        setbadPasswordMessage("");
+        setBadUsername("");
+        setBadPasswordMessage("");
 
 
         let validInput = true;
-        if(!regex_email.test(email)){
-            //badly formated email
-            console.log("Email is bad");
-            setbadEmailMessage("Enter a Valid Email Address");
-            validInput = false;
-        }
+
         if(!regex_password.test(password)){
             //badly formated password
             console.log("password is bad");
-            setbadPasswordMessage("Password must be between 8 to 16 characters");
+            setBadPasswordMessage("Password must be between 8 to 16 characters");
             validInput = false;
         }
 
@@ -84,31 +78,25 @@ function Login(){
             <form onSubmit={CheckInput}>
                 <input 
                     type='text'
-                    className={badEmail ? "badInput" : ""}
-                    placeholder='Email' 
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    className={badUsername ? "badInput" : ""}
+                    placeholder='Username' 
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     //pattern="(.+)@([^\.].*)\.([a-z]{2,})"
                 />
-                {badEmail ? <span>{badEmail}</span> : <></>}
+                {badUsername ? <span>{badUsername}</span> : <></>}
                 <input 
                     type='password' 
-                    className={badPassword ? "badInput" : ""}
+                    className={badPasswordMessage ? "badInput" : ""}
                     placeholder='Password' 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     //pattern="[A-Za-z0-9]\w{8,16}"
                 />
 
-                <div id='preferences'>
-                    <div id='Remember'>
-                        <input type='checkbox'/>Remember me
-                    </div>
-                    <button id='forgotPassword'>Forgot Password?</button>
-                </div>
 
                 <div id='continue_btns'>
-                    <button className='toMain_btn' type='submit'>Submit</button>
+                    <button className='toMain_btn' type='submit'>Log In</button>
                     <button className='toMain_btn' type='button'>Continue as Guest</button>
                 </div>
                 

@@ -5,9 +5,9 @@ import {connectDB} from "../../db_connection.js"
 
 const users_file = path.join(DATA_DIR, "test_users.json");
 
-async function getUser(user){
+async function getUser({username}){
     const db = await connectDB();
-    const data = await db.collection('users').find(user).toArray();
+    const data = await db.collection('users').find({username}).toArray();
     return data;
 }
 
