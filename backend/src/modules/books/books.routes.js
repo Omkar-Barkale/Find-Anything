@@ -8,4 +8,5 @@ export const bookRoutes = Router();
 bookRoutes.get('/', bookController.getAllBooks);
 bookRoutes.post('/create', validateBookUpload, bookController.createPost);
 bookRoutes.get('/:query', bookController.getBookByKeyword)
+bookRoutes.post('/update/:id', bookController.updateBook);
 bookRoutes.delete('/delete/:id', bookController.deleteBooks);

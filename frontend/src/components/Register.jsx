@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import "./styles/Register.css"
 import FileUploader from './FileUploader';
 import {useNavigate} from 'react-router-dom';
-import NavBar from './NavBar'
 
 
 

@@ -17,7 +17,7 @@ function Card(props){
                <h5 className = 'author'>{props.author}</h5>
                <p className="card-body">{props.body}</p>
           </div>
-          {showModal && <BookModal onClose={()=>setShowModel(false)} cover = "mongoDB later" name = {props.name} author = {props.author}/>}
+          {showModal && <BookModal onClose={()=>setShowModel(false)} cover = "mongoDB later" name = {props.name} author = {props.author} id = {props.id}/>}
 
      </>);
 }

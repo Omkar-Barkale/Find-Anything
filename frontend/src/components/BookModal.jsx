@@ -1,10 +1,15 @@
 import { useState } from 'react'
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import './styles/BookModal.css'
 import Card from './Card'
 
 function BookModal(props)
 {
+    const navigate = useNavigate();
+
+    function openEdit() {
+        navigate(`/book/edit/${props.id}`)
+    }
     return(
         
         <>
@@ -19,6 +24,7 @@ function BookModal(props)
                         <div id = "bookInfo">
                             <h4 id = "bookName">{props.name}</h4>
                             <h5 id = "bookAuthor"> {props.author}</h5>
+                            <button id = "edit" onClick={openEdit}>Edit</button>
                         </div>
                     </div>
 

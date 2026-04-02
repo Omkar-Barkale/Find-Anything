@@ -4,6 +4,7 @@ import Login from "./components/Login.jsx"
 import Home from "./components/Home.jsx"
 import Upload from "./components/FileUploadModal.jsx"
 import Register from "./components/Register.jsx"
+import EditBook from "./components/EditBook.jsx"
 import Admin from "./components/Admin.jsx"
 
 import {Routes, Route} from 'react-router-dom'
@@ -19,6 +20,7 @@ function App() {
         <Route path = "/admindashboard" element = {<Admin/>}/>
         <Route path = "/register" element = {<Register/>}/>
         <Route path = "*" element ={<Home/>}/>
+        <Route path = "/book/edit/:id" element = {<EditBook/>}/>
       </Routes>
   </>
   )
