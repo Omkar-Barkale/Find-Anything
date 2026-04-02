@@ -10,7 +10,7 @@ const users_file = path.join(DATA_DIR, "test_users.json");
 async function getUser(user){
     await log("User " + user + " was gotten");
     const db = await connectDB();
-    const data = await db.collection('users').find(user).toArray();
+    const data = await db.collection('users').find({username}).toArray();
     return data;
 }
 

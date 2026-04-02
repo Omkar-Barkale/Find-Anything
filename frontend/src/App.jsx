@@ -8,10 +8,6 @@ import Admin from "./components/Admin.jsx"
 import {Routes, Route} from 'react-router-dom'
 
 
-
-
-
-
 function App() {
   return (
     <>

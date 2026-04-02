@@ -16,12 +16,14 @@ export async function readBooks(){
 }
 
 
-//maybe TODO? query mongodb directly instead of getting to JS array
 export async function getBookByKeyword(query){
     await log("getBookByKeyword() in book.repository was called");
     const db = await connectDB();
-    const data = await db.collection("books").find({}).toArray(); 
-    const safeQuery = query.toLowerCase();
+    const data = await db.collection("books").find({$or: [
+        {name: {$regex: query, $options: 'i'}},
+        {author: {$regex: query, $options: 'i'}}
+    ]}).toArray(); 
+
     console.log("Getting specific books from MongoDB");
     const queryReturn = data.filter((book,index,data)=>{
         console.log(book.name+ " vs " + query);

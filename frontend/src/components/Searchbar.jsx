@@ -10,17 +10,13 @@ import Card from './Card.jsx'
     
     useEffect(() => { //loads all books from MongoDB on initial render, only once([]) instead of reading from json file
 
-        const token = localStorage.getItem('userToken');
         const load = async () => {
                 const response = await fetch('http://localhost:3000/search/', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
                     }
                 }); 
-                //TODO 
-                // added if statement is the fetch fails due to bad token 
                 const data = await response.json();
                 setBooks(data);
         }
