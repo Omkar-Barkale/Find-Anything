@@ -14,19 +14,32 @@ export async function readBooks(){
 }
 
 
-//maybe TODO? query mongodb directly instead of getting to JS array
 export async function getBookByKeyword(query){
     const db = await connectDB();
-    const data = await db.collection("books").find({}).toArray(); 
-    const safeQuery = query.toLowerCase();
-    console.log("Getting specific books from MongoDB");
-    const queryReturn = data.filter((book,index,data)=>{
-        console.log(book.name+ " vs " + query);
-        return(book.name.toLowerCase().includes(safeQuery)||book.author.toLowerCase().includes(safeQuery))
-    });
-    return queryReturn;
+    const data = await db.collection("books").find({$or: [
+        {name: {$regex: query, $options: 'i'}},
+        {author: {$regex: query, $options: 'i'}}
+    ]}).toArray(); 
 
+    console.log("Getting specific books from MongoDB");
+
+    return data;
 }
+
+
+//TODO, need to adjust to use mongodb query directly, not a local array 
+// export async function getBookByKeyword(query){
+//     const db = await connectDB();
+//     const data = await db.collection("books").find({}).toArray(); 
+//     const safeQuery = query.toLowerCase();
+//     console.log("Getting specific books from MongoDB");
+//     const queryReturn = data.filter((book,index,data)=>{
+//         console.log(book.name + " vs " + query);
+//         return(book.name.toLowerCase().includes(safeQuery)||book.author.toLowerCase().includes(safeQuery))
+//     });
+//     return queryReturn;
+
+// }
 
 export default function checkIfDataExists(){
     try{
