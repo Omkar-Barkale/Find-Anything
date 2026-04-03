@@ -14,6 +14,7 @@ function getBookByKeyword(query){
     return data;
 }
 function deleteBooks(id){
+    console.log("deleteBooks services ran");
     const response = bookRepo.deleteBooks(id);
     return response;
 }
