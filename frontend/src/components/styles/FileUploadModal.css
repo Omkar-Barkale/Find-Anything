@@ -70,7 +70,7 @@ input::placeholder{
 .actualUploadBtn{
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
-
+    align-items: center;
     font-family:sans-serif;
     border: .5em, dashed green;
     border-radius: 1rem;
@@ -88,7 +88,11 @@ input::placeholder{
 .invalid input, .invalid select{
     border: 2px solid red;
 }
-span{
+.invalid span{
     color:red;
+}
+.uploadText{
+    margin: auto;
+    font-size: 1.5em;
 }
 

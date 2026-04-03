@@ -1,8 +1,12 @@
 import {useState} from "react"
+import {FileUploader} from "react-drag-drop-files"
 import "./styles/FileUploadModal.css"
 
 
 function FileUpload(){
+    const fileTypes = ["PDF","EPUB"];
+    const [isDragging, setIsDragging] = useState(false);
+
     const[name, setName] = useState("");
     const[author, setAuthor] = useState("");
     const[description, setDescription] = useState("");
@@ -34,6 +38,29 @@ function FileUpload(){
         setTargetFile(e.target.files[0]);
         setTargetError("");
      }
+
+    function handleDragEnter(e){
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(true);
+
+    }
+    
+    function handleDragOver(e){
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    function handleDragLeave(e){
+        e.preventDefault();
+        e,stopPropagation();
+        setIsDragging(false);
+    }
+    function handleDrop(e){
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+        setTargetFile(e.dataTransfer.files[0]);
+    }
 
     function formValidator(){
         let hasError=false;
@@ -110,7 +137,14 @@ function FileUpload(){
                 <form className = "modalStyle" onSubmit={handleSubmit}>
                     <div className="uploadContainer">
                         <input id='file' type='file' hidden accept = ".pdf" onChange = {(e)=>handleTargetFile(e)}></input>
-                        <label htmlFor="file" className={targetError?"actualUploadBtn invalid":"actualUploadBtn"}><span>{targetFile?targetFile.name:"Click to upload a pdf"}</span></label> 
+                        <label htmlFor="file" 
+                            onDragEnter = {handleDragEnter}
+                            onDragOver = {handleDragOver}
+                            onDragLeave = {handleDragLeave}
+                            onDrop = {handleDrop}
+                            className={targetError?"actualUploadBtn invalid":"actualUploadBtn"}>
+                            <span className = "uploadText">{targetFile?targetFile.name:"Click to upload a pdf"}</span>
+                            </label> 
                         
                         <span>{targetError}</span>   
                     </div>
