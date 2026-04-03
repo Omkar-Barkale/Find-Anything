@@ -19,11 +19,15 @@ function getUserByEmail(email){
     }
 }
 
+function getUserById(id)
+{
+    return userRepo.getUserById(id);
+}
+
 function deleteUsers(id){
-    const response = userRepo.deleteUsers(id);
-    return response;
+    return userRepo.deleteUsers(id);
 }
 
 
 
-export {getAllUsers, getUserByEmail, deleteUsers}
+export {getAllUsers, getUserByEmail, getUserById, deleteUsers}

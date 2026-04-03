@@ -8,4 +8,5 @@ export const authRoutes = Router();
 authRoutes.post('/token', auth.sendToken);
 authRoutes.delete('/delete/:id', authController.deleteUsers);
 authRoutes.get('/users', authController.getAllUsers)
+authRoutes.get('/users/:id', authController.getUserById)
 //authRoutes.get('/logs', auth)

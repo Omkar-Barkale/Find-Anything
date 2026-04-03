@@ -9,6 +9,15 @@ const users_file = path.join(DATA_DIR, "test_users.json");
 async function getUser({username}){
     const db = await connectDB();
     const data = await db.collection('users').find({username}).toArray();
+    console.log(data);
+    return data;
+}
+
+async function getUserById(id){
+    const db = await connectDB();
+    const data = await db.collection('users').find({_id : new ObjectId(id)}).toArray();
+    if(data.length === 0)
+        throw new Error("No user found with that id");
     return data;
 }
 
@@ -33,4 +42,4 @@ async function deleteUsers(id){
 }
 
 
-export {getAllUsers, getUser, deleteUsers};
+export {getAllUsers, getUser,getUserById,deleteUsers};

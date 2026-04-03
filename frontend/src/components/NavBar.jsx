@@ -14,12 +14,12 @@ function NavBar() {
       if(token)
       {
         const decoded = jwtDecode(token);
-        console.log(decoded);
+                console.log(decoded);
         setRole(decoded.role);
       }
       else{
         setRole("");
-        console.log("no token found")
+        console.log("Token removed/not found")
       }
   }, [token]);
 
@@ -61,8 +61,8 @@ function User(props){
   return(
     <>
     <li><a href = "#" id = 'lib' onClick={()=>alert("Library Clicked")}>Your Library</a></li>
-        <li className = "upload"><Link to = "/test">Upload</Link> </li>
-    <li className = "profile"> <a href = "#" onClick={()=>alert("Profile Clicked")}>Profile</a>    </li>
+    <li className = "upload"><Link to = "/test">Upload</Link> </li>
+    <li className = "profile"><Link to ="/profile" > Profile </Link></li>
     <li className = "logout"> <a href = "#" onClick={()=>{localStorage.removeItem('token'); props.setToken(null);}}>Logout</a> </li>
 
     </>

@@ -7,6 +7,13 @@ async function getAllUsers(req, res){
     res.json(data);
 }
 
+async function getUserById(req, res){
+    const userId = req.params.id;
+    console.log("User Id: " + userId);
+    const user = await userServices.getUserById(userId);
+    res.json(user);
+}
+
 async function getUserByEmail(req, res){
     res.status(200);
     let user = await userServices.getUserByEmail(req.body.email);
@@ -39,4 +46,4 @@ async function deleteUsers(req, res){
 
 
 
-export {getAllUsers, getUserByEmail, deleteUsers};
+export {getAllUsers,getUserById,getUserByEmail, deleteUsers};
