@@ -14,7 +14,7 @@ function NavBar() {
       if(token)
       {
         const decoded = jwtDecode(token);
-                console.log(decoded);
+        console.log(decoded);
         setRole(decoded.role);
       }
       else{

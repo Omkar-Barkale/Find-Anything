@@ -18,7 +18,7 @@ async function getUserById(id){
     const data = await db.collection('users').find({_id : new ObjectId(id)}).toArray();
     if(data.length === 0)
         throw new Error("No user found with that id");
-    return data;
+    return data[0];
 }
 
 async function getAllUsers(){
