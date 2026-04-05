@@ -10,7 +10,7 @@ function Register()
 {
 
 
-      const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const[email, setEmail] = useState("");
     const[username, setUsername] = useState("");
