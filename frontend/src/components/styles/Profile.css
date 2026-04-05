@@ -7,15 +7,20 @@
     align-items: center;
 }
 
-#profileModal{
+#profileModal {
+    display: flex;
+    max-width: 700px;      
+    min-width: 600px;
+    width: 90%;
+    min-height: 700px;
+    height: 80%;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    border-radius: 15px;
+    background-color: rgb(255, 255, 255);
     justify-content: center;
     align-items: center;
-    position: relative;
-    background-color: rgb(255, 255, 255);
-    display: flex;
-    width: 40%;
-    height: 80%;
-    border-radius: 15px;
+    box-sizing: border-box; 
 }
 
 #edit{
@@ -30,6 +35,8 @@
     background-color: lightgray;
     width: 100%;
     height: 100%;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
 
 }
 
@@ -37,7 +44,7 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;   
-  border: 2px solid white;
+  border: 2px solid rgb(172, 165, 172);
   background-size: cover;
   margin: 0px;
   display: inline;

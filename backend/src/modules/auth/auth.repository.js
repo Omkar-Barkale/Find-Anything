@@ -41,5 +41,40 @@ async function deleteUsers(id){
     }
 }
 
+async function updateUser(id, email, username, password, avatarBuffer, avatarType){
+    const db = await connectDB();
+    let currentUser = await getUserById(id);
+    let trueEmail = email? email : currentUser.email;
+    let trueUsername = username? username : currentUser.username;
+    let truePassword = password? password: currentUser.password;
+    let trueAvatarBuffer = avatarBuffer? avatarBuffer : currentUser.avatar;
+    let trueAvatarType = avatarType? avatarType: currentUser.avatarType;
+    
 
-export {getAllUsers, getUser,getUserById,deleteUsers};
+    let userExists = await getUser({username});
+    userExists = userExists.filter(user => user._id.toString() !== id);
+    if(userExists.length > 0)
+        throw new Error("Username taken already");
+
+
+    const setObj = {
+            email: trueEmail,
+            username: trueUsername,
+            password: truePassword,
+            avatar: trueAvatarBuffer,
+            avatarType: trueAvatarType
+    };
+
+    const data = await db.collection("users").updateOne
+    (
+        {_id : new ObjectId(id)},
+        {$set: setObj}
+    );
+
+    console.log("Updating user with id:", id);
+
+    return id;
+}
+
+
+export {getAllUsers, getUser,getUserById,deleteUsers, updateUser};

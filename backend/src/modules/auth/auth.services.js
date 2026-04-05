@@ -28,6 +28,11 @@ function deleteUsers(id){
     return userRepo.deleteUsers(id);
 }
 
+async function updateUser(id, email, username, password, avatarBuffer, avatarType)
+{
+    return await userRepo.updateUser(id, email, username, password, avatarBuffer,avatarType);
+}
 
 
-export {getAllUsers, getUserByEmail, getUserById, deleteUsers}
+
+export {getAllUsers, getUserByEmail, getUserById, deleteUsers, updateUser}

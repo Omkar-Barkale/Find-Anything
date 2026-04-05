@@ -4,12 +4,15 @@ import { jwtDecode } from "jwt-decode";
 import "../components/styles/Profile.css"
 import NavBar from './NavBar.jsx';
 import * as Validation from '../util/frontendValidation.js'
+import { useNavigate } from 'react-router-dom';
+
 
 function Profile()
 {
 
     //for best practice it is not recommended to get data about user from token
     //since they are used for authentication primarily
+    const navigate = useNavigate();
 
 
     const [userId, setUserId] = useState(null);
@@ -28,6 +31,7 @@ function Profile()
     const [passwordError, setPasswordError] = useState("");
     const [confirmError, setConfirmError] = useState("");
     const [avatarError, setAvatarError] = useState("");
+    const [serverError, setServerError] = useState("");
 
 
 
@@ -44,6 +48,11 @@ function Profile()
     function handleSubmit(e) {
 
         e.preventDefault();
+        if(!token)
+        {
+            console.log("Requires token");
+            return;
+        }
 
         const usernameErr = Validation.validateUsername(userInfo.username);
         const emailErr = Validation.validateEmail(userInfo.email);
@@ -59,21 +68,33 @@ function Profile()
             return; //return if one of the fields has an error, as "" is falsy 
 
         const formData = new FormData();
+        formData.append("id", userId);
         formData.append("username", userInfo.username);
         formData.append("email", userInfo.email);
         if (avatarFile) 
             formData.append("avatar", avatarFile);
-        if (userInfo.password) 
+        if (userInfo.password) //if the user password is empty does not append
+        {
             formData.append("password", userInfo.password);
-
-        fetch(`http://localhost:3000/auth/users/${userId}`, {
+            formData.append("confirmPassword", confirmPassword);
+        }
+        fetch("http://localhost:3000/auth/users/update", {
             method: "PUT",
             body: formData
         })
-        .then(res => res.json())
-        .then(data => console.log("Profile updated:", data))
-        .catch(err => {console.error(err.message)
-            setUsernameError(err.message);
+        .then(async res => {
+            const data = await res.json();
+            if (!res.ok) 
+                throw new Error(data.message);
+            return data;
+        })
+        .then(data => {
+            console.log("Profile updated:", data);
+            navigate('/profile');
+        })
+        .catch(err => {
+            console.error("Username error", err.message);
+            setUsernameError(err.message); 
         });
     }
 
@@ -92,6 +113,7 @@ function Profile()
                     email: data.email,
                     password: ""
                 });
+                setConfirmPassword("");
         }
         load();
     }, [userId])
@@ -162,6 +184,9 @@ function Profile()
 
                         <input type = "file" onChange = {handleFileChange} ></input>
                         {<p className="errorText">{avatarError}</p>}
+
+
+                        {<p className="errorText">{serverError}</p>}
 
                         <button id = "registerBtn" type="submit"> Save Changes</button>
                     </form>
