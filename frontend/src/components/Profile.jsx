@@ -31,7 +31,6 @@ function Profile()
     const [passwordError, setPasswordError] = useState("");
     const [confirmError, setConfirmError] = useState("");
     const [avatarError, setAvatarError] = useState("");
-    const [serverError, setServerError] = useState("");
 
 
 
@@ -186,7 +185,6 @@ function Profile()
                         {<p className="errorText">{avatarError}</p>}
 
 
-                        {<p className="errorText">{serverError}</p>}
 
                         <button id = "registerBtn" type="submit"> Save Changes</button>
                     </form>
