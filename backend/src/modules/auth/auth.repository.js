@@ -9,7 +9,7 @@ const users_file = path.join(DATA_DIR, "test_users.json");
 async function getUser({username}){
     const db = await connectDB();
     const data = await db.collection('users').find({username}).toArray();
-    console.log(data);
+    //console.log(data);
     return data;
 }
 
@@ -22,7 +22,7 @@ async function getUserById(id){
 }
 
 async function getAllUsers(){
-    
+    // console.log("running repo get all users");
     const db = await connectDB();
     const data = await db.collection("users").find().toArray();
     return data;

@@ -14,11 +14,16 @@ function NavBar() {
 
 
   useEffect(() => {
-      if(token)
+      if(token && token.includes('.'))
       {
-        const decoded = jwtDecode(token);
-        console.log(decoded);
-        setRole(decoded.role);
+        try{
+           const decoded = jwtDecode(token);
+          console.log(decoded);
+          setRole(decoded.role);
+        }catch(err){
+          console.error("NavBar Decode Failed:", err.message);
+          setRole("");
+        }
       }
       else{
         setRole("");
@@ -82,7 +87,7 @@ function Admin(props){
     <li><a href = "#" id = 'lib' onClick={()=>alert("Library Clicked")}>Your Library</a></li>
         <li className = "upload"> <a href = "#" onClick={()=>{alert("Post clicked")}}>Upload</a>    </li>
     <li id = "mod"> <Link to="/admindashboard">Moderation Dashboard</Link> </li>
-    <li className = "profile"> <a href = "#"  onClick={()=>alert("Profile Clicked")}>Profile</a> </li>
+    <li className = "profile"><Link to ="/profile" > Profile </Link> </li>
         <li className = "logout"> <a href = "#" onClick={()=>{localStorage.removeItem('token'); props.setToken(null); navigate('/')}}>Logout</a>    </li>
 
   </>
