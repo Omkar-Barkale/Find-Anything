@@ -19,11 +19,20 @@ function getUserByEmail(email){
     }
 }
 
+function getUserById(id)
+{
+    return userRepo.getUserById(id);
+}
+
 function deleteUsers(id){
-    const response = userRepo.deleteUsers(id);
-    return response;
+    return userRepo.deleteUsers(id);
+}
+
+async function updateUser(id, email, username, password, avatarBuffer, avatarType)
+{
+    return await userRepo.updateUser(id, email, username, password, avatarBuffer,avatarType);
 }
 
 
 
-export {getAllUsers, getUserByEmail, deleteUsers}
+export {getAllUsers, getUserByEmail, getUserById, deleteUsers, updateUser}

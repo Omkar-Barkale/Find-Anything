@@ -29,11 +29,12 @@ export async function createAccount(req, res)
             throw new Error("Image error");
 
         const imgBuffer = req.file ? req.file.buffer : null; //safety check added
+        const imgType = req.file.mimetype;
 
 
 
 
-        const account = await registrationService.createAccount(email, username, hashedPassword, imgBuffer);
+        const account = await registrationService.createAccount(email, username, hashedPassword, imgBuffer, imgType);
         res.status(201).json({ id: account });    //mongodb id
     }
     catch(err){

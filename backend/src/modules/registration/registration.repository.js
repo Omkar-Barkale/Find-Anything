@@ -1,6 +1,6 @@
 import {connectDB} from '../../db_connection.js'
 
-export async function createAccount(email, username, password, imgBuffer){
+export async function createAccount(email, username, password, imgBuffer, imgType){
     let db = await connectDB();
 
     const isExistingName = await db.collection("users").findOne({username: username}); //findOne returns a document instead of cursor, if none then null
@@ -14,6 +14,7 @@ export async function createAccount(email, username, password, imgBuffer){
         username: username,
         password: password,
         avatar: imgBuffer,
+        avatarType: imgType,
         role: "user"
     });
 

@@ -33,7 +33,8 @@ export async function authMiddleware(req,res,next){
         req.user = decoded; //create a user json object in the request
         next();
        
-    }catch(err){ // if token is bad send invalid token error
+    }
+    catch(err){ // if token is bad send invalid token error
         return res.status(403).json(
             {
             error: "Invalid Token"
