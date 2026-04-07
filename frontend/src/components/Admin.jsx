@@ -68,7 +68,7 @@ function Admin(){
         }, [])
 
     function getAvatar(user){
-            return "./path.png";
+        return `data:${user.avatarType};base64,${user.avatar}`;
         }
 
     function numPosts(user){

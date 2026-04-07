@@ -3,7 +3,7 @@ import * as bookController from "./books.controller.js";
 import {validateBookUpload} from "../../middleware/uploadValidator.js";
 import {authenticate} from "../../middleware/auth.middleware.js"
 export const bookRoutes = Router();
-
+import {log} from "../../middleware/Logging.js"
 //NOTES:
 //authenticate() checks that the user is logged is a member or admin
 
@@ -11,10 +11,10 @@ export const bookRoutes = Router();
 
 
 bookRoutes.get('/', bookController.getAllBooks);
-bookRoutes.post('/create', authenticate, validateBookUpload, bookController.createPost);
+bookRoutes.post('/create',log ,authenticate, validateBookUpload, bookController.createPost);
 bookRoutes.get('/:query', bookController.getBookByKeyword)
-bookRoutes.post('/update/:id', bookController.updateBook); //need security
-bookRoutes.delete('/delete/:id', bookController.deleteBooks); //need security
+bookRoutes.post('/update/:id',log, bookController.updateBook); //need security
+bookRoutes.delete('/delete/:id',log, bookController.deleteBooks); //need security
 
 
 
