@@ -43,6 +43,9 @@ app.get('/', (req, res) => {
 //Books route
 app.use("/search",bookRoutes);
 
+//Book modal
+app.use("/books", bookRoutes);
+
 //Login route
 app.use("/auth", authRoutes);
 

@@ -50,4 +50,10 @@ async function addBook({name,author,description},file, coverFile, userId){
     return await bookRepo.createBook(book);
 }
 
-export {getAllBooks, getBookByKeyword, addBook, updateBook, deleteBooks}
+
+async function createComment(userId, bookId, comment, date)
+{
+    return await bookRepo.createComment(userId,bookId,comment,date);
+}
+
+export {getAllBooks, getBookByKeyword, addBook, updateBook, deleteBooks, createComment}

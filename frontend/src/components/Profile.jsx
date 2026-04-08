@@ -92,7 +92,7 @@ function Profile()
         })
         .then(data => {
             console.log("Profile updated:", data);
-            navigate('/profile');
+            alert("Update successful");
         })
         .catch(err => {
             console.error("Username error", err.message);
