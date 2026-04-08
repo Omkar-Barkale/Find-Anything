@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 
 async function getAllUsers(req, res){
     res.status(200);
-    console.log("Running User Controller : all");
+    // console.log("Running User Controller : all");
     const data = await userServices.getAllUsers()
     res.json(data);
 }

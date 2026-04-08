@@ -14,11 +14,16 @@ function NavBar() {
 
 
   useEffect(() => {
-      if(token)
+      if(token && token.includes('.'))
       {
-        const decoded = jwtDecode(token);
-        console.log(decoded);
-        setRole(decoded.role);
+        try{
+           const decoded = jwtDecode(token);
+          console.log(decoded);
+          setRole(decoded.role);
+        }catch(err){
+          console.error("NavBar Decode Failed:", err.message);
+          setRole("");
+        }
       }
       else{
         setRole("");
