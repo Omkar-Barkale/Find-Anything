@@ -112,9 +112,11 @@ function FileUpload(){
             formData.append("description",description);
             formData.append("file",targetFile);
             formData.append("cover",coverFile);
+            const token = localStorage.getItem("token");
 
             try{
                 const res = await fetch("http://localhost:3000/search/create",{
+                    headers:{'Authorization': `Bearer ${token}`},
                     method:"POST",
                     body:formData
                 });
@@ -125,13 +127,13 @@ function FileUpload(){
                     data = {message:"Failed to parse response from server"};
                 }
                     if(res.status === 201){
-                        setTargetError("Upload successful!");
+                        setStatus("Upload successful!");
                     }
                     else{
-                        setTargetError(data.message || "Failed to upload file. Please try again.");
+                        setStatus(data.message || "Failed to upload file. Please try again.");
                     }
             } catch (error) {
-                setTargetError("Failed to upload file. Please try again.");
+                setStatus("Failed to upload file. Please try again.");
                 console.error("Error uploading file:", error);
             }
             
@@ -225,7 +227,9 @@ function FileUpload(){
                     </div>
                     
                 </div>
-            </form>  
+                            <span className="status">{status}</span>
+
+            </form>
         </div>
 
     );
