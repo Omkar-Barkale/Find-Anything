@@ -2,7 +2,7 @@ import fs, { read } from "fs";
 import path from "path";
 import { DATA_DIR } from "../../constants.js";
 import {connectDB} from '../../db_connection.js'
-
+import { ObjectId } from 'mongodb';
 
 
 
@@ -34,6 +34,8 @@ export async function createBook(book){
 
 
 export async function deleteBooks(id){
+    console.log("deleteBooks repo ran id: " + id);
+
     const db = await connectDB();
     const result = await db.collection("books").deleteOne({_id : new ObjectId(id)});
     console.log(id);

@@ -63,6 +63,7 @@ export async function getBookByKeyword(req, res) {
 }
 
 export async function deleteBooks(req, res){
+    console.log("deletebook services ran");
     const {id} = req.params;
     const response = await bookService.deleteBooks(id);
     if(response){

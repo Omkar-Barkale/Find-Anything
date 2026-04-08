@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
 import {Link} from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from 'react-router-dom';
 import './styles/NavBar.css'
+
+
 
 function NavBar() {
 
@@ -19,7 +22,7 @@ function NavBar() {
       }
       else{
         setRole("");
-        console.log("no token found")
+        console.log("Token removed/not found")
       }
   }, [token]);
 
@@ -57,27 +60,30 @@ function NavBar() {
 }
 
 function User(props){
+  const navigate = useNavigate();
 
   return(
     <>
     <li><a href = "#" id = 'lib' onClick={()=>alert("Library Clicked")}>Your Library</a></li>
-        <li className = "upload"><Link to = "/test">Upload</Link> </li>
-    <li className = "profile"> <a href = "#" onClick={()=>alert("Profile Clicked")}>Profile</a>    </li>
-    <li className = "logout"> <a href = "#" onClick={()=>{localStorage.removeItem('token'); props.setToken(null);}}>Logout</a> </li>
+    <li className = "upload"><Link to = "/test">Upload</Link> </li>
+    <li className = "profile"><Link to ="/profile" > Profile </Link></li>
+    <li className = "logout"> <a href = "#" onClick={()=>{localStorage.removeItem('token'); props.setToken(null); navigate('/')}}>Logout</a> </li>
 
     </>
   )
 
 }
 function Admin(props){
+    const navigate = useNavigate();
+
 
   return(  
   <>
     <li><a href = "#" id = 'lib' onClick={()=>alert("Library Clicked")}>Your Library</a></li>
         <li className = "upload"> <a href = "#" onClick={()=>{alert("Post clicked")}}>Upload</a>    </li>
-    <li id = "mod"> <a href = "#"  onClick={()=>alert("Mod Clicked")}>Moderation Dashboard</a> </li>
+    <li id = "mod"> <Link to="/admindashboard">Moderation Dashboard</Link> </li>
     <li className = "profile"> <a href = "#"  onClick={()=>alert("Profile Clicked")}>Profile</a> </li>
-        <li className = "logout"> <a href = "#" onClick={()=>{localStorage.removeItem('token'); props.setToken(null);}}>Logout</a>    </li>
+        <li className = "logout"> <a href = "#" onClick={()=>{localStorage.removeItem('token'); props.setToken(null); navigate('/')}}>Logout</a>    </li>
 
   </>
   )

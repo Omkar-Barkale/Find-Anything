@@ -10,7 +10,7 @@ function Register()
 {
 
 
-      const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const[email, setEmail] = useState("");
     const[username, setUsername] = useState("");
@@ -94,14 +94,14 @@ function Register()
             console.log("Registration successful:", data); 
             alert("Registration successful!");
             e.target.reset();
+            navigate("/login");
         })
         .catch(err => {
             console.error("Registration error: ", err.message);
             setUserNameError(err.message);
         });
 
-            navigate("/login");
-        }   
+    }   
 
     return(    
         <>
