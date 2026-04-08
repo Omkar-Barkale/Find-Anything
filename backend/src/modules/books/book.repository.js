@@ -50,7 +50,6 @@ export async function deleteBooks(id){
 
 
 
-
 export async function updateBook(id, name, author, description) {
     const db = await connectDB();
     
@@ -83,4 +82,3 @@ export async function incrementDownloads(_id) {
 
     return result.modifiedCount;
 }
-
