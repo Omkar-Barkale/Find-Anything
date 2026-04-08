@@ -2,7 +2,7 @@ import {useState} from 'react';
 import './styles/Login.css';
 import {useNavigate} from 'react-router-dom';
 import {Link} from 'react-router-dom';
-
+import { jwtDecode } from "jwt-decode";
 function Login(){
 
     const[username, setUsername] = useState("");
@@ -35,8 +35,12 @@ function Login(){
             }
             else{
                 console.log("gotten token");
-                localStorage.setItem('token', data.token); //backend returns token inside data json store the token in the browsers local storage
-                //at this point i have the token
+                localStorage.setItem('token', data.token); 
+
+                        //    const decoded = jwtDecode(token);
+                        //     console.log(decoded);
+
+
                 setMessage(data.message);
                 navigate("/home");
             }

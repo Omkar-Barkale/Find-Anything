@@ -1,7 +1,7 @@
 import * as userRepo from "./auth.repository.js"
 
 function getAllUsers(){
-    console.log("running services : all");
+    // console.log("running services : all");
     const users = userRepo.getAllUsers();
     return users;
 }
