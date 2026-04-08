@@ -79,6 +79,9 @@ function Profile()
         }
         fetch("http://localhost:3000/auth/users/update", {
             method: "PUT",
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
             body: formData
         })
         .then(async res => {
@@ -103,8 +106,15 @@ function Profile()
             return;
 
         const load = async () => {
-                const response = await fetch(`http://localhost:3000/auth/users/${userId}`);
+                const response = await fetch(`http://localhost:3000/auth/users/${userId}`,{
+                    method: "GET",
+                    headers: {
+                    'Authorization': `Bearer ${token}`
+                    }
+                });
+                
                 const data = await response.json();
+                console.log(data);
                 setUser(data);
                 setAvatar(`data:${data.avatarType};base64,${data.avatar}`);
                 setUserInfo({

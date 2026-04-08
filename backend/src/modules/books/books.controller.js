@@ -1,5 +1,6 @@
 
 import * as bookService from "./books.service.js"
+import jwt from "jsonwebtoken";
 
 export async function getAllBooks(req, res, next){
     res.status(200);
@@ -9,7 +10,11 @@ export async function getAllBooks(req, res, next){
 
     return; 
 }
-
+function coverImg(buffer, imgType){
+    if(buffer != null && imgType != null){
+        return `data:${imgType};base64,${buffer.toString('base64')}`;
+    }
+}
 export async function getBookByKeyword(req, res) { 
     try {
         const { query } = req.params;  //object destructuring of getting query from request.
@@ -30,16 +35,20 @@ export async function getBookByKeyword(req, res) {
   }
   
   export async function createPost(req, res){
-    console.log("Creating book...");
-    
     try{
+        const token = req.headers['authorization']?.split(' ')[1]
+        const decoded = jwt.verify(token, process.env.jwt_secret);
+        
+        console.log("Decoded JWT:", decoded._id);
+       
+
+        const coverObj = req.coverData || null; // contains { data: Buffer, contentType: string }
         const {name, author, description} = req.body;
         const file = req.file;
-        console.log("Received file:", file);
-        
-        await bookService.addBook({name,author,description},file);
+
+        await bookService.addBook({name,author,description}, file, coverObj, decoded._id);
         console.log("Book created successfully");
-        res.status(201).json({message:"Book created successfully"});
+        res.status(201).json({message:"Book created successfully", filepath: file?.path || file?.savedPath});
     
     }
     catch(e){
