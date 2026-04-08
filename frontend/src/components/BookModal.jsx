@@ -2,10 +2,16 @@ import { useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom';
 import './styles/BookModal.css'
 import Card from './Card'
+import { jwtDecode } from 'jwt-decode';
 
-function BookModal(props)
-{
-    const navigate = useNavigate();
+function BookModal(props){
+
+    const[commentInput, setCommentInput] = useState("");
+    //add comment body cap?
+
+    function handleSubmit(){
+
+    }
 
 
     return(
@@ -32,9 +38,11 @@ function BookModal(props)
                         <div id = "commentSection"> 
                             <h3>No comments yet</h3>
                         </div>
-                        <form id = "commentForm">
-                            <input type = "text" id = "commentInput" placeholder = "Write a comment..." autocomplete="off" ></input>
-                            <button  id = "postBtn" type = "submit">Post</button>
+                        <form id = "commentForm" onSubmit = {handleSubmit}>
+                            <div id="commentInputContainer">
+                                <textarea id="commentInput" placeholder="Write a comment..." value={commentInput} onChange={(e) => setCommentInput(e.target.value)}/>
+                                <button id="postBtn" type="submit">Post</button>
+                            </div>
                         </form>
                     </div>
                 </div>
