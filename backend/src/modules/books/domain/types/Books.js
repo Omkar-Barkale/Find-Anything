@@ -6,6 +6,8 @@ const bookSchema = new Schema({
     description: {type:String, required:true},
     user:{type:String, required:true},
     filepath:{type:String,required:true},
+    image:{data: Buffer, contentType: String},
+    imgType: {type:String},
     comments: [{user: String, date: Date, body:String}],
     date:{type: Date, default: Date.now},
     meta:{

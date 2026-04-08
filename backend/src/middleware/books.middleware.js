@@ -4,32 +4,39 @@ import path from 'path'
 
 
 const maxSize = 16 * 1024 * 1024;
-const UPLOAD_DIR = "./uploads/documents";
+const UPLOAD_DIR = path.join(process.cwd(), 'uploads', 'documents');
 
+// Ensure upload directory exists
 if (!fs.existsSync(UPLOAD_DIR)) {
     fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 }
 
-const storage = multer.diskStorage({
-    destination:function(req,file,cb){
-        cb(null,UPLOAD_DIR);
-    },
-    filename: function(req,file,cb){
-        const uniqueName = Date.now()+path.extname(file.originalname);
-        cb(null, uniqueName);
+// Use memory storage for uploads and write the file to disk manually in validator
+const storage = multer.memoryStorage();
+
+function fileFilter(req, file, cb) {
+    if (file.fieldname === 'file') {
+        const allowed = /pdf|epub/;
+        const ext = allowed.test(path.extname(file.originalname).toLowerCase());
+        const mime = allowed.test(file.mimetype);
+        if (ext && mime) return cb(null, true);
+        return cb(new Error('Only PDF and EPUB files are allowed for the document file'));
     }
-});
-export const upload = multer({storage,
-    limits:{fileSize:maxSize},
-    fileFilter:function(req,file,cb){
-        const filetypes = /pdf|epub/;
-        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-        const mimetype = filetypes.test(file.mimetype);
-        if(mimetype && extname){
-            return cb(null,true);
-        }        
-        const error = new Error("Only PDF and EPUB files are allowed!");
-        cb(error, false);
+
+    if (file.fieldname === 'cover') {
+        const allowed = /jpeg|jpg|png/;
+        const ext = allowed.test(path.extname(file.originalname).toLowerCase());
+        const mime = allowed.test(file.mimetype);
+        if (ext && mime) return cb(null, true);
+        return cb(new Error('Only JPEG and PNG files are allowed for the cover image'));
     }
+
+    cb(null, false);
+}
+
+export const upload = multer({
+    storage,
+    limits: { fileSize: maxSize },
+    fileFilter
 });
 

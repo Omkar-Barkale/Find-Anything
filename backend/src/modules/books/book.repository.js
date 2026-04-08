@@ -28,8 +28,9 @@ export async function getBookByKeyword(query){
 export async function createBook(book){
     console.log("Creating book in repository...");
     const db = await connectDB();
-    await db.collection("books").insertOne(book);
-    console.log("Book created successfully");
+    const res = await db.collection("books").insertOne(book);
+    console.log("Book created successfully", res.insertedId);
+    return res;
 }
 
 
@@ -47,7 +48,6 @@ export async function deleteBooks(id){
         return false;
     }
 }
-
 
 
 
@@ -83,4 +83,3 @@ export async function incrementDownloads(_id) {
 
     return result.modifiedCount;
 }
-

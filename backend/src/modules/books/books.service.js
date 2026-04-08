@@ -25,22 +25,25 @@ async function updateBook(id, name, author, description) {
     return await bookRepo.updateBook(id, name, author, description);
 }
 
-async function addBook({name,author,description},file){
+async function addBook({name,author,description},file, coverFile, userId){
+    const imgType = coverFile ? coverFile.contentType : null;
 
-    const token = localStorage.getItem("token");
-    const user = jwtDecode(token);
-    const userId = user.id;
+    console.log('Creating book with file:', file?.path || file?.savedPath);
 
+    const book = {
+        name: name,
+        author: author,
+        description: description,
+        user: userId,
+        filepath: file.path || file.savedPath,
+        image: coverFile ? { data: coverFile.data, contentType: imgType } : null,
+        imgType: imgType,
+        comments: [],
+        meta: { votes: 0, dislikes: 0, downloads: 0 },
+        date: new Date()
+    };
 
-    console.log(name,author,description,file);
-    const book = new Book({
-        name:name,
-        author:author,
-        description:description,
-        user:userId,
-        filepath:file.path,
-        
-    });
+    // pass userId explicitly to repository so it can enforce/set ownership
     return await bookRepo.createBook(book);
 }
 

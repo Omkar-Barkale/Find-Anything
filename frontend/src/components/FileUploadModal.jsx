@@ -190,9 +190,9 @@ function FileUpload(){
                             onDragOver = {handleDragOver}
                             onDragLeave = {handleDragLeave}
                             onDrop = {handleDrop}
-                            className={targetError?"actualUploadBtn invalid document":"actualUploadBtn document"}>
+                            className={targetError?" invalid document actualUploadBtn":"actualUploadBtn document"}>
                             <span className = "uploadText">{targetFile?targetFile.name:"Click or drop a book file"}</span>
-                            <embed   src={targetFile?URL.createObjectURL(targetFile):null} alt="" className="filePreview"/>
+                            <embed src={targetFile?URL.createObjectURL(targetFile):null} alt="" className="filePreview"/>
                             <span>{targetError}</span>
                         </label>     
 
@@ -211,13 +211,13 @@ function FileUpload(){
                             <span>{coverError}</span>
                         </label>
 
-                        <input className={nameError?"name textfield invalid":"name textfield"} type='text' onChange ={(e)=>handleNameChange(e)} placeholder='The Best Book'></input>
+                        <input className={nameError?"name textField invalid":"name textField"} type='text' onChange ={(e)=>handleNameChange(e)} placeholder='The Best Book'></input>
                         <span>{nameError}</span>
 
                         <input className ={authorError?"author textField invalid":"author textField"} type='text' onChange={(e)=>handleAuthorChange(e)} placeholder='John Doe'></input>
                         <span>{authorError}</span>
 
-                        <input className ={descriptionError?"description textField invalid":"description textField"} type='text'   onChange={(e)=>handleDescriptionChange(e)} placeholder="This book is great..I hope.... I didn't read it"></input>
+                        <textarea className ={descriptionError?"description textField invalid":"description textField"}   onChange={(e)=>handleDescriptionChange(e)} placeholder="This book is great..I hope.... I didn't read it"></textarea>
                         <span>{descriptionError}</span>
 
 
@@ -227,7 +227,7 @@ function FileUpload(){
                     </div>
                     
                 </div>
-                            <span className="status">{status}</span>
+                <span className="status">{status}</span>
 
             </form>
         </div>
