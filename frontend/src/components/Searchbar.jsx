@@ -8,10 +8,12 @@ import Card from './Card.jsx'
     
     const[books, setBooks] = useState([]);
 
-    function getImageURL(book)  {
-        if(book.image && book.imgType)
-            return `data:${book.imgType};base64,${book.image.data}`;
-        return null;
+    function getImageURL(books)  {
+        for(let book of books)        {
+            if(book.image && book.imgType)
+                book.cover =  `data:${book.imgType};base64,${book.image.data}`;
+        }
+
     }
     
     useEffect(() => { //loads all books from MongoDB on initial render, only once([]) instead of reading from json file
@@ -57,7 +59,7 @@ import Card from './Card.jsx'
                     <input id = "main-search" type="text" onChange={(e) => setSearch(e.target.value)} placeholder={placeholder} />
                 </form>
                       <CardLayout>
-                        {books.map((book) => (<Card key = {book._id} id = {book._id} name = {book.name} author = {book.author} body = {book.body} cover = {getImageURL(book)}></Card>))}
+                        {books.map((book) => (<Card key = {book._id} id = {book._id} name = {book.name} author = {book.author} body = {book.body} cover = {book.cover}></Card>))}
                      </CardLayout>
 
                      <h2>{text}</h2>
