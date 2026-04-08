@@ -3,8 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 console.log("MONGO_URI:", process.env.MONGO_URI);
 const uri = process.env.MONGO_URI;
-// Add a short server selection timeout so connection failures fail fast
-const client = new MongoClient(uri, { serverSelectionTimeoutMS: 5000 });
+const client = new MongoClient(uri);
 
 
 let db;

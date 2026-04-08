@@ -28,9 +28,8 @@ export async function getBookByKeyword(query){
 export async function createBook(book){
     console.log("Creating book in repository...");
     const db = await connectDB();
-    const res = await db.collection("books").insertOne(book);
-    console.log("Book created successfully", res.insertedId);
-    return res;
+    await db.collection("books").insertOne(book);
+    console.log("Book created successfully");
 }
 
 

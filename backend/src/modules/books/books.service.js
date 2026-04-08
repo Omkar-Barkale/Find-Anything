@@ -11,11 +11,9 @@ async function getAllBooks(){
 
 function getBookByKeyword(query){
     const data = (bookRepo.getBookByKeyword(query));
-    console.log("Service returning: " + data);
     return data;
 }
 function deleteBooks(id){
-    console.log("deleteBooks services ran");
     const response = bookRepo.deleteBooks(id);
     return response;
 }
@@ -27,8 +25,8 @@ async function updateBook(id, name, author, description) {
 
 async function addBook({name,author,description},file, coverFile, userId){
     const imgType = coverFile ? coverFile.contentType : null;
-
-    console.log('Creating book with file:', file?.path || file?.savedPath);
+    
+    console.log(userId);
 
     const book = {
         name: name,

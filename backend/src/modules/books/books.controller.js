@@ -35,22 +35,18 @@ export async function getBookByKeyword(req, res) {
   }
   
   export async function createPost(req, res){
-    console.log("Creating book...");
-    
     try{
         const token = req.headers['authorization']?.split(' ')[1]
         const decoded = jwt.verify(token, process.env.jwt_secret);
-        req.user = decoded;
+        
+        console.log("Decoded JWT:", decoded._id);
+       
 
         const coverObj = req.coverData || null; // contains { data: Buffer, contentType: string }
         const {name, author, description} = req.body;
         const file = req.file;
 
-        console.log("Received file:", file);
-        console.log("File path:", file?.path || file?.savedPath);
-
-        
-        await bookService.addBook({name,author,description}, file, coverObj, req.user.id);
+        await bookService.addBook({name,author,description}, file, coverObj, decoded._id);
         console.log("Book created successfully");
         res.status(201).json({message:"Book created successfully", filepath: file?.path || file?.savedPath});
     
