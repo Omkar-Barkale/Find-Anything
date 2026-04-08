@@ -114,7 +114,6 @@ function Profile()
                 });
                 
                 const data = await response.json();
-                console.log(data);
                 setUser(data);
                 setAvatar(`data:${data.avatarType};base64,${data.avatar}`);
                 setUserInfo({
