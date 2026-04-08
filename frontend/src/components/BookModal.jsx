@@ -7,9 +7,7 @@ function BookModal(props)
 {
     const navigate = useNavigate();
 
-    function openEdit() {
-        navigate(`/book/edit/${props.id}`)
-    }
+
     return(
         
         <>
@@ -24,7 +22,6 @@ function BookModal(props)
                         <div id = "bookInfo">
                             <h4 id = "bookName">{props.name}</h4>
                             <h5 id = "bookAuthor"> {props.author}</h5>
-                            <button id = "edit" onClick={openEdit}>Edit</button>
                         </div>
                     </div>
 
