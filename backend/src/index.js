@@ -9,9 +9,21 @@ import { connectDB } from "./db_connection.js";
 
 const app = express();
 const port = 3000; //This should be in .env
-const db = connectDB();
 
 
+try {
+  await connectDB();
+  console.log('Database connected, starting server');
+} catch (err) {
+  console.error('Failed to connect to DB during startup:', err);
+  process.exit(1);
+}
+
+// Simple request logger to help debug incoming requests
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
+  next();
+});
 
 app.use(cors({ 
   origin: "http://localhost:5173",
@@ -19,11 +31,7 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// Simple request logger to help debug incoming requests
-app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
-  next();
-});
+
 
 app.use(express.json());
 

@@ -6,6 +6,11 @@ import {jwtDecode} from "jwt-decode";
 
 async function getAllBooks(){
     const books = await bookRepo.readBooks();
+    for(let book of books){
+        if(book.image && book.image.data && book.image.contentType){
+            book.cover = `data:${book.image.contentType};base64,${book.image.data.toString('base64')}`;
+        }
+    }
     return books;
 }
 
