@@ -85,3 +85,21 @@ export async function deleteBooks(req, res){
         });
     }
 }
+
+export async function createComment(req, res){
+    try{
+        const token = req.headers['authorization']?.split(' ')[1]
+        const decoded = jwt.verify(token, process.env.jwt_secret);
+        console.log("Decoded JWT:", decoded._id);
+
+        const comment = req.body.comment;
+        const userId = decoded._id;
+        const bookId = req.body.bookId;
+        const date = new Date();
+
+        const response = await bookService.createComment(userId, bookId, comment, date);
+    }
+    catch(err){
+        res.status(400).json({message: err.message});
+    }
+}

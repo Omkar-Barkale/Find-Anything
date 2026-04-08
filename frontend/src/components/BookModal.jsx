@@ -6,12 +6,43 @@ import { jwtDecode } from 'jwt-decode';
 
 function BookModal(props){
 
+    //if not logged in and click comment give them message saying must be logged in
+
+    const token = localStorage.getItem('token');
     const[commentInput, setCommentInput] = useState("");
-    //add comment body cap?
 
-    function handleSubmit(){
+    function handleSubmit(e){
+        e.preventDefault();
 
+
+        fetch(`http://localhost:3000/books/${props.id}/comments`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },  
+            body: JSON.stringify({
+                comment : commentInput,
+                bookId : props.id
+            })
+        })
+        .then(async res => {
+            const data = await res.json();
+            if(!res.ok)
+                throw new Error(data.message);
+            setCommentInput("");
+            return data;
+            
+        })
+        .then(data => {
+            console.log(data);
+            e.target.reset();
+        })
+        .catch(err => {
+            console.error("Comment error: ", err.message);
+        });
     }
+
 
 
     return(
