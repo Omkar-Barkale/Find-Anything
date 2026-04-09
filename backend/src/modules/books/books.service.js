@@ -49,8 +49,6 @@ async function addBook({name,author,description},file, coverFile, userId){
     return await bookRepo.createBook(book);
 }
 
-export {getAllBooks, getBookByKeyword, addBook, updateBook, deleteBooks}
-
 async function getBookFileById(id){
     return await bookRepo.getBookById(id);
 }
@@ -59,4 +57,9 @@ async function incrementDownloads(id){
     return await bookRepo.incrementDownloads(id);
 }
 
-export {getBookFileById, incrementDownloads}
+async function createComment(userId, bookId, comment, date)
+{
+    return await bookRepo.createComment(userId,bookId,comment,date);
+}
+
+export {getAllBooks, getBookByKeyword, addBook, updateBook, deleteBooks, createComment, getBookFileById, incrementDownloads}

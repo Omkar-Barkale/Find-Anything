@@ -28,7 +28,7 @@ form{
     padding-bottom: 2em;
 }
 
-input{
+.glass-container input{
     margin: 0.5em 0.5em 0.5em 0.5em ;
     border-radius: 10px;
     background-color: transparent;

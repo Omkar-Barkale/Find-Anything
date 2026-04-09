@@ -62,29 +62,27 @@ export async function authenticateAdmin(req, res, next){
 }
 
 export async function authenticateUser(req, res, next){
-    //only checks that the user id matches the request user id
+    try {
+        const { id } = req.params;
+        const user = await getUserById(id);
 
-    try{
-        const {id} = req.params;
-        const user = getUserById(id);
-        if(id === user._id || req.user.role === "admin"){
+        if(id === user._id.toString() || req.user.role === "admin"){
             next();
-        }else{
-            res.status(403).json({
-                error: "Not authorized user"
-            });
+        } else {
+            return res.status(403).json({ error: "Not authorized user" });
         }
-        
-    }catch(err){
-        console.log(err.message);
+    } catch(err){
+        console.error("authenticateUser error:", err.message);
+        return res.status(500).json({ error: "Server error" });
     }
 }
 
 export async function authenticateUserUpdate(req, res, next){
-    const id = req.body.formData.userId;
-    if(req.user._id === id || req.user.role === "admin"){
+    const id = req.body.id;
+    if(req.user._id.toString() === id || req.user.role === "admin"){
         next();
-    }else{
+    }
+    else{
         res.status(403).json({
                 error: "Not authorized: logged in as other user"
             });
