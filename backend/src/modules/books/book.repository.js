@@ -83,22 +83,24 @@ export async function incrementDownloads(_id) {
     return result.modifiedCount;
 }
 
-export async function createComment(username, userId, bookId, comment, date){
+export async function createComment(username, userId, bookId, commentText, date){
     const db = await connectDB();
-    let result = await db.collection("comments").insertOne({
+    let newComment = {
         username : username,
         userId : userId,
         bookId : bookId,
-        comment: comment,
+        comment: commentText,
         createdAt : date
-    });
+    }
+    let result = await db.collection("comments").insertOne(newComment);
     console.log("Comment created successfully");
-    return result.insertedId;
+    console.log({...newComment, _id: result.insertedId});
+    return {...newComment, _id:  result.insertedId}; //Spread syntax, avoid nesting into newCOmment obj
 }
 
 export async function getComments(bookId){
     const db = await connectDB();
-    let result = await db.collection("comments").find({bookId: bookId}).toArray();
+    let result = await db.collection("comments").find({bookId: bookId}).sort({createdAt: -1}).toArray();
     console.log("Comments fetched")
     return result;
 }

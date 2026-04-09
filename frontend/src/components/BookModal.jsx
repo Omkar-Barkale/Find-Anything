@@ -13,7 +13,6 @@ function BookModal(props){
     const token = localStorage.getItem('token');
     const [comments, setComments] = useState([]);
     const[commentInput, setCommentInput] = useState("");
-    const[loading, setLoading] = useState(true);
 
     useEffect(()=>{
         fetch(`http://localhost:3000/books/${props.id}/comments`, {
@@ -25,11 +24,9 @@ function BookModal(props){
         .then(res => res.json())
         .then(data =>{
             setComments(data);
-            setLoading(false);
         })
         .catch(err=>{
             console.error("Error fetching comments", err);
-            setLoading(false);
         });
     },[props.id]); //load all new comments for each book
 
@@ -51,6 +48,8 @@ function BookModal(props){
             const data = await res.json();
             if(!res.ok)
                 throw new Error(data.message);
+
+            setComments(prev => [data, ...prev]);
             setCommentInput("");
             return data;
             
@@ -64,6 +63,12 @@ function BookModal(props){
         });
     }
 
+    function checkComments(){
+        if(comments.length <=0)
+        {
+            return <h3>No comments yet</h3>;
+        }
+    }
 
 
     return(
@@ -88,8 +93,18 @@ function BookModal(props){
 
                     <div id = "commentSide">
                         <div id = "commentSection"> 
-                            <h3>No comments yet</h3>
-                            <h1>{comments.length > 0? comments[0].comment : "bruh what happeing"}</h1>
+                            
+
+                            {checkComments()}
+                            
+                             {comments.map((c) => (
+                                    <Comment
+                                        key={c._id}
+                                        username={c.username}
+                                        date={new Date(c.createdAt).toLocaleDateString()}
+                                        commentText={c.comment}
+                                    />
+                            ))}
                         </div>
                         <form id = "commentForm" onSubmit = {handleSubmit}>
                             <div id="commentInputContainer">
@@ -103,5 +118,7 @@ function BookModal(props){
         </>
     );
 }
+
+
 
 export default BookModal;

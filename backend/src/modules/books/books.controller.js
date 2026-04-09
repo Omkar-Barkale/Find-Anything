@@ -108,9 +108,9 @@ export async function createComment(req, res){
         
         
 
-        const commentId = await bookService.createComment(username, userId, bookId, comment, date);
+        const newComment = await bookService.createComment(username, userId, bookId, comment, date);
 
-        res.status(201).json({message: "Comment posted!", id : commentId});
+        res.status(201).json(newComment);
     }
     catch(err){
         res.status(400).json({message: err.message});
