@@ -51,11 +51,11 @@ async function addBook({name,author,description},file, coverFile, userId){
 }
 
 
-async function createComment(userId, bookId, comment, date){
+async function createComment(username, userId, bookId, comment, date){
     if (!userId || !bookId || !comment) 
         throw new Error("Missing required fields");
     
-    return await bookRepo.createComment(userId,bookId,comment,date);
+    return await bookRepo.createComment(username, userId,bookId,comment,date);
 }
 
 async function getComments(bookId){

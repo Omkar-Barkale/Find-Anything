@@ -83,9 +83,10 @@ export async function incrementDownloads(_id) {
     return result.modifiedCount;
 }
 
-export async function createComment(userId, bookId, comment, date){
+export async function createComment(username, userId, bookId, comment, date){
     const db = await connectDB();
     let result = await db.collection("comments").insertOne({
+        username : username,
         userId : userId,
         bookId : bookId,
         comment: comment,

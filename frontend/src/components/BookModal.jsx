@@ -3,6 +3,8 @@ import {Link, useNavigate} from 'react-router-dom';
 import './styles/BookModal.css'
 import Card from './Card'
 import { jwtDecode } from 'jwt-decode';
+import Comment from './Comment';
+
 
 function BookModal(props){
 
@@ -33,17 +35,6 @@ function BookModal(props){
 
     function handleSubmit(e){
         e.preventDefault();
-
-
-        if (!token) {
-            alert("You must be logged in to create a comment");
-            return;
-        }
-
-        if(!commentInput){
-            alert("Enter something");
-            return;
-        }
 
 
         fetch(`http://localhost:3000/books/${props.id}/comments`, {

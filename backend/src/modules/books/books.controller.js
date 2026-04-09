@@ -101,13 +101,14 @@ export async function createComment(req, res){
             return res.status(400).json({ message: "Comment cannot be empty" });
         
         const userId = decoded._id;
+        const username = decoded.username;
         const bookId = req.params.id;
         const date = new Date();
 
         
         
 
-        const commentId = await bookService.createComment(userId, bookId, comment, date);
+        const commentId = await bookService.createComment(username, userId, bookId, comment, date);
 
         res.status(201).json({message: "Comment posted!", id : commentId});
     }
