@@ -9,10 +9,41 @@ function BookModal(props){
     //if not logged in and click comment give them message saying must be logged in
 
     const token = localStorage.getItem('token');
+    const [comments, setComments] = useState([]);
     const[commentInput, setCommentInput] = useState("");
+    const[loading, setLoading] = useState(true);
+
+
+
+
+
+
+    useEffect(()=>{
+        fetch(`http://localhost:3000/books/${props.id}/comments`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+        })
+        .then(res => res.json())
+        .then(data =>{
+            setComments(data);
+            setLoading(false);
+        })
+        .catch(err=>{
+            console.error("Error fetching comments", err);
+            setLoading(false);
+        });
+    },[props.id]) //load all new comments for each book
 
     function handleSubmit(e){
         e.preventDefault();
+
+
+        if (!token) {
+            alert("You must be logged in to create a comment");
+            return;
+        }
 
 
         fetch(`http://localhost:3000/books/${props.id}/comments`, {

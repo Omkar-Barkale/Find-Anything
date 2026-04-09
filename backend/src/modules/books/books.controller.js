@@ -98,6 +98,8 @@ export async function createComment(req, res){
         const date = new Date();
 
         const response = await bookService.createComment(userId, bookId, comment, date);
+        
+        res.status(200).json({message: "Comment posted!"});
     }
     catch(err){
         res.status(400).json({message: err.message});
