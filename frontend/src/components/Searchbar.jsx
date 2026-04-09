@@ -25,7 +25,6 @@ import Card from './Card.jsx'
                     }
                 }); 
                 const data = await response.json();
-                
                 setBooks(data);
         }
         load();
@@ -38,7 +37,7 @@ import Card from './Card.jsx'
             e.preventDefault();
             const response = await fetch(`http://localhost:3000/search/books/${search}`);
             const data = await response.json();
-            console.log(data + "book data");   
+            
             if(data.length > 0)         
             {
                 setBooks(data);

@@ -42,7 +42,6 @@ export const validateBookUpload = (req, res, next) => {
         ]);
 
         uploadFields(req, res, function(err) {
-        console.log("Upload validation completed with error:", err);
          if (err) {
             return res.status(400).json({ message: err.message });
         }
@@ -56,7 +55,7 @@ export const validateBookUpload = (req, res, next) => {
 
         // Ensure uploads directory exists and save document file to disk
         try{
-            const uploadDir = path.join(process.cwd(), 'uploads', 'documents');
+            const uploadDir = path.join( './uploads', 'documents');
             if(!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
 
             const fileName = Date.now() + path.extname(req.file.originalname);

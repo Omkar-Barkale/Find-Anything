@@ -6,60 +6,48 @@ import express from 'express';
 import cors from 'cors';
 import { connectDB } from "./db_connection.js";
 
+export function createApp(){
+  const app = express();
+  app.use(cors({ 
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+  }));
 
-const app = express();
-const port = 3000; //This should be in .env
+  app.use(express.json());
 
+  app.get('/', (req, res) => {
+    res.send('Hello World!');
+  });
 
-try {
-  await connectDB();
-  console.log('Database connected, starting server');
-} catch (err) {
-  console.error('Failed to connect to DB during startup:', err);
-  process.exit(1);
+  //Books route
+  app.use("/search",bookRoutes);
+
+  //Login route
+  app.use("/auth", authRoutes);
+
+  //Register route
+  app.use("/registration", registrationRoutes);
+
+  //fallback path
+  app.get('/*path', (req, res) => {
+    res.status(404).send('Page Not Found');
+  });
+
+  return app;
 }
 
-// Simple request logger to help debug incoming requests
-app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
-  next();
-});
-
-app.use(cors({ 
-  origin: "http://localhost:5173",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
-
-
-
-app.use(express.json());
-
-
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
-//Books route
-app.use("/search",bookRoutes);
-
-//Book modal
-app.use("/books", bookRoutes);
-
-//Login route
-app.use("/auth", authRoutes);
-
-//Register route
- app.use("/registration", registrationRoutes);
-
-//fallback path
-app.get('/*path', (req, res) => {
-  res.status(404).send('Page Not Found');
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+//If not testing, starts the server in prod mode.
+if(process.env.NODE_ENV !== 'test'){
+  const port = process.env.PORT || 3000;
+  (async () => {
+    await connectDB();
+    const app = createApp();
+    app.listen(port, () => {
+      console.log(`Example app listening at http://localhost:${port}`);
+    });
+  })();
+}
 
 
 
