@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {Link, useNavigate} from 'react-router-dom';
 import './styles/BookModal.css'
 import Card from './Card'
@@ -12,11 +12,6 @@ function BookModal(props){
     const [comments, setComments] = useState([]);
     const[commentInput, setCommentInput] = useState("");
     const[loading, setLoading] = useState(true);
-
-
-
-
-
 
     useEffect(()=>{
         fetch(`http://localhost:3000/books/${props.id}/comments`, {
@@ -34,7 +29,7 @@ function BookModal(props){
             console.error("Error fetching comments", err);
             setLoading(false);
         });
-    },[props.id]) //load all new comments for each book
+    },[props.id]); //load all new comments for each book
 
     function handleSubmit(e){
         e.preventDefault();
@@ -42,6 +37,11 @@ function BookModal(props){
 
         if (!token) {
             alert("You must be logged in to create a comment");
+            return;
+        }
+
+        if(!commentInput){
+            alert("Enter something");
             return;
         }
 
@@ -54,7 +54,6 @@ function BookModal(props){
             },  
             body: JSON.stringify({
                 comment : commentInput,
-                bookId : props.id
             })
         })
         .then(async res => {
@@ -99,11 +98,12 @@ function BookModal(props){
                     <div id = "commentSide">
                         <div id = "commentSection"> 
                             <h3>No comments yet</h3>
+                            <h1>{comments.length > 0? comments[0].comment : "bruh what happeing"}</h1>
                         </div>
                         <form id = "commentForm" onSubmit = {handleSubmit}>
                             <div id="commentInputContainer">
                                 <textarea id="commentInput" placeholder="Write a comment..." value={commentInput} onChange={(e) => setCommentInput(e.target.value)}/>
-                                <button id="postBtn" type="submit">Post</button>
+                                <button id="postBtn" type="submit" disabled={!commentInput.trim() }>Post</button>
                             </div>
                         </form>
                     </div>

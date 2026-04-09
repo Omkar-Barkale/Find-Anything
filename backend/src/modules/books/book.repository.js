@@ -83,8 +83,7 @@ export async function incrementDownloads(_id) {
     return result.modifiedCount;
 }
 
-export async function createComment(userId, bookId, comment, date)
-{
+export async function createComment(userId, bookId, comment, date){
     const db = await connectDB();
     let result = await db.collection("comments").insertOne({
         userId : userId,
@@ -94,4 +93,11 @@ export async function createComment(userId, bookId, comment, date)
     });
     console.log("Comment created successfully");
     return result.insertedId;
+}
+
+export async function getComments(bookId){
+    const db = await connectDB();
+    let result = await db.collection("comments").find({bookId: bookId}).toArray();
+    console.log("Comments fetched")
+    return result;
 }
