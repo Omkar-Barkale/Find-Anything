@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import { getUser, getUserById } from '../modules/auth/auth.repository.js';
 import bcrypt from 'bcrypt'
 
+
 const regex_password = /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{9,17}$/;;
 
 
@@ -27,9 +28,11 @@ export async function authenticate(req,res,next){
         req.user = decoded; //create a user json object in the request
         
         if(req.user.role === "admin" || req.user.role === "user"){
+            
             next();
         }else
         {
+            
             res.status(403).json({
                 error: "Not logged in"
             });
@@ -51,9 +54,11 @@ export async function authenticateAdmin(req, res, next){
 
     //only use after authenticate was used as authenticateAdmin does not verify the token
     if(req.user.role === "admin"){
+       
         next();
     }
     else{
+        await log(req.user.username, req.user.email, "Tried to loggi " + new Date().toLocaleString());
         res.status(403).json({
             error: "Not authorized admin"
         });

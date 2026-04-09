@@ -102,6 +102,10 @@ export async function downloadBook(req, res){
     }catch(e){
         console.error(e);
         return res.status(500).json({message: e.message});
+    }
+}
+
+
 export async function createComment(req, res){
     try{
         const token = req.headers['authorization']?.split(' ')[1]

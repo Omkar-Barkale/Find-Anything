@@ -19,7 +19,7 @@ function UserCards(props){
                <div className="Usercard"> 
                     
                     <p className="username">{username}</p>
-                    <img src={avatar}></img>
+                    <img src={avatar} id="pfp"></img>
                     <p className = 'email'>{email}</p>
                     <p className="role">{role}</p>
                     <p className="numPosts">{numPosts}</p>
