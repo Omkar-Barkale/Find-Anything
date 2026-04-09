@@ -1,15 +1,34 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {Link, useNavigate} from 'react-router-dom';
 import './styles/BookModal.css'
 import Card from './Card'
 import { jwtDecode } from 'jwt-decode';
+import Comment from './Comment';
+
 
 function BookModal(props){
 
     //if not logged in and click comment give them message saying must be logged in
 
     const token = localStorage.getItem('token');
+    const [comments, setComments] = useState([]);
     const[commentInput, setCommentInput] = useState("");
+
+    useEffect(()=>{
+        fetch(`http://localhost:3000/books/${props.id}/comments`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+        })
+        .then(res => res.json())
+        .then(data =>{
+            setComments(data);
+        })
+        .catch(err=>{
+            console.error("Error fetching comments", err);
+        });
+    },[props.id]); //load all new comments for each book
 
     function handleSubmit(e){
         e.preventDefault();
@@ -23,13 +42,14 @@ function BookModal(props){
             },  
             body: JSON.stringify({
                 comment : commentInput,
-                bookId : props.id
             })
         })
         .then(async res => {
             const data = await res.json();
             if(!res.ok)
                 throw new Error(data.message);
+
+            setComments(prev => [data, ...prev]);
             setCommentInput("");
             return data;
             
@@ -43,6 +63,12 @@ function BookModal(props){
         });
     }
 
+    function checkComments(){
+        if(comments.length <=0)
+        {
+            return <h3>No comments yet</h3>;
+        }
+    }
 
 
     return(
@@ -67,12 +93,23 @@ function BookModal(props){
 
                     <div id = "commentSide">
                         <div id = "commentSection"> 
-                            <h3>No comments yet</h3>
+                            
+
+                            {checkComments()}
+                            
+                             {comments.map((c) => (
+                                    <Comment
+                                        key={c._id}
+                                        username={c.username}
+                                        date={new Date(c.createdAt).toLocaleDateString()}
+                                        commentText={c.comment}
+                                    />
+                            ))}
                         </div>
                         <form id = "commentForm" onSubmit = {handleSubmit}>
                             <div id="commentInputContainer">
                                 <textarea id="commentInput" placeholder="Write a comment..." value={commentInput} onChange={(e) => setCommentInput(e.target.value)}/>
-                                <button id="postBtn" type="submit">Post</button>
+                                <button id="postBtn" type="submit" disabled={!commentInput.trim() }>Post</button>
                             </div>
                         </form>
                     </div>
@@ -81,5 +118,7 @@ function BookModal(props){
         </>
     );
 }
+
+
 
 export default BookModal;

@@ -57,9 +57,18 @@ async function incrementDownloads(id){
     return await bookRepo.incrementDownloads(id);
 }
 
-async function createComment(userId, bookId, comment, date)
-{
-    return await bookRepo.createComment(userId,bookId,comment,date);
+async function createComment(username, userId, bookId, comment, date){
+    if (!userId || !bookId || !comment) 
+        throw new Error("Missing required fields");
+    
+    return await bookRepo.createComment(username, userId,bookId,comment,date);
 }
 
-export {getAllBooks, getBookByKeyword, addBook, updateBook, deleteBooks, createComment, getBookFileById, incrementDownloads}
+async function getComments(bookId){
+
+    if (!bookId) 
+        throw new Error("BookId not found");
+
+    return await bookRepo.getComments(bookId);
+}
+export {getAllBooks, getBookByKeyword, addBook, updateBook, deleteBooks, createComment, getBookFileById, incrementDownloads, getComments}

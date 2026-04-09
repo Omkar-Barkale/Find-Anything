@@ -109,15 +109,41 @@ export async function downloadBook(req, res){
 export async function createComment(req, res){
     try{
         const token = req.headers['authorization']?.split(' ')[1]
+
+        if (!token) 
+            return res.status(401).json({ message: "No token found" });
+
         const decoded = jwt.verify(token, process.env.jwt_secret);
         console.log("Decoded JWT:", decoded._id);
 
         const comment = req.body.comment;
+        if (!comment) 
+            return res.status(400).json({ message: "Comment cannot be empty" });
+        
         const userId = decoded._id;
-        const bookId = req.body.bookId;
+        const username = decoded.username;
+        const bookId = req.params.id;
         const date = new Date();
 
-        const response = await bookService.createComment(userId, bookId, comment, date);
+        
+        
+
+        const newComment = await bookService.createComment(username, userId, bookId, comment, date);
+
+        res.status(201).json(newComment);
+    }
+    catch(err){
+        res.status(400).json({message: err.message});
+    }
+}
+
+export async function getComments(req, res)
+{
+    try{
+        const bookId = req.params.id;
+        const comments = await bookService.getComments(bookId);
+        res.status(200).json(comments);
+        
     }
     catch(err){
         res.status(400).json({message: err.message});

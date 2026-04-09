@@ -17,6 +17,7 @@ bookRoutes.get('/:query', bookController.getBookByKeyword)
 bookRoutes.post('/update/:id', authenticate, log, bookController.updateBook); //need security
 bookRoutes.delete('/delete/:id', authenticate, log, bookController.deleteBooks); //need security
 bookRoutes.post('/:id/comments', bookController.createComment);
+bookRoutes.get('/:id/comments', bookController.getComments);
 
 
 
