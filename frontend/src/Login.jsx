@@ -1,7 +1,5 @@
-import {useState} from 'react'
-import './components/styles/Login.css'
-
-
+import {useState} from 'react';
+import './components/styles/Login.css';
 function Login(){
 
     const[email, setEmail] = useState("");
@@ -45,14 +43,14 @@ function Login(){
     return(    
         <div id='container'>
             <div className='glass-container'>
-                <h2>Login</h2>
-                <form onSubmit={handleSubmit}>
-                    <input 
-                        type='text' 
-                        placeholder='Email' 
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
+            <h2>Login</h2>
+            <form onSubmit={handleSubmit}>
+                <input 
+                    type='text' 
+                    placeholder='Email' 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
 
                     <input 
                         type='password' 
@@ -68,17 +66,18 @@ function Login(){
                         <button id='forgotPassword'>Forgot Password?</button>
                     </div>
 
-                    <div id='continue_btns'>
-                        <button className='toMain_btn' type='submit'>Submit</button>
-                        <button className='toMain_btn' type='button'>Continue as Guest</button>
-                    </div>
-                    
-                    <button id='register'>Don't have an account? Click Here to Register</button>
-                    
-                </form>
-            <p>{message}</p>
-            </div>
-       </div> 
+                <div id='continue_btns'>
+                    <button className='toMain_btn' type='submit'>Submit</button>
+                    <button className='toMain_btn' type='button'>Continue as Guest</button>
+                </div>
+                
+                <button id='register'>Don't have an account? Click Here to Register</button>
+                
+            </form>
+        <p>{message}</p>
+        </div>
+        </div>
+        
     );
 }
 

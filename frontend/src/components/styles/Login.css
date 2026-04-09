@@ -3,12 +3,18 @@
     flex-direction: column;
     align-items: center;
     border-radius: 35px;
-    border-color: black;
+    border-color: white;
     border-style: solid;
-    width: 30em;
-    height: 30em;
+    width: auto;
+    height: 35em;
+    backdrop-filter: blur(0.2em);
 
 }
+
+#root{
+    margin: 0;
+}
+
 
 #container{
     display: flex;
@@ -16,20 +22,31 @@
     align-items: center;     /* Vertical centering */
     height: 100vh;
     background-image: url("../../assets/LoginPageBackground.png");
+    background-size: cover;
 }
 
 form{
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-color: black;
-    border-style: solid;
     padding-top: 2em;
     padding-bottom: 2em;
 }
 
 input{
     margin: 0.5em 0.5em 0.5em 0.5em ;
+    border-radius: 10px;
+    background-color: transparent;
+    color: white;
+    border-color: white;
+    border-style: solid;
+    border-width: 3px;
+    width: 20em;
+    height: 2.5em;
+}
+input::placeholder{
+    color: white;
+    font-size: 1.5em;
 }
 
 #preferences{
@@ -46,35 +63,10 @@ input{
 }
 
 #continue_btns button{
-    width: 13em;
+    width: 10em;
     margin: 0.5em 0.5em 0.5em 0.5em ;
-    border: none;
-    border-radius: 10px;
-    font-size: large;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
 }
 
-.glass-container h2{
-    font-size: 4em;
-    font-family: 'Courier New', Courier, monospace;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+#root{
+    margin: 0;
 }
-
-#forgotPassword{
-    background-color: transparent;
-    color: white;
-    border: none;
-    font-weight: bold;
-}
-
-#register{
-    background-color: transparent;
-    border: none;
-    color: white;
-}
-
-
-
-
