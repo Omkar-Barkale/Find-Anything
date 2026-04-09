@@ -8,7 +8,7 @@ import {useNavigate} from 'react-router-dom';
 function Admin(){
 
     const token = localStorage.getItem("token")
-    console.log("the token is: "+ token);
+    // console.log("the token is: "+ token);
     const navigate = useNavigate();
     const [menu, setMenu] = useState("users");
     const [items, setItems] = useState([]);
@@ -61,15 +61,21 @@ function Admin(){
         })
     }
 
-    function loadLogs(){
+    function loadLogs(e=null){
+        if(e){
+            e.preventDefault();
+        }
         let path;
+          
         if(search){
+            
             path = `http://localhost:3000/auth/logs/${search}`;
         }
         else{
             path = `http://localhost:3000/auth/logs`
         }
-
+     
+      
         fetch(path, {
             method: "GET",
             headers: {
@@ -100,7 +106,7 @@ function Admin(){
     }
 
     useEffect(() => {
-        console.log("The token is " + token);    
+        // console.log("The token is " + token);    
         const reloadData = () => {
             if(menu === "users"){
                 loadUsers();
@@ -129,8 +135,8 @@ function Admin(){
         navigate("/Home");
     }
 
-    function getCover(id){
-         return "./path.png";
+    function getCover(book){
+         return `data:${book.imgType};base64,${book.image.data}`;
     }
 
     function Logout(){
@@ -184,7 +190,7 @@ function Admin(){
     function showbooks(){
         try{
             return <CardLayout id="adminCardLayout">
-                {books.map((item) => (<UserCards key = {item._id} name = {item.name} author = {item.author} cover = {getCover(item._id)} body = {item.body} onDelete={deleteBook} id={item._id} menu={menu}></UserCards>))}
+                {books.map((item) => (<UserCards key = {item._id} name = {item.name} author = {item.author} cover = {getCover(item)} body = {item.body} onDelete={deleteBook} id={item._id} menu={menu}></UserCards>))}
             </CardLayout>;
         }catch(err){
             console.log(err.message);
@@ -220,7 +226,9 @@ function Admin(){
     <div id='AdminDashboard'>
         <div id= "menu">
             <h2>Moderation</h2>
-            <input type='text' placeholder='search' id = "main-search" onChange={(e) => setSearch(e.target.value)}></input>
+            <form className="searchbar" onSubmit={loadLogs}>
+                <input type='text' id = "main-search" placeholder='search' onChange={(e) => setSearch(e.target.value)}></input>
+            </form>
             <div id='content-area'>
                 {menu === "users" ? users() : ""}
                 {menu === "books" ? showbooks() : ""}

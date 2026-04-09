@@ -4,16 +4,17 @@
     gap: 5em;
     padding-left: 1em;
     padding-right: 1em;
-    width: 50em;
+    width: 99%;
     justify-content: center;
     background-color: rgb(80, 80, 80);
-    border-radius: 1em;
 
 }
 
 .Usercard img{
     border-color: black;
     border-style: solid;
+    max-width: 4em;
+    max-height: 4em;
 }
 
 .Usercard p{
@@ -21,6 +22,14 @@
 }
 
 #delete{
+    background-color: transparent;
+    border: none;
+    color:red;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+#ban{
     background-color: transparent;
     border: none;
     color:red;

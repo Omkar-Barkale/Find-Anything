@@ -24,6 +24,7 @@ function UserCards(props){
                     <p className="role">{role}</p>
                     <p className="numPosts">{numPosts}</p>
                     <button id="delete" onClick={() => deleteUser(id)}>Delete</button>
+                    <button id="ban" onClick={() => banUser(id)}>Ban</button>
                </div>
 
           </>);

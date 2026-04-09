@@ -75,12 +75,15 @@ body, html, #root {
     flex-grow: 1;
     overflow-y: auto;
     display: flex;
+    align-items: center;
+    flex-direction: column;
     justify-content: center; 
     scrollbar-width: none; 
 }
 
 #content-area::-webkit-scrollbar {
     display: none;
+    
 }
 
 
@@ -103,4 +106,9 @@ body, html, #root {
 #bottom_buttons #logout {
     color: rgb(255, 60, 60);
     font-weight: bold;
+}
+
+#adminCardLayout{
+    display: flex;
+    flex-direction: column;
 }

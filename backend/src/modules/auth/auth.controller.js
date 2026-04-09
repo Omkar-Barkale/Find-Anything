@@ -80,11 +80,10 @@ async function updateUser(req, res){
 }
 
 async function getLogs(req, res){
-    console.log("got to logs");
     try{
-        const {type} = req.params
-
-        const data = await userServices.getLogs(type);
+        const search = req.params.search;
+        
+        const data = await userServices.getLogs(search);
         if(!data){
             console.log("did not get any logs");
             res.status(400).json({error: "No Logs found"});
