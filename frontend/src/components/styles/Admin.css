@@ -1,4 +1,4 @@
-/* Ensure page takes up full screen */
+
 body, html, #root {
     height: 100%;
     margin: 0;
@@ -7,22 +7,22 @@ body, html, #root {
 
 #AdminDashboard {
     display: flex;
-    flex-direction: row-reverse; /* Removed row-reverse for standard layout */
+    flex-direction: row-reverse; 
     width: 100%;
     height: 100vh;
     background-color: rgb(143, 143, 143);
-    overflow: hidden; /* Prevents whole page from scrolling */
+    overflow: hidden; 
 }
 
-/* Sidebar Styling */
+
 #left-menu {
-    width: 250px; /* Specific width for sidebar */
+    width: 250px; 
     height: 100%;
     background-color: rgb(43, 43, 43);
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex-shrink: 0; /* Prevents sidebar from squishing */
+    flex-shrink: 0; 
 }
 
 #left-menu p {
@@ -47,18 +47,18 @@ body, html, #root {
     gap: 1em;
 }
 
-/* Main Content Area (The large dark box) */
+
 #menu {
-    flex-grow: 1; /* Takes up remaining space */
+    flex-grow: 1; 
     background-color: rgb(43, 43, 43);
     border-radius: 1.5em;
-    margin: 2% 2% 2% 2%; /* Even margins all around */
+    margin: 2% 2% 2% 2%; 
     color: white;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centers the Header and Search Bar */
+    align-items: center; 
     padding: 2em;
-    overflow: hidden; /* We scroll the content-area instead */
+    overflow: hidden; 
 }
 
 #main-search {
@@ -69,13 +69,13 @@ body, html, #root {
     margin-bottom: 2em;
 }
 
-/* The actual scrollable list inside the menu */
+
 #content-area {
     width: 100%;
     flex-grow: 1;
     overflow-y: auto;
     display: flex;
-    justify-content: center; /* This centers your cards/logs list */
+    justify-content: center; 
     scrollbar-width: none; 
 }
 
@@ -83,7 +83,7 @@ body, html, #root {
     display: none;
 }
 
-/* Buttons */
+
 #info button {
     width: 10em;
     height: 2.5em;
