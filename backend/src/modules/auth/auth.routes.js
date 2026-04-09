@@ -22,4 +22,5 @@ authRoutes.post('/token', auth.sendToken);
 authRoutes.delete('/delete/:id',auth.authenticate, auth.authenticateUser, log, authController.deleteUsers);
 authRoutes.get('/users',auth.authenticate, auth.authenticateAdmin, log, authController.getAllUsers) 
 authRoutes.get('/users/:id',auth.authenticate, auth.authenticateUser, log, authController.getUserById)
-authRoutes.put('/users/update',auth.authenticate, auth.authenticateUser, log, upload.single("avatar"), authController.updateUser); 
+authRoutes.put('/users/update',auth.authenticate, log, upload.single("avatar"), authController.updateUser); 
+//authRoutes.get('/logs', auth)s

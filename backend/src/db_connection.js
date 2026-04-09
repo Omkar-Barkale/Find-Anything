@@ -1,31 +1,41 @@
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 dotenv.config();
-console.log("MONGO_URI:", process.env.MONGO_URI);
-const uri = process.env.MONGO_URI;
-const client = new MongoClient(uri);
 
-
+let client;
 let db;
 
 export async function connectDB()
 {
   try {
-      if(!db) //prevent multiple connections, reuse same connection if it is already made
-      {
+      if(!db) {
+          const uri = process.env.MONGO_URI;
+          if(!uri) throw new Error('MONGO_URI must be set to connect to database');
+          client = new MongoClient(uri, { serverSelectionTimeoutMS: 5000 });
           await client.connect();
-          console.log("Connected successfully");
-          db = client.db("find-anything");
+          console.log("Connected successfully to", uri);
+          db = client.db(process.env.MONGO_DB_NAME || "find-anything");
       }
-      return db; //return db so others can use the db connection
-    } 
+      return db;
+    }
     catch (err) {
       console.error("Connection error:", err);
       throw err;
-    } 
+    }
 }
 
-//connectDB();
+export async function closeDB(){
+  try{
+    if(client){
+      await client.close();
+    }
+  }catch(e){
+    console.error('Error closing DB', e);
+  } finally{
+    client = null;
+    db = null;
+  }
+}
 
 
 

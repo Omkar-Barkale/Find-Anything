@@ -92,7 +92,7 @@ function Profile()
         })
         .then(data => {
             console.log("Profile updated:", data);
-            navigate('/profile');
+            alert("Update successful");
         })
         .catch(err => {
             console.error("Username error", err.message);
@@ -112,6 +112,7 @@ function Profile()
                     'Authorization': `Bearer ${token}`
                     }
                 });
+                
                 const data = await response.json();
                 setUser(data);
                 setAvatar(`data:${data.avatarType};base64,${data.avatar}`);

@@ -1,25 +1,46 @@
 /*this messes with register css*/
 
-/* .modalOverlay {
+.fileModalOverlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%; 
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3); 
-  display: flex;
+  display:flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   z-index: 1000;
+}
 
-  
+.invalid {
+    border: 1px solid red;
+    color: red;
+}
+.invalidText{
+    color:red;
+}
+
+.status{
+    color: rgb(0, 0, 0);
+    margin-bottom: 1em;
+}
+
+.modalTitle{
+  background-image: radial-gradient(circle, #7182ff 0, #3cff52 100%);
+  background-clip: text;
+  color: transparent;
+  animation: textGradientAnimation 2s ease-in-out infinite alternate;
+  background-repeat: initial;
+  background-size: 200%;
 }
 .modalStyle{
   width: 75%;
   height: 75%;
-  display: flex; 
+  display: flex;
   justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
   z-index: 1001 ; 
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
   position: relative;
@@ -30,21 +51,48 @@
     flex:1;
 }
 
-.fields{
-    display:flex;
+#formElements{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.files{
+   height: 100%;
+    width: 100%;
+}
+.uploadText{
+    margin: 1em auto 1em auto;
+    font-size: 70%;
+}
+
+.submitBtn{
+    display: flex;
     flex-direction: column;
-    justify-content:center;
+    background-color: rgb(255, 255, 255);
+    background-image: radial-gradient(circle, #7182ff 0, #3cff52 100%);
+    color: rgb(255, 255, 255);
+    align-items: center;
+    font-family:sans-serif;
+    border: .1em, Solid #3cff52;
+    border-radius: 1rem;
+    cursor:pointer;
+    padding: .5em;
+    margin: 1em auto 1em auto;
 }
 
 
-input{
-    border:1px solid black;
-    margin:25px;
-    width: 70%;
-    color:black;
-
-
+.coverPreview{
+    max-width: 100%;
+    max-height: 100%;
+    padding-bottom: 15%;
+    overflow: hidden;
 }
+
+
+
 #file{
     height: 50vh;
     width:25vw;
@@ -53,31 +101,66 @@ input{
     display: none;
 
 }
+.fields{
+    display: flex;
+    flex-direction: column;
+    height:100%;
+}
+
 input::placeholder{
     color:gray;
     font-size: 1em;
 }
 
-.uploadContainer{
-    width:100%;
-    height:100%;
-    display: flex;
-    justify-content: center;
-    
+.image{
+    max-width: 60%;
+    max-height: 60%;
+    width: 40%;
+    min-width: 20%;
+    min-height: 20%;
+    margin: 25% auto auto auto;
+}
+.document{
+   max-width: 100%;
+    max-height: 100%;
+    height: 75%;
+    margin: 25% 1em 1em 1em;
 }
 
+.filePreview{
+    width:100%;
+    height:100%;
+}
+
+.textField{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1em auto 1em auto;
+    width:70%;
+    overflow:scroll;
+}
+.description{
+    font-size: 80%;
+    color: gray;
+    margin-top: 0;
+    height: 25%;
+}
 
 .actualUploadBtn{
+    display: flex;
+    flex-direction: column;
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
-
+    align-items: center;
     font-family:sans-serif;
-    border: .5em, dashed green;
+    border: .1em, Solid #3cff52;
     border-radius: 1rem;
     cursor:pointer;
-    width:65%;
-    height:65%;
-    margin:auto auto;
+    padding: .5em;
+   
+    
 
 
 }
@@ -85,10 +168,3 @@ input::placeholder{
     background-color: rgb(203, 203, 203);
 }
 
-.invalid input, .invalid select{
-    border: 2px solid red;
-}
-span{
-    color:red;
-}
- */

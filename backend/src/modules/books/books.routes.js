@@ -11,10 +11,12 @@ import {log} from "../../middleware/Logging.js"
 
 
 bookRoutes.get('/', bookController.getAllBooks);
-bookRoutes.post('/create',log ,authenticate, validateBookUpload, bookController.createPost);
+bookRoutes.post('/create', authenticate, log, validateBookUpload, bookController.createPost);
+bookRoutes.get('/file/:id', authenticate, bookController.downloadBook);
 bookRoutes.get('/:query', bookController.getBookByKeyword)
-bookRoutes.post('/update/:id',log, bookController.updateBook); //need security
-bookRoutes.delete('/delete/:id',log, bookController.deleteBooks); //need security
+bookRoutes.post('/update/:id', authenticate, log, bookController.updateBook); //need security
+bookRoutes.delete('/delete/:id', authenticate, log, bookController.deleteBooks); //need security
+bookRoutes.post('/:id/comments', bookController.createComment);
 
 
 

@@ -2,14 +2,49 @@ import { useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom';
 import './styles/BookModal.css'
 import Card from './Card'
+import { jwtDecode } from 'jwt-decode';
 
-function BookModal(props)
-{
-    const navigate = useNavigate();
+function BookModal(props){
 
-    function openEdit() {
-        navigate(`/book/edit/${props.id}`)
+    //if not logged in and click comment give them message saying must be logged in
+
+    const token = localStorage.getItem('token');
+    const[commentInput, setCommentInput] = useState("");
+
+    function handleSubmit(e){
+        e.preventDefault();
+
+
+        fetch(`http://localhost:3000/books/${props.id}/comments`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${token}`
+            },  
+            body: JSON.stringify({
+                comment : commentInput,
+                bookId : props.id
+            })
+        })
+        .then(async res => {
+            const data = await res.json();
+            if(!res.ok)
+                throw new Error(data.message);
+            setCommentInput("");
+            return data;
+            
+        })
+        .then(data => {
+            console.log(data);
+            e.target.reset();
+        })
+        .catch(err => {
+            console.error("Comment error: ", err.message);
+        });
     }
+
+
+
     return(
         
         <>
@@ -24,7 +59,6 @@ function BookModal(props)
                         <div id = "bookInfo">
                             <h4 id = "bookName">{props.name}</h4>
                             <h5 id = "bookAuthor"> {props.author}</h5>
-                            <button id = "edit" onClick={openEdit}>Edit</button>
                         </div>
                     </div>
 
@@ -35,9 +69,11 @@ function BookModal(props)
                         <div id = "commentSection"> 
                             <h3>No comments yet</h3>
                         </div>
-                        <form id = "commentForm">
-                            <input type = "text" id = "commentInput" placeholder = "Write a comment..." autocomplete="off" ></input>
-                            <button  id = "postBtn" type = "submit">Post</button>
+                        <form id = "commentForm" onSubmit = {handleSubmit}>
+                            <div id="commentInputContainer">
+                                <textarea id="commentInput" placeholder="Write a comment..." value={commentInput} onChange={(e) => setCommentInput(e.target.value)}/>
+                                <button id="postBtn" type="submit">Post</button>
+                            </div>
                         </form>
                     </div>
                 </div>

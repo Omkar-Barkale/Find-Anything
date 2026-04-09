@@ -1,18 +1,16 @@
 
 import * as bookService from "./books.service.js"
+import jwt from "jsonwebtoken";
 
 export async function getAllBooks(req, res, next){
     res.status(200);
     const data = await bookService.getAllBooks()
-    // console.log(data)
     res.json(data);
-
     return; 
 }
-
 export async function getBookByKeyword(req, res) { 
     try {
-        const { query } = req.params;  //object destructuring of getting query from request.
+        const { query } = req.params;
         const result = await bookService.getBookByKeyword(query);
         return res.status(200).json(result); // chain into one call, no need to do JSON.stringify in service as express already does it in res.json
     } 
@@ -30,16 +28,20 @@ export async function getBookByKeyword(req, res) {
   }
   
   export async function createPost(req, res){
-    console.log("Creating book...");
-    
     try{
+        const token = req.headers['authorization']?.split(' ')[1]
+        const decoded = jwt.verify(token, process.env.jwt_secret);
+        
+        console.log("Decoded JWT:", decoded._id);
+       
+
+        const coverObj = req.coverData || null; // contains { data: Buffer, contentType: string }
         const {name, author, description} = req.body;
         const file = req.file;
-        console.log("Received file:", file);
-        
-        await bookService.addBook({name,author,description},file);
+
+        await bookService.addBook({name,author,description}, file, coverObj, decoded._id);
         console.log("Book created successfully");
-        res.status(201).json({message:"Book created successfully"});
+        res.status(201).json({message:"Book created successfully", filepath: file?.path || file?.savedPath});
     
     }
     catch(e){
@@ -74,5 +76,50 @@ export async function deleteBooks(req, res){
         res.json({
             error: "Could not delete any books"
         });
+    }
+}
+
+export async function downloadBook(req, res){
+    try{
+        const {id} = req.params;
+        const book = await bookService.getBookFileById(id);
+        if(!book) return res.status(404).json({message: 'Book not found'});
+
+        const filepath = book.filepath;
+        if(!filepath) return res.status(404).json({message: 'Filepath missing'});
+
+        // Stream file to client
+        res.download(filepath, (err) => {
+            if(err){
+                console.error('Download error', err);
+                // If headers already sent, cannot send JSON
+            } else {
+                // increment downloads asynchronously
+                bookService.incrementDownloads(id).catch(e => console.error(e));
+            }
+        });
+
+    }catch(e){
+        console.error(e);
+        return res.status(500).json({message: e.message});
+    }
+}
+
+
+export async function createComment(req, res){
+    try{
+        const token = req.headers['authorization']?.split(' ')[1]
+        const decoded = jwt.verify(token, process.env.jwt_secret);
+        console.log("Decoded JWT:", decoded._id);
+
+        const comment = req.body.comment;
+        const userId = decoded._id;
+        const bookId = req.body.bookId;
+        const date = new Date();
+
+        const response = await bookService.createComment(userId, bookId, comment, date);
+    }
+    catch(err){
+        res.status(400).json({message: err.message});
     }
 }

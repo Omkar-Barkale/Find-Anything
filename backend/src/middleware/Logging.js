@@ -11,12 +11,16 @@ export async function log(req, res, next){
     // console.log(req.route.path);
     switch(req.route.path){
         case '/delete/:id':
-            text = "User " + username + " deleted: " + req.params.id;
+            if(req.baseUrl === "auth"){
+                text = "User " + username + " deleted user: " + req.params.id;
+            }else{
+                text = "User " + username + " deleted post: " + req.params.id;
+            }
             break;
         case '/users':
             text = "All users were extracted from database";
             break;
-        case 'auth/users/:id':
+        case '/users/:id':
             text = "User " + req.params.id + " was extracted from the database";
             break;
         case '/users/update':
@@ -25,7 +29,7 @@ export async function log(req, res, next){
         case '/create':
             text = "User " + username + " create a new post";
             break;
-        case 'search/update/:id':
+        case '/update/:id':
             text = "User " + username + " updated post: " + req.params.id;
             break;
         default:

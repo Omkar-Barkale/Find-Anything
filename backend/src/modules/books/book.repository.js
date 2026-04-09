@@ -1,5 +1,4 @@
-import fs, { read } from "fs";
-import path from "path";
+
 import { DATA_DIR } from "../../constants.js";
 import {connectDB} from '../../db_connection.js'
 import { ObjectId } from 'mongodb';
@@ -32,6 +31,11 @@ export async function createBook(book){
     console.log("Book created successfully");
 }
 
+export async function getBookById(id){
+    const db = await connectDB();
+    const data = await db.collection('books').findOne({_id: new ObjectId(id)});
+    return data;
+}
 
 export async function deleteBooks(id){
     console.log("deleteBooks repo ran id: " + id);
@@ -48,15 +52,12 @@ export async function deleteBooks(id){
     }
 }
 
-
-
-
 export async function updateBook(id, name, author, description) {
     const db = await connectDB();
     
     const result = await db.collection("books").updateOne(
         {_id: new ObjectId(id)},
-        {$set: {name:name, author:author, body:description}}
+        {$set: {name:name, author:author, description:description}}
     );
 
     return result.modifiedCount;
@@ -66,8 +67,8 @@ export async function incrementLikes(_id, amount) {
     const db = await connectDB();
 
     const result = await db.collection("books").updateOne(
-        {_id: new ObjectId(id)},
-        {$inc: {votes: amount}}
+        {_id: new ObjectId(_id)},
+        {$inc: {"meta.votes": amount}}
     );
 
     return result.modifiedCount;
@@ -77,10 +78,22 @@ export async function incrementDownloads(_id) {
     const db = await connectDB();
 
     const result = await db.collection("books").updateOne(
-        {_id: new ObjectId(id)},
-        {$inc: {downloads: 1}}
+        {_id: new ObjectId(_id)},
+        {$inc: {"meta.downloads": 1}}
     );
 
     return result.modifiedCount;
 }
 
+export async function createComment(userId, bookId, comment, date)
+{
+    const db = await connectDB();
+    let result = await db.collection("comments").insertOne({
+        userId : userId,
+        bookId : bookId,
+        comment: comment,
+        createdAt : date
+    });
+    console.log("Comment created successfully");
+    return result.insertedId;
+}
