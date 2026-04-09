@@ -24,7 +24,7 @@ export default function FileUploader(props) //we use prop since need to send par
             {
                 e.target.value = '';
                 console.log('Only png and jpeg files are supported');
-                props.setAvatarError("Only png and jpeg files are supported")
+                props.setAvatarError("Only png and jpeg files are supportedasa")
             }
         }
 

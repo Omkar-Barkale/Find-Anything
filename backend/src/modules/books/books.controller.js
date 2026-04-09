@@ -5,19 +5,12 @@ import jwt from "jsonwebtoken";
 export async function getAllBooks(req, res, next){
     res.status(200);
     const data = await bookService.getAllBooks()
-    // console.log(data)
     res.json(data);
-
     return; 
-}
-function coverImg(buffer, imgType){
-    if(buffer != null && imgType != null){
-        return `data:${imgType};base64,${buffer.toString('base64')}`;
-    }
 }
 export async function getBookByKeyword(req, res) { 
     try {
-        const { query } = req.params;  //object destructuring of getting query from request.
+        const { query } = req.params;
         const result = await bookService.getBookByKeyword(query);
         return res.status(200).json(result); // chain into one call, no need to do JSON.stringify in service as express already does it in res.json
     } 
@@ -86,6 +79,29 @@ export async function deleteBooks(req, res){
     }
 }
 
+export async function downloadBook(req, res){
+    try{
+        const {id} = req.params;
+        const book = await bookService.getBookFileById(id);
+        if(!book) return res.status(404).json({message: 'Book not found'});
+
+        const filepath = book.filepath;
+        if(!filepath) return res.status(404).json({message: 'Filepath missing'});
+
+        // Stream file to client
+        res.download(filepath, (err) => {
+            if(err){
+                console.error('Download error', err);
+                // If headers already sent, cannot send JSON
+            } else {
+                // increment downloads asynchronously
+                bookService.incrementDownloads(id).catch(e => console.error(e));
+            }
+        });
+
+    }catch(e){
+        console.error(e);
+        return res.status(500).json({message: e.message});
 export async function createComment(req, res){
     try{
         const token = req.headers['authorization']?.split(' ')[1]

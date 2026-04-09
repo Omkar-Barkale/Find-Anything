@@ -12,6 +12,7 @@ export const bookRoutes = Router();
 
 bookRoutes.get('/', bookController.getAllBooks);
 bookRoutes.post('/create', authenticate, validateBookUpload, bookController.createPost);
+bookRoutes.get('/file/:id', authenticate, bookController.downloadBook);
 bookRoutes.get('/:query', bookController.getBookByKeyword)
 bookRoutes.post('/update/:id', bookController.updateBook); //need security
 bookRoutes.delete('/delete/:id', bookController.deleteBooks); //need security
