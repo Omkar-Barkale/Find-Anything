@@ -79,6 +79,40 @@ async function updateUser(req, res){
  
 }
 
+async function getLogs(req, res){
+    console.log("got to logs");
+    try{
+        const {type} = req.params
+
+        const data = await userServices.getLogs(type);
+        if(!data){
+            console.log("did not get any logs");
+            res.status(400).json({error: "No Logs found"});
+        }
+        console.log("gotten logs");
+        res.status(200).json(data);
+
+    }catch(err){
+        res.status(400).json({error: err.message });
+    }
+}
+
+async function getAllLogs(req, res){
+    try{
+        const data = await userServices.getAllLogs();
+        if(!data){
+            console.log("did not get any logs");
+            res.status(400).json({error: "No Logs found"});
+        }
+        console.log("gotten logs");
+        res.status(200).json(data);
+
+    }catch(err){
+        res.status(400).json({error: err.message });
+    }
+}
 
 
-export {getAllUsers,getUserById,getUserByEmail, deleteUsers, updateUser};
+
+
+export {getAllUsers,getUserById,getUserByEmail, deleteUsers, updateUser, getLogs, getAllLogs};

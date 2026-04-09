@@ -76,5 +76,30 @@ async function updateUser(id, email, username, password, avatarBuffer, avatarTyp
     return id;
 }
 
+async function getLogs(type){
+    const db = await connectDB();
+    const logs = await db.collection('Logs').find({
+        $or:[ 
+            {log: {$regex: type, $options: 'i'}}, 
+            {username: {$regex: type, $options: 'i'}}]
+    }).toArray();
 
-export {getAllUsers, getUser,getUserById,deleteUsers, updateUser};
+    if(!logs){
+        console.log("repo could not access logs");
+        return null;
+    }
+    return logs;
+}
+
+async function getAllLogs(){
+    const db = await connectDB();
+    const logs = await db.collection('Logs').find({}).toArray();
+    if(!logs){
+        console.log("repo could not access logs");
+        return null;
+    }
+    return logs;
+}
+
+
+export {getAllUsers, getUser,getUserById,deleteUsers, updateUser, getLogs, getAllLogs};

@@ -1,5 +1,4 @@
-import { useState, useNavigation, useEffect } from 'react'
-import Searchbar from './Searchbar.jsx'
+import { useState, useEffect } from 'react'
 import CardLayout  from './CardLayout.jsx'
 import UserCards  from './UserCards.jsx'
 import './styles/Admin.css'
@@ -12,10 +11,11 @@ function Admin(){
     console.log("the token is: "+ token);
     const navigate = useNavigate();
     const [menu, setMenu] = useState("users");
-    const [path, setPath] = useState(); //for profile
     const [items, setItems] = useState([]);
-    const [trigger, setTrigger] = useState(0);
-    const [books, setBooks] = useState([])
+    const [books, setBooks] = useState([]);
+    const [logs, setLogs] = useState([]);
+    const [search, setSearch] = useState("");
+
  
     function loadUsers(){
         fetch('http://localhost:3000/auth/users', {
@@ -61,11 +61,61 @@ function Admin(){
         })
     }
 
+    function loadLogs(){
+        let path;
+        if(search){
+            path = `http://localhost:3000/auth/logs/${search}`;
+        }
+        else{
+            path = `http://localhost:3000/auth/logs`
+        }
+
+        fetch(path, {
+            method: "GET",
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(function(res){
+            if(res.ok){
+                return res.json();
+            }else{
+                console.log("res is not ok");
+                console.log("response is " + res.status);
+                return null;
+            }
+        }).then(function(logs){
+            if(!logs){
+                return;
+            }
+            if('error' in logs){
+                console.log("error was sent from logs/search");
+                console.log(logs.error);
+            }
+            else{
+                console.log("logs were gotten");
+                setLogs(logs)
+            }
+        });
+        
+    }
+
     useEffect(() => {
         console.log("The token is " + token);    
-        loadUsers();
-        loadBooks();
-        }, [])
+        const reloadData = () => {
+            if(menu === "users"){
+                loadUsers();
+            }
+            if(menu === "books"){
+                loadBooks();
+            }
+            if(menu === "logs"){
+                loadLogs();
+            }
+        }
+
+        const interval = setInterval(reloadData, 10000)//reloads data every 10 seconds
+        return () => clearInterval(interval);
+        }, [menu])
 
     function getAvatar(user){
         return `data:${user.avatarType};base64,${user.avatar}`;
@@ -143,6 +193,16 @@ function Admin(){
         
     }
 
+    function showLogs(){
+        try{
+            return <CardLayout id="adminCardLayout">
+                {logs.map((item) => (<UserCards key = {item._id} username = {item.username} email = {item.email} menu={menu} body = {item.log} time = {item.time}></UserCards>))}
+            </CardLayout>;
+        }catch(err){
+            console.log(err.message);
+        }
+    }
+
     function users(){
         try{
             return <CardLayout id="adminCardLayout">
@@ -158,12 +218,16 @@ function Admin(){
 
     return(
     <div id='AdminDashboard'>
-        <div id='menu'>
-            {/* <Searchbar placeholder={"Search for " + menu} /> */}
+        <div id= "menu">
             <h2>Moderation</h2>
-            {menu === "users" ? users() : ""}
-            {menu === "books" ? showbooks() : ""}
+            <input type='text' placeholder='search' id = "main-search" onChange={(e) => setSearch(e.target.value)}></input>
+            <div id='content-area'>
+                {menu === "users" ? users() : ""}
+                {menu === "books" ? showbooks() : ""}
+                {menu === "logs" ? showLogs() : ""}
+            </div>
         </div>
+        
         
         <div id="left-menu">
             <p>Username</p>
