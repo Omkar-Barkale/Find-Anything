@@ -80,25 +80,22 @@ export async function deleteBooks(req, res){
 }
 
 export async function downloadBook(req, res){
-    console.log("downloadBook controller ran");
     try{
         const {id} = req.params;
-
         const book = await bookService.getBookFileById(id);
-        console.log("Book retrieved for download:", book);
         if(!book) return res.status(404).json({message: 'Book not found'});
 
         const filepath = book.filepath;
         if(!filepath) return res.status(404).json({message: 'Filepath missing'});
 
+        // Stream file to client
         res.download(filepath, (err) => {
             if(err){
                 console.error('Download error', err);
- 
+                // If headers already sent, cannot send JSON
             } else {
-                // increment downloads asynchronously using the book's id
-                const bookId = book._id ? (book._id.toString ? book._id.toString() : book._id) : null;
-                if (bookId) bookService.incrementDownloads(bookId).catch(e => console.error(e));
+                // increment downloads asynchronously
+                bookService.incrementDownloads(id).catch(e => console.error(e));
             }
         });
 
