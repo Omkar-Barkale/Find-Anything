@@ -25,7 +25,7 @@ function BookModal(props){
 
     useEffect(()=>{
         function fetchComments(){
-            fetch(`http://localhost:3000/books/${props.id}/comments`, {
+            fetch(`http://localhost:3000/search/${props.id}/comments`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -66,7 +66,7 @@ function BookModal(props){
         }
 
 
-        fetch(`http://localhost:3000/books/${props.id}/comments`, {
+        fetch(`http://localhost:3000/search/${props.id}/comments`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
