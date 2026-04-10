@@ -21,7 +21,7 @@ import {log} from "../../middleware/Logging.js"
 
 
 bookRoutes.get('/', bookController.getAllBooks);
-bookRoutes.get('/file/:path', authenticate, bookController.downloadBook);
+bookRoutes.get('/file/:id', authenticate, bookController.downloadBook);
 bookRoutes.post('/create', authenticate, log, validateBookUpload, bookController.createPost);
 bookRoutes.get('/:id/comments', bookController.getComments);
 bookRoutes.post('/:id/comments', bookController.createComment);

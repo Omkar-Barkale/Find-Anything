@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">17.85% </span>
+                <span class="strong">20.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/56</span>
+                <span class='fraction'>11/53</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.55% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/18</span>
+                <span class='fraction'>1/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.18% </span>
+                <span class="strong">35.71% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/11</span>
+                <span class='fraction'>5/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">17.85% </span>
+                <span class="strong">21.15% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/56</span>
+                <span class='fraction'>11/52</span>
             </div>
         
             
@@ -198,12 +198,8 @@
 <a name='L133'></a><a href='#L133'>133</a>
 <a name='L134'></a><a href='#L134'>134</a>
 <a name='L135'></a><a href='#L135'>135</a>
-<a name='L136'></a><a href='#L136'>136</a>
-<a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L136'></a><a href='#L136'>136</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -234,12 +230,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -247,31 +237,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -350,6 +340,7 @@ import { ObjectId } from 'mongodb';
 import Book from "./domain/types/Books.js";
 import fs from 'fs';
 import path from 'path';
+import { get } from "http";
 &nbsp;
 &nbsp;
 &nbsp;
@@ -379,41 +370,35 @@ export async function <span class="fstat-no" title="function not covered" >creat
 <span class="cstat-no" title="statement not covered" >    console.log("Book created successfully");</span>
 }
 &nbsp;
-export async function <span class="fstat-no" title="function not covered" >getBookById(</span>id){
-    const db = <span class="cstat-no" title="statement not covered" >await connectDB();</span>
-    const data = <span class="cstat-no" title="statement not covered" >await db.collection('books').findOne({_id: new ObjectId(id)});</span>
-<span class="cstat-no" title="statement not covered" >    return data;</span>
+export async function getBookById(id){
+    const db = await connectDB();
+    const data = await db.collection('books').findOne({_id: new ObjectId(id)});
+    return data;
 }
 &nbsp;
-export async function getBookFileByPath(file, res){
+export async function getBookFileById(id){
+    
+    return getBookById(id).then(book =&gt; {
+        
+        <span class="missing-if-branch" title="if path not taken" >I</span>if(!book) <span class="cstat-no" title="statement not covered" >return null;</span>
+        
+        return { filepath: book.filepath };
+    }).catch(<span class="fstat-no" title="function not covered" >e </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >        console.error(e);</span>
+<span class="cstat-no" title="statement not covered" >        console.log("Error retrieving book file by ID");</span>
+<span class="cstat-no" title="statement not covered" >        return null;</span>
+    });
+}
+&nbsp;
+export function checkFileExists(filepath) {
     try {
-        // If it's an absolute path and file exists, return it
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof file === 'string' &amp;&amp; path.isAbsolute(file) &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >fs.existsSync(file))</span> {
-<span class="cstat-no" title="statement not covered" >            return { filepath: file };</span>
-        }
-&nbsp;
-        // If looks like ObjectId, query DB for the book's filepath and return full book
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof file === 'string' &amp;&amp; /^[0-9a-fA-F]{24}$/.test(file)) {
-            const db = await connectDB();
-            const book = await db.collection('books').findOne({_id: new ObjectId(file)});
-            <span class="missing-if-branch" title="else path not taken" >E</span>if (book &amp;&amp; book.filepath &amp;&amp; fs.existsSync(book.filepath)) {
-                return book; // Return full book object so controller can access _id
-            }
-        }
-&nbsp;
-        // Otherwise, look for file in uploads/documents
-        const uploadsPath = <span class="cstat-no" title="statement not covered" >path.join(process.cwd(), 'uploads', 'documents', String(file));</span>
-<span class="cstat-no" title="statement not covered" >        if (fs.existsSync(uploadsPath)) {</span>
-<span class="cstat-no" title="statement not covered" >            return { filepath: uploadsPath };</span>
-        }
-&nbsp;
-        // File not found
-<span class="cstat-no" title="statement not covered" >        return null;</span>
+        return fs.existsSync(filepath);
     } catch (e) {
-<span class="cstat-no" title="statement not covered" >        console.error('getBookFileByPath error', e);</span>
-<span class="cstat-no" title="statement not covered" >        return null;</span>
+<span class="cstat-no" title="statement not covered" >        console.error('checkFileExists error', e);</span>
+<span class="cstat-no" title="statement not covered" >        return false;</span>
     }
 }
+&nbsp;
 &nbsp;
 export async function <span class="fstat-no" title="function not covered" >deleteBooks(</span>id){
 <span class="cstat-no" title="statement not covered" >    console.log("deleteBooks repo ran id: " + id);</span>
@@ -490,7 +475,7 @@ export async function <span class="fstat-no" title="function not covered" >getCo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-10T19:53:00.608Z
+                at 2026-04-10T20:23:02.330Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

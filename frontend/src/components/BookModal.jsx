@@ -20,6 +20,7 @@ function BookModal(props){
     const [baseCommentCount, setBaseCommentCount] = useState(0);
     const [firstLoad, setFirstLoad] = useState(false);
     const [visibleCount, setVisibleCount] = useState(5);
+    const [downloadError, setDownloadError] = useState("");
 
 
 
@@ -110,8 +111,10 @@ function BookModal(props){
     }
     
     async function getFile(){
+        setDownloadError("");
         try{
-            console.log("Attempting to download file with token:", token , "for filepath:", props.id);
+            console.log("Attempting to download file with token:", token , "for Book ID:", props.id);
+       
             const response = await fetch(`http://localhost:3000/search/file/${props.id}`, {
                 method: "GET",
                 headers: {
@@ -123,7 +126,7 @@ function BookModal(props){
                 throw new Error(data.message);
             }
             const file = await response.blob();
-            const url = window.URL.createObjectURL(file);
+            const url = URL.createObjectURL(file);
             const a = document.createElement('a');
             a.href = url;
             a.download = `${props.name}.pdf`;
@@ -133,6 +136,7 @@ function BookModal(props){
             document.body.removeChild(a);
         } catch (err) {
             console.error("Error downloading file", err);
+            setDownloadError(err.message || "Failed to download file");
         }
     }
 
@@ -151,6 +155,7 @@ function BookModal(props){
                             <h5 className = "author">{props.author}</h5>
                             <p className="bookDescription"> {props.description} </p>
                             <button id = "downloadButton" onClick = {getFile}>Download</button>
+                            {downloadError && <span style={{color: 'red', fontSize: '0.9em', marginTop: '5px', display: 'block'}}>{downloadError}</span>}
                         </div>
                     </div>
 

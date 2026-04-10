@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.47% </span>
+                <span class="strong">14.28% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/85</span>
+                <span class='fraction'>12/84</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.75% </span>
+                <span class="strong">15.62% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/32</span>
+                <span class='fraction'>5/32</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.04% </span>
+                <span class="strong">15% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/81</span>
+                <span class='fraction'>12/80</span>
             </div>
         
             
@@ -216,8 +216,7 @@
 <a name='L151'></a><a href='#L151'>151</a>
 <a name='L152'></a><a href='#L152'>152</a>
 <a name='L153'></a><a href='#L153'>153</a>
-<a name='L154'></a><a href='#L154'>154</a>
-<a name='L155'></a><a href='#L155'>155</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L154'></a><a href='#L154'>154</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -302,14 +301,13 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -455,24 +453,23 @@ export async function <span class="fstat-no" title="function not covered" >delet
 export async function downloadBook(req, res){
     console.log("downloadBook controller ran");
     try{
-        const {path} = req.params;
-        const decodedPath = decodeURIComponent(path);
-        console.log("Decoded filepath:", decodedPath);
-        const book = await bookService.getBookFileById(decodedPath);
+        const {id} = req.params;
+&nbsp;
+        const book = await bookService.getBookFileById(id);
+        console.log("Book retrieved for download:", book);
         <span class="missing-if-branch" title="if path not taken" >I</span>if(!book) <span class="cstat-no" title="statement not covered" >return res.status(404).json({message: 'Book not found'});</span>
 &nbsp;
         const filepath = book.filepath;
         <span class="missing-if-branch" title="if path not taken" >I</span>if(!filepath) <span class="cstat-no" title="statement not covered" >return res.status(404).json({message: 'Filepath missing'});</span>
 &nbsp;
-        // Stream file to client
-        res.sendFile(filepath, (err) =&gt; {
+        res.download(filepath, (err) =&gt; {
             <span class="missing-if-branch" title="if path not taken" >I</span>if(err){
 <span class="cstat-no" title="statement not covered" >                console.error('Download error', err);</span>
-                // If headers already sent, cannot send JSON
+ 
             } else {
                 // increment downloads asynchronously using the book's id
-                const bookId = book._id ? (book._id.toString ? book._id.toString() : <span class="branch-1 cbranch-no" title="branch not covered" >book._id)</span> : <span class="branch-1 cbranch-no" title="branch not covered" >null;</span>
-                <span class="missing-if-branch" title="else path not taken" >E</span>if (bookId) bookService.incrementDownloads(bookId).catch(<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >console.error(e))</span>;
+                const bookId = book._id ? (<span class="branch-0 cbranch-no" title="branch not covered" >book._id.toString ? book._id.toString() : book._id)</span> : null;
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (bookId) <span class="cstat-no" title="statement not covered" >bookService.incrementDownloads(bookId).catch(<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >console.error(e))</span>;</span>
             }
         });
 &nbsp;
@@ -532,7 +529,7 @@ export async function <span class="fstat-no" title="function not covered" >getCo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-10T19:53:00.608Z
+                at 2026-04-10T20:23:02.330Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
