@@ -7,28 +7,16 @@ import Card from './Card.jsx'
  function Searchbar({ placeholder}) {
     
     const[books, setBooks] = useState([]);
-    const[loading, setLoading] = useState(true);
 
     function getImageURL(book)  {
-        if(book.image && book.imgType){
-            console.log("Book filepath", book.filepath);
+        if(book.image && book.imgType)
             return `data:${book.imgType};base64,${book.image.data}`;
-            
-        }
-        return null;
-    }
-    function checkURL(book){
-        if(book.filepath){
-            console.log("Book filepath", book.filepath);
-            return book.filepath;
-        }
         return null;
     }
     
     useEffect(() => { //loads all books from MongoDB on initial render, only once([]) instead of reading from json file
 
         const load = async () => {
-                setLoading(true);
                 const response = await fetch('http://localhost:3000/search/', {
                     method: 'GET',
                     headers: {
@@ -37,7 +25,6 @@ import Card from './Card.jsx'
                 }); 
                 const data = await response.json();
                 setBooks(data);
-                setLoading(false);
         }
         load();
     }, [])
@@ -54,7 +41,6 @@ import Card from './Card.jsx'
             {
                 setBooks(data);
                 setText("");
-                
             }
             else
             {
@@ -69,13 +55,10 @@ import Card from './Card.jsx'
                 <form className="searchbar" onSubmit={handleSubmit}>
                     <input id = "main-search" type="text" onChange={(e) => setSearch(e.target.value)} placeholder={placeholder} />
                 </form>
-                      {loading ? (
-                        <p id = "loading">Loading...</p>
-                      ) : (
-                        <CardLayout>
-                          {books.map((book) => (<Card key = {book._id} id = {book._id} name = {book.name} author = {book.author} body = {book.body} cover = {getImageURL(book)} description = {book.description} ></Card>))}
-                        </CardLayout>
-                      )}
+                      <CardLayout>
+                        {books.map((book) => (<Card key = {book._id} id = {book._id} name = {book.name} author = {book.author} body = {book.body}cover = {getImageURL(book)} description = {book.description}></Card>))}
+                     </CardLayout>
+
                      <h2>{text}</h2>
             </>
         )

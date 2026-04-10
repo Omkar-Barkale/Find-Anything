@@ -2,10 +2,6 @@
 import { DATA_DIR } from "../../constants.js";
 import {connectDB} from '../../db_connection.js'
 import { ObjectId } from 'mongodb';
-import Book from "./domain/types/Books.js";
-import fs from 'fs';
-import path from 'path';
-import { get } from "http";
 
 
 
@@ -40,30 +36,6 @@ export async function getBookById(id){
     const data = await db.collection('books').findOne({_id: new ObjectId(id)});
     return data;
 }
-
-export async function getBookFileById(id){
-    
-    return getBookById(id).then(book => {
-        
-        if(!book) return null;
-        
-        return { filepath: book.filepath };
-    }).catch(e => {
-        console.error(e);
-        console.log("Error retrieving book file by ID");
-        return null;
-    });
-}
-
-export function checkFileExists(filepath) {
-    try {
-        return fs.existsSync(filepath);
-    } catch (e) {
-        console.error('checkFileExists error', e);
-        return false;
-    }
-}
-
 
 export async function deleteBooks(id){
     console.log("deleteBooks repo ran id: " + id);
