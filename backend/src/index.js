@@ -26,7 +26,7 @@ export function createApp(){
   //Login route
   app.use("/auth", authRoutes);
 
-  //Register route
+  //Register route  
   app.use("/registration", registrationRoutes);
 
   //fallback path
