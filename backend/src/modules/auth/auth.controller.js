@@ -66,6 +66,18 @@ async function updateUser(req, res){
 
         if(password)
             password = await bcrypt.hash(password, 10);
+
+        if(req.file) {
+            const maxImageSize = 1024 * 1024; 
+            const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
+
+            if(!allowedTypes.includes(req.file.mimetype))
+                throw new Error("Avatar must be a PNG or JPEG image");
+
+            if(req.file.size > maxImageSize)
+                throw new Error("Avatar image must be 1MB or smaller");
+        }
+
         const imgBuffer = req.file ? req.file.buffer : null;
         const imgType = req.file ? req.file.mimetype : null;
 

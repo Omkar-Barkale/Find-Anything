@@ -28,11 +28,17 @@ export async function createAccount(req, res)
         if(!req.file)
             throw new Error("Image error");
 
-        const imgBuffer = req.file ? req.file.buffer : null; //safety check added
+        const maxImageSize = 1024 * 1024; 
+        const allowedTypes = ["image/png", "image/jpeg", "image/jpg"];
+
+        if(!allowedTypes.includes(req.file.mimetype))
+            throw new Error("Avatar must be a PNG or JPEG image");
+
+        if(req.file.size > maxImageSize)
+            throw new Error("Avatar image must be 1MB or smaller");
+
+        const imgBuffer = req.file.buffer;
         const imgType = req.file.mimetype;
-
-
-
 
         const account = await registrationService.createAccount(email, username, hashedPassword, imgBuffer, imgType);
         res.status(201).json({ id: account });    //mongodb id

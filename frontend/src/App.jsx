@@ -7,7 +7,7 @@ import Register from "./components/Register.jsx"
 import EditBook from "./components/EditBook.jsx"
 import Admin from "./components/Admin.jsx"
 import Profile from "./components/Profile.jsx"
-
+import Breadcrumb from "./components/Breadcrumb.jsx"
 import {Routes, Route} from 'react-router-dom'
 import NotFound from './components/NotFound.jsx'
 
@@ -15,6 +15,7 @@ import NotFound from './components/NotFound.jsx'
 function App() {
   return (
     <>
+      <Breadcrumb />
       <Routes>
         <Route path = "/" element ={<Home/>}/>
         <Route path = "/home" element ={<Home/>}/>
