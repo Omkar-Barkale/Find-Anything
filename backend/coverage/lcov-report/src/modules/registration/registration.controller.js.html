@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">95.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>20/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">95.23% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>20/21</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -114,39 +114,39 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as registrationService from "./registration.service.js"
@@ -155,41 +155,41 @@ import bcrypt from 'bcrypt';
 &nbsp;
 &nbsp;
 &nbsp;
-export async function <span class="fstat-no" title="function not covered" >createAccount(</span>req, res)
+export async function createAccount(req, res)
 {
-<span class="cstat-no" title="statement not covered" >    try{</span>
-        const email = <span class="cstat-no" title="statement not covered" >req.body.email;</span>
-        const username = <span class="cstat-no" title="statement not covered" >req.body.username;</span>
-        const password = <span class="cstat-no" title="statement not covered" >req.body.password;</span>
-        const confirmPassword = <span class="cstat-no" title="statement not covered" >req.body.confirmPassword;  </span>
-        const password_regex = <span class="cstat-no" title="statement not covered" >/^[A-Za-z0-9!@#$%^&amp;*()_+\-=\[\]{};':"\\|,.&lt;&gt;\/?]{9,17}$/;</span>
-        const email_regex = <span class="cstat-no" title="statement not covered" >/^(.+)@([^\.].*)\.([a-z]{2,})$/;</span>
+    try{
+        const email = req.body.email;
+        const username = req.body.username;
+        const password = req.body.password;
+        const confirmPassword = req.body.confirmPassword;  
+        const password_regex = /^[A-Za-z0-9!@#$%^&amp;*()_+\-=\[\]{};':"\\|,.&lt;&gt;\/?]{9,17}$/;
+        const email_regex = /^(.+)@([^\.].*)\.([a-z]{2,})$/;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if(!email_regex.test(email))</span>
-<span class="cstat-no" title="statement not covered" >            throw new Error("Invalid email format");</span>
+        if(!email_regex.test(email))
+            throw new Error("Invalid email format");
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if(!password_regex.test(password))</span>
+        <span class="missing-if-branch" title="if path not taken" >I</span>if(!password_regex.test(password))
 <span class="cstat-no" title="statement not covered" >            throw new Error("Invalid password format");</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if(confirmPassword !== password)</span>
-<span class="cstat-no" title="statement not covered" >            throw new Error("Passwords do not match");</span>
+        if(confirmPassword !== password)
+            throw new Error("Passwords do not match");
 &nbsp;
-        const hashedPassword = <span class="cstat-no" title="statement not covered" >await bcrypt.hash(password, 10);</span>
+        const hashedPassword = await bcrypt.hash(password, 10);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if(!req.file)</span>
-<span class="cstat-no" title="statement not covered" >            throw new Error("Image error");</span>
+        if(!req.file)
+            throw new Error("Image error");
 &nbsp;
-        const imgBuffer = <span class="cstat-no" title="statement not covered" >req.file ? req.file.buffer : null;</span> //safety check added
-        const imgType = <span class="cstat-no" title="statement not covered" >req.file.mimetype;</span>
-&nbsp;
-&nbsp;
+        const imgBuffer = req.file ? req.file.buffer : <span class="branch-1 cbranch-no" title="branch not covered" >null;</span> //safety check added
+        const imgType = req.file.mimetype;
 &nbsp;
 &nbsp;
-        const account = <span class="cstat-no" title="statement not covered" >await registrationService.createAccount(email, username, hashedPassword, imgBuffer, imgType);</span>
-<span class="cstat-no" title="statement not covered" >        res.status(201).json({ id: account }); </span>   //mongodb id
+&nbsp;
+&nbsp;
+        const account = await registrationService.createAccount(email, username, hashedPassword, imgBuffer, imgType);
+        res.status(201).json({ id: account });    //mongodb id
     }
     catch(err){
-<span class="cstat-no" title="statement not covered" >        res.status(400).json({ message: err.message });</span>
+        res.status(400).json({ message: err.message });
     }
 &nbsp;
 }</pre></td></tr></table></pre>
@@ -199,7 +199,7 @@ export async function <span class="fstat-no" title="function not covered" >creat
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-04-08T20:28:05.427Z
+                at 2026-04-10T19:16:33.391Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
