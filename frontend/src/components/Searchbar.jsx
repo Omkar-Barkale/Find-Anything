@@ -10,7 +10,6 @@ import Card from './Card.jsx'
 
     function getImageURL(book)  {
         if(book.image && book.imgType)
-            console.log("hll");
             return `data:${book.imgType};base64,${book.image.data}`;
         return null;
     }
@@ -57,7 +56,7 @@ import Card from './Card.jsx'
                     <input id = "main-search" type="text" onChange={(e) => setSearch(e.target.value)} placeholder={placeholder} />
                 </form>
                       <CardLayout>
-                        {books.map((book) => (<Card key = {book._id} id = {book._id} name = {book.name} author = {book.author} body = {book.body}cover = {getImageURL(book)}></Card>))}
+                        {books.map((book) => (<Card key = {book._id} id = {book._id} name = {book.name} author = {book.author} body = {book.body}cover = {getImageURL(book)} description = {book.description}></Card>))}
                      </CardLayout>
 
                      <h2>{text}</h2>
