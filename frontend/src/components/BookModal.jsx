@@ -108,8 +108,33 @@ function BookModal(props){
         setFirstLoad(false);
         props.onClose();
     }
-
     
+    async function getFile(){
+        try{
+            console.log("Attempting to download file with token:", token , "for filepath:", props.id);
+            const response = await fetch(`http://localhost:3000/search/file/${props.id}`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if(!response.ok){
+                const data = await response.json();
+                throw new Error(data.message);
+            }
+            const file = await response.blob();
+            const url = window.URL.createObjectURL(file);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${props.name}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        } catch (err) {
+            console.error("Error downloading file", err);
+        }
+    }
 
     return(
         
@@ -125,7 +150,7 @@ function BookModal(props){
                             <h4 className = "bookName">{props.name}</h4>
                             <h5 className = "author">{props.author}</h5>
                             <p className="bookDescription"> {props.description} </p>
-
+                            <button id = "downloadButton" onClick = {getFile}>Download</button>
                         </div>
                     </div>
 

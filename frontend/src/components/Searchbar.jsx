@@ -10,8 +10,18 @@ import Card from './Card.jsx'
     const[loading, setLoading] = useState(true);
 
     function getImageURL(book)  {
-        if(book.image && book.imgType)
+        if(book.image && book.imgType){
+            console.log("Book filepath", book.filepath);
             return `data:${book.imgType};base64,${book.image.data}`;
+            
+        }
+        return null;
+    }
+    function checkURL(book){
+        if(book.filepath){
+            console.log("Book filepath", book.filepath);
+            return book.filepath;
+        }
         return null;
     }
     
@@ -44,6 +54,7 @@ import Card from './Card.jsx'
             {
                 setBooks(data);
                 setText("");
+                
             }
             else
             {
@@ -62,7 +73,7 @@ import Card from './Card.jsx'
                         <p id = "loading">Loading...</p>
                       ) : (
                         <CardLayout>
-                          {books.map((book) => (<Card key = {book._id} id = {book._id} name = {book.name} author = {book.author} body = {book.body}cover = {getImageURL(book)} description = {book.description}></Card>))}
+                          {books.map((book) => (<Card key = {book._id} id = {book._id} name = {book.name} author = {book.author} body = {book.body} cover = {getImageURL(book)} description = {book.description} ></Card>))}
                         </CardLayout>
                       )}
                      <h2>{text}</h2>

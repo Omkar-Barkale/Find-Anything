@@ -1,4 +1,5 @@
 import fs, { read } from "fs";
+import path from "path";
 import * as bookRepo from "./book.repository.js";
 import Book from "./domain/types/Books.js"
 
@@ -50,7 +51,10 @@ async function addBook({name,author,description},file, coverFile, userId){
 }
 
 async function getBookFileById(id){
-    return await bookRepo.getBookById(id);
+        const book = await bookRepo.getBookById(id);
+        if (!book) return null;
+        incrementDownloads(id).catch(e => console.error("Error incrementing downloads", e));
+        return { filepath: book.filepath };
 }
 
 async function incrementDownloads(id){

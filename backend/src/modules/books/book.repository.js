@@ -2,6 +2,10 @@
 import { DATA_DIR } from "../../constants.js";
 import {connectDB} from '../../db_connection.js'
 import { ObjectId } from 'mongodb';
+import Book from "./domain/types/Books.js";
+import fs from 'fs';
+import path from 'path';
+import { get } from "http";
 
 
 
@@ -35,6 +39,16 @@ export async function getBookById(id){
     const db = await connectDB();
     const data = await db.collection('books').findOne({_id: new ObjectId(id)});
     return data;
+}
+
+export async function getBookFileByPath(id){
+    getBookById(id).then(book => {
+        if(!book) return null;
+        return { filepath: book.filepath };
+    }).catch(e => {
+        console.error(e);
+        return null;
+    });
 }
 
 export async function deleteBooks(id){
