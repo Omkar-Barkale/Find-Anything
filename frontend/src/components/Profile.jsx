@@ -156,7 +156,6 @@ function Profile()
         <div id = "profileOverlay">
             <div id = "profileModal">
                 <div id = "profileSidebar">
-                    <h3>Home</h3>
                 </div>
                 <div id = "userInfo">
                     <form onSubmit={handleSubmit}>
