@@ -1,5 +1,4 @@
-import { useState, useNavigation, useEffect } from 'react'
-import Searchbar from './Searchbar.jsx'
+import { useState, useEffect } from 'react'
 import CardLayout  from './CardLayout.jsx'
 import UserCards  from './UserCards.jsx'
 import './styles/Admin.css'
@@ -9,13 +8,14 @@ import {useNavigate} from 'react-router-dom';
 function Admin(){
 
     const token = localStorage.getItem("token")
-    console.log("the token is: "+ token);
+    // console.log("the token is: "+ token);
     const navigate = useNavigate();
     const [menu, setMenu] = useState("users");
-    const [path, setPath] = useState(); //for profile
     const [items, setItems] = useState([]);
-    const [trigger, setTrigger] = useState(0);
-    const [books, setBooks] = useState([])
+    const [books, setBooks] = useState([]);
+    const [logs, setLogs] = useState([]);
+    const [search, setSearch] = useState("");
+
  
     function loadUsers(){
         fetch('http://localhost:3000/auth/users', {
@@ -61,14 +61,70 @@ function Admin(){
         })
     }
 
+    function loadLogs(e=null){
+        if(e){
+            e.preventDefault();
+        }
+        let path;
+          
+        if(search){
+            
+            path = `http://localhost:3000/auth/logs/${search}`;
+        }
+        else{
+            path = `http://localhost:3000/auth/logs`
+        }
+     
+      
+        fetch(path, {
+            method: "GET",
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(function(res){
+            if(res.ok){
+                return res.json();
+            }else{
+                console.log("res is not ok");
+                console.log("response is " + res.status);
+                return null;
+            }
+        }).then(function(logs){
+            if(!logs){
+                return;
+            }
+            if('error' in logs){
+                console.log("error was sent from logs/search");
+                console.log(logs.error);
+            }
+            else{
+                console.log("logs were gotten");
+                setLogs(logs)
+            }
+        });
+        
+    }
+
     useEffect(() => {
-        console.log("The token is " + token);    
-        loadUsers();
-        loadBooks();
-        }, [])
+        // console.log("The token is " + token);    
+        const reloadData = () => {
+            if(menu === "users"){
+                loadUsers();
+            }
+            if(menu === "books"){
+                loadBooks();
+            }
+            if(menu === "logs"){
+                loadLogs();
+            }
+        }
+
+        const interval = setInterval(reloadData, 10000)//reloads data every 10 seconds
+        return () => clearInterval(interval);
+        }, [menu])
 
     function getAvatar(user){
-            return "./path.png";
+        return `data:${user.avatarType};base64,${user.avatar}`;
         }
 
     function numPosts(user){
@@ -79,8 +135,8 @@ function Admin(){
         navigate("/Home");
     }
 
-    function getCover(id){
-         return "./path.png";
+    function getCover(book){
+         return `data:${book.imgType};base64,${book.image.data}`;
     }
 
     function Logout(){
@@ -134,13 +190,23 @@ function Admin(){
     function showbooks(){
         try{
             return <CardLayout id="adminCardLayout">
-                {books.map((item) => (<UserCards key = {item._id} name = {item.name} author = {item.author} cover = {getCover(item._id)} body = {item.body} onDelete={deleteBook} id={item._id} menu={menu}></UserCards>))}
+                {books.map((item) => (<UserCards key = {item._id} name = {item.name} author = {item.author} cover = {getCover(item)} body = {item.body} onDelete={deleteBook} id={item._id} menu={menu}></UserCards>))}
             </CardLayout>;
         }catch(err){
             console.log(err.message);
         }
         
         
+    }
+
+    function showLogs(){
+        try{
+            return <CardLayout id="adminCardLayout">
+                {logs.map((item) => (<UserCards key = {item._id} username = {item.username} email = {item.email} menu={menu} body = {item.log} time = {item.time}></UserCards>))}
+            </CardLayout>;
+        }catch(err){
+            console.log(err.message);
+        }
     }
 
     function users(){
@@ -158,12 +224,18 @@ function Admin(){
 
     return(
     <div id='AdminDashboard'>
-        <div id='menu'>
-            {/* <Searchbar placeholder={"Search for " + menu} /> */}
+        <div id= "menu">
             <h2>Moderation</h2>
-            {menu === "users" ? users() : ""}
-            {menu === "books" ? showbooks() : ""}
+            <form className="searchbar" onSubmit={loadLogs}>
+                <input type='text' id = "main-search" placeholder='search' onChange={(e) => setSearch(e.target.value)}></input>
+            </form>
+            <div id='content-area'>
+                {menu === "users" ? users() : ""}
+                {menu === "books" ? showbooks() : ""}
+                {menu === "logs" ? showLogs() : ""}
+            </div>
         </div>
+        
         
         <div id="left-menu">
             <p>Username</p>

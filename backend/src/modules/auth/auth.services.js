@@ -33,6 +33,12 @@ async function updateUser(id, email, username, password, avatarBuffer, avatarTyp
     return await userRepo.updateUser(id, email, username, password, avatarBuffer,avatarType);
 }
 
+async function getLogs(type){
+    return await userRepo.getLogs(type);
+}
 
+async function getAllLogs(){
+    return await userRepo.getAllLogs();
+}
 
-export {getAllUsers, getUserByEmail, getUserById, deleteUsers, updateUser}
+export {getAllUsers, getUserByEmail, getUserById, deleteUsers, updateUser, getLogs, getAllLogs}

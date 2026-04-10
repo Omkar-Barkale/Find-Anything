@@ -1,16 +1,16 @@
-
+import fs, { read } from "fs";
 import * as bookRepo from "./book.repository.js";
 import Book from "./domain/types/Books.js"
-import {jwtDecode} from "jwt-decode";
+
 
 
 async function getAllBooks(){
     const books = await bookRepo.readBooks();
-    for(let book of books){
-        if(book.image && book.image.data && book.image.contentType){
-            book.cover = `data:${book.image.contentType};base64,${book.image.data.toString('base64')}`;
+    books.forEach(book => {
+        if(book.image && book.imgType){
+            console.log(book.savedPath)
         }
-    }
+    });
     return books;
 }
 
@@ -46,10 +46,16 @@ async function addBook({name,author,description},file, coverFile, userId){
         date: new Date()
     };
 
-    // pass userId explicitly to repository so it can enforce/set ownership
     return await bookRepo.createBook(book);
 }
 
+async function getBookFileById(id){
+    return await bookRepo.getBookById(id);
+}
+
+async function incrementDownloads(id){
+    return await bookRepo.incrementDownloads(id);
+}
 
 async function createComment(username, userId, bookId, comment, date){
     if (!userId || !bookId || !comment) 
@@ -65,4 +71,4 @@ async function getComments(bookId){
 
     return await bookRepo.getComments(bookId);
 }
-export {getAllBooks, getBookByKeyword, addBook, updateBook, deleteBooks, createComment, getComments}
+export {getAllBooks, getBookByKeyword, addBook, updateBook, deleteBooks, createComment, getBookFileById, incrementDownloads, getComments}

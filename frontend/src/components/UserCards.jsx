@@ -19,11 +19,12 @@ function UserCards(props){
                <div className="Usercard"> 
                     
                     <p className="username">{username}</p>
-                    <img src={avatar}></img>
+                    <img src={avatar} id="pfp"></img>
                     <p className = 'email'>{email}</p>
                     <p className="role">{role}</p>
                     <p className="numPosts">{numPosts}</p>
                     <button id="delete" onClick={() => deleteUser(id)}>Delete</button>
+                    <button id="ban" onClick={() => banUser(id)}>Ban</button>
                </div>
 
           </>);
@@ -47,6 +48,23 @@ function UserCards(props){
                     <button id="delete" onClick={() => deleteBook(id)}>Delete</button>
                </div>
 
+          </>);
+     }
+     else if(props.menu === "logs"){
+          const username = props.username;
+          const email = props.email;
+          const body = props.body;
+          const time = props.time;
+           
+          return(<>
+               <div className="Usercard">
+                    <p className="username">{username}</p>
+                    <p className="email">{email}</p>
+                    <p className="logBody">{body}</p>
+                    <p className="time">{time}</p>
+               </div>
+          
+          
           </>);
      }
 
