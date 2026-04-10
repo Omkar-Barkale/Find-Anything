@@ -59,7 +59,7 @@ import Card from './Card.jsx'
                     <input id = "main-search" type="text" onChange={(e) => setSearch(e.target.value)} placeholder={placeholder} />
                 </form>
                       {loading ? (
-                        <p>Loading...</p>
+                        <p id = "loading">Loading...</p>
                       ) : (
                         <CardLayout>
                           {books.map((book) => (<Card key = {book._id} id = {book._id} name = {book.name} author = {book.author} body = {book.body}cover = {getImageURL(book)} description = {book.description}></Card>))}
