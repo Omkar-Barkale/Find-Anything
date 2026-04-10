@@ -9,7 +9,7 @@ import { connectDB } from "./db_connection.js";
 export function createApp(){
   const app = express();
   app.use(cors({ 
-    origin: "http://localhost:5173",
+    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
   }));

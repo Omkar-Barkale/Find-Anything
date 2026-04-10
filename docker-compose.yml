@@ -1,0 +1,38 @@
+services:
+  # Backend Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+    - ./backend/.env
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - MONGO_URI=${MONGO_URI}
+      - CORS_ORIGIN=http://localhost
+    volumes:
+      - ./backend/uploads:/app/uploads
+    networks:
+      - find-anything-network
+ 
+  # Frontend Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://backend:3000
+    networks:
+      - find-anything-network
+ 
+networks:
+  find-anything-network:
+    driver: bridge
+ 
