@@ -9,6 +9,7 @@ import Admin from "./components/Admin.jsx"
 import Profile from "./components/Profile.jsx"
 
 import {Routes, Route} from 'react-router-dom'
+import NotFound from './components/NotFound.jsx'
 
 
 function App() {
@@ -21,8 +22,8 @@ function App() {
         <Route path = "/admindashboard" element = {<Admin/>}/>
         <Route path = "/register" element = {<Register/>}/>
         <Route path = "/profile" element = {<Profile/>}/>
-        <Route path = "*" element ={<Home/>}/>
         <Route path = "/book/edit/:id" element = {<EditBook/>}/>
+        <Route path = "*" element ={<NotFound/>}/>
       </Routes>
   </>
   )
