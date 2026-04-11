@@ -9,6 +9,5 @@ npm-debug.log
 dist
 coverage
 *.md
-uploads
 .next
 out

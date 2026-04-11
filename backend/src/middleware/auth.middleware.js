@@ -24,7 +24,7 @@ export async function authenticate(req,res,next){
  
     // try to verify token is good call the controller functions
     try{
-        const decoded = jwt.verify(token, process.env.jwt_secret);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded; //create a user json object in the request
         
         if(req.user.role === "admin" || req.user.role === "user"){
@@ -98,7 +98,7 @@ export async function authenticateUserUpdate(req, res, next){
 
 export async function sendToken(req, res, next){
 
-    const jwt_secret = process.env.jwt_secret;
+    const jwt_secret = process.env.JWT_SECRET;
     const username = req.body.username;
     const password = req.body.password;
     let db_return;
