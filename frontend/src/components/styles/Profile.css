@@ -46,7 +46,7 @@
 #userInfo{
     flex: 3;
 }
-#profileSidebar{
+/* #profileSidebar{
     flex: 1;
     background-color: lightgray;
     width: 100%;
@@ -54,7 +54,7 @@
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
 
-}
+} */
 
 #pfp {
   width: 100px;
