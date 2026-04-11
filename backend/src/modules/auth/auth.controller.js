@@ -157,5 +157,20 @@ async function unbanUser(req, res){
     }   
 } 
 
+async function searchUsers(req, res){
+    try{
+        const search = req.params.search;
 
-export {getAllUsers,getUserById,getUserByEmail, deleteUsers, updateUser, getLogs, getAllLogs, banUser, unbanUser};
+        const data = await userServices.searchUsers(search);
+        if(!data){
+            console.log("did not find any users");
+            res.status(400).json({error: "No Users found"});
+        }
+        console.log("found users");
+        res.status(200).json(data);
+    }catch(err){
+        res.status(400).json({error: err.message });
+    }
+}
+
+export {getAllUsers,getUserById,getUserByEmail, deleteUsers, updateUser, getLogs, getAllLogs, banUser, unbanUser, searchUsers};

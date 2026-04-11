@@ -20,10 +20,11 @@ const upload = multer({ storage }); //stores image in storage with key-value pai
 authRoutes.post('/token', auth.sendToken); 
 
 authRoutes.delete('/delete/:id',auth.authenticate, auth.authenticateUser, log, authController.deleteUsers);
-authRoutes.get('/users',auth.authenticate, auth.authenticateAdmin, log, authController.getAllUsers) 
+authRoutes.get('/users',auth.authenticate, auth.authenticateAdmin, authController.getAllUsers) 
 authRoutes.get('/users/:id',auth.authenticate, auth.authenticateUser, log, authController.getUserById)
 authRoutes.put('/users/update',auth.authenticate, log, upload.single("avatar"), authController.updateUser); 
 authRoutes.get('/logs/:search', authController.getLogs);
 authRoutes.get('/logs', auth.authenticate, auth.authenticateAdmin, authController.getAllLogs);
 authRoutes.get('/ban/:id', auth.authenticate, auth.authenticateAdmin, authController.banUser);
 authRoutes.get('/unban/:id', auth.authenticate, auth.authenticateAdmin, authController.unbanUser);
+authRoutes.get('/users/search/:search', auth.authenticate, auth.authenticateAdmin, authController.searchUsers);
