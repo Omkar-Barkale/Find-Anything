@@ -49,4 +49,7 @@ async function unbanUser(id){
     return await userRepo.unbanUser(id);
 }
 
-export {getAllUsers, getUserByEmail, getUserById, deleteUsers, updateUser, getLogs, getAllLogs, banUser, unbanUser};
+async function searchUsers(search){
+    return await userRepo.searchUsers(search);
+}
+export {getAllUsers, getUserByEmail, getUserById, deleteUsers, updateUser, getLogs, getAllLogs, banUser, unbanUser, searchUsers};

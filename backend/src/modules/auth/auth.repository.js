@@ -81,7 +81,9 @@ async function getLogs(type){
     const logs = await db.collection('Logs').find({
         $or:[ 
             {log: {$regex: type, $options: 'i'}}, 
-            {username: {$regex: type, $options: 'i'}}]
+            {username: {$regex: type, $options: 'i'}},
+            {timestamp: {$regex: type, $options: 'i'}},
+            {email: {$regex: type, $options: 'i'}}]
     }).toArray();
 
     if(!logs){
@@ -131,4 +133,21 @@ async function unbanUser(id){
     }
 }
 
-export {getAllUsers, getUser,getUserById,deleteUsers, updateUser, getLogs, getAllLogs, banUser, unbanUser};
+async function searchUsers(search){
+    const db = await connectDB();
+    const users = await db.collection('users').find({
+        $or: [
+            {username: {$regex: search, $options: 'i'}},
+            {email: {$regex: search, $options: 'i'}},
+            {role: {$regex: search, $options: 'i'}}
+        ]
+    }).toArray();
+    if(!users){
+        console.log("repo could not access users");
+        return false;
+    }
+    return users;
+}
+
+
+export {getAllUsers, getUser,getUserById,deleteUsers, updateUser, getLogs, getAllLogs, banUser, unbanUser, searchUsers};
