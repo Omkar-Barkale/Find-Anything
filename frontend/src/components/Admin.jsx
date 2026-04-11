@@ -16,10 +16,23 @@ function Admin(){
     const [logs, setLogs] = useState([]);
     const [search, setSearch] = useState("");
     const [path, setPath] = useState("http://localhost:3000/auth/logs");
+    const [loading, setLoading] = useState(true);
 
  
-    function loadUsers(){
-        fetch('http://localhost:3000/auth/users', {
+    function loadUsers(e=null){
+        if(e){
+            e.preventDefault();
+        }
+        
+        if(search){
+            setPath(`http://localhost:3000/auth/users/search/${search}`);
+        }else{
+            setPath(`http://localhost:3000/auth/users`);
+        }
+
+
+
+        fetch(path, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -34,15 +47,26 @@ function Admin(){
             }else{
             console.log("users set");
             setItems(users);
+            setLoading(false);
             }
         }).catch(function(error){
             console.log("Error:", error);
         });
-  
+       
     } 
 
-    function loadBooks(){
-        fetch('http://localhost:3000/search/', {
+    function loadBooks(e){
+        if(e){
+            e.preventDefault();
+        }
+        if(search){
+
+            setPath(`http://localhost:3000/search/${search}`);
+        }else{
+
+            setPath(`http://localhost:3000/search/`);
+        }
+        fetch(path, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -58,11 +82,15 @@ function Admin(){
             else{
             console.log("books set");
             setBooks(books);
+            setLoading(false);
             }
         })
+      
     }
 
     function loadLogs(e=null){
+ 
+
         if(e){
             e.preventDefault();
         }
@@ -100,13 +128,16 @@ function Admin(){
             else{
                 console.log("logs were gotten");
                 setLogs(logs)
+                setLoading(false);
             }
         });
+        
         
     }
 
     useEffect(() => {
         // console.log("The token is " + token);    
+
         const reloadData = () => {
             if(menu === "users"){
                 loadUsers();
@@ -119,7 +150,7 @@ function Admin(){
             }
         }
 
-        const interval = setInterval(reloadData, 10000)//reloads data every 10 seconds
+        const interval = setInterval(reloadData, 60000)//reloads data every 10 seconds
         return () => clearInterval(interval);
         }, [menu, path])
 
@@ -187,6 +218,7 @@ function Admin(){
     }
 
     const banUser = async (id) => {
+        setLoading(true);
         console.log("ban was clicked " + id);  
         const response = await fetch(`http://localhost:3000/auth/ban/${id}`,
                     {
@@ -204,9 +236,11 @@ function Admin(){
             console.log(response.ok);
             loadUsers();
         }
+        
     }
     
     const unbanUser = async (id) => {
+        setLoading(true);
         console.log("unban was clicked " + id);  
         const response = await fetch(`http://localhost:3000/auth/unban/${id}`,
                     {
@@ -224,6 +258,7 @@ function Admin(){
             console.log(response.ok);
             loadUsers();
         }
+        
     }
 
 
@@ -235,7 +270,6 @@ function Admin(){
         }catch(err){
             console.log(err.message);
         }
-        
         
     }
 
@@ -262,17 +296,29 @@ function Admin(){
         
     }
 
+    function handleSearch(e){
+        e.preventDefault();
+        setLoading(true);
+        if(menu === "logs"){
+            loadLogs(e);
+        }else if(menu === "books"){
+            loadBooks(e);
+         }else if(menu === "users"){
+            loadUsers(e);
+         }  
+        
+    }
     return(
     <div id='AdminDashboard'>
         <div id= "menu">
-            <h2>Moderation</h2>
-            <form className="searchbar" onSubmit={loadLogs}>
+            <h2>{loading ? "Loading... " + menu : "Moderation"}</h2>
+            <form className="searchbar" onSubmit={handleSearch}>
                 <input type='text' id = "main-search" placeholder='search' onChange={(e) => setSearch(e.target.value)}></input>
             </form>
             <div id='content-area'>
                 {menu === "users" ? users() : ""}
                 {menu === "books" ? showbooks() : ""}
-                {menu === "logs" ? showLogs() : ""}
+                {menu === "logs" ? showLogs() : ""}         
             </div>
         </div>
         
@@ -282,9 +328,9 @@ function Admin(){
             <div id='info'>
                 <div id='pages'>
                     <button onClick={() => goHome()}>Home</button>
-                    <button onClick={() => setMenu("users")}>Users</button>
-                    <button onClick={() => setMenu("books")}>Books</button>
-                    <button onClick={() => setMenu("logs")}>Logs</button>
+                    <button onClick={() => {setMenu("users"); if(!items.length)setLoading(true);}}>Users</button>
+                    <button onClick={() => {setMenu("books"); if(!books.length)setLoading(true);}}>Books</button>
+                    <button onClick={() => {setMenu("logs"); if(!logs.length)setLoading(true);}}>Logs</button>
                 </div>
                 <div id='bottom_buttons'>
                     <button id="logout" onClick={() => Logout()}>Log out</button>
