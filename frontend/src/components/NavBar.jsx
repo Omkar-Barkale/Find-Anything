@@ -47,7 +47,6 @@ function NavBar() {
     <>
         <ul>
           <li id = "home"> <Link to = "/home" >Home  </Link></li>
-          <li><a href = "#" id = 'about' onClick={()=>alert("About Clicked")}>About</a></li>
           {mode}
         </ul>
     </>
