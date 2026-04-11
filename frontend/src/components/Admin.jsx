@@ -15,6 +15,7 @@ function Admin(){
     const [books, setBooks] = useState([]);
     const [logs, setLogs] = useState([]);
     const [search, setSearch] = useState("");
+    const [path, setPath] = useState("http://localhost:3000/auth/logs");
 
  
     function loadUsers(){
@@ -65,14 +66,13 @@ function Admin(){
         if(e){
             e.preventDefault();
         }
-        let path;
           
         if(search){
             
-            path = `http://localhost:3000/auth/logs/${search}`;
+            setPath(`http://localhost:3000/auth/logs/${search}`);
         }
         else{
-            path = `http://localhost:3000/auth/logs`
+            setPath(`http://localhost:3000/auth/logs`);
         }
      
       
@@ -121,7 +121,7 @@ function Admin(){
 
         const interval = setInterval(reloadData, 10000)//reloads data every 10 seconds
         return () => clearInterval(interval);
-        }, [menu])
+        }, [menu, path])
 
     function getAvatar(user){
         return `data:${user.avatarType};base64,${user.avatar}`;
@@ -186,6 +186,46 @@ function Admin(){
         }
     }
 
+    const banUser = async (id) => {
+        console.log("ban was clicked " + id);  
+        const response = await fetch(`http://localhost:3000/auth/ban/${id}`,
+                    {
+                        method: 'GET',
+                        headers: 
+                        {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+        if(!response.ok){
+            console.log(response.ok);           
+        }else{
+            //useEffect
+            console.log(response.ok);
+            loadUsers();
+        }
+    }
+    
+    const unbanUser = async (id) => {
+        console.log("unban was clicked " + id);  
+        const response = await fetch(`http://localhost:3000/auth/unban/${id}`,
+                    {
+                        method: 'GET',
+                        headers: 
+                        {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+        if(!response.ok){
+            console.log(response.ok);           
+        }else{
+            //useEffect
+            console.log(response.ok);
+            loadUsers();
+        }
+    }
+
 
     function showbooks(){
         try{
@@ -212,7 +252,7 @@ function Admin(){
     function users(){
         try{
             return <CardLayout id="adminCardLayout">
-                {items.map((item) => (<UserCards key = {item._id} username = {item.username} avatar = {getAvatar(item)} role = {item.role} email = {item.email} numPosts = {numPosts(item)} onDelete={deleteUser} id={item._id} menu={menu}></UserCards>))}
+                {items.map((item) => (<UserCards key = {item._id} username = {item.username} avatar = {getAvatar(item)} role = {item.role} email = {item.email} numPosts = {numPosts(item)} onDelete={deleteUser} onBan={banUser} onUnban={unbanUser} id={item._id} menu={menu}></UserCards>))}
             </CardLayout>;
         }catch(err){
             console.log(err.message);

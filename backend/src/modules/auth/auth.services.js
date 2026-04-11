@@ -41,4 +41,12 @@ async function getAllLogs(){
     return await userRepo.getAllLogs();
 }
 
-export {getAllUsers, getUserByEmail, getUserById, deleteUsers, updateUser, getLogs, getAllLogs}
+async function banUser(id){
+    return await userRepo.banUser(id);
+}
+
+async function unbanUser(id){
+    return await userRepo.unbanUser(id);
+}
+
+export {getAllUsers, getUserByEmail, getUserById, deleteUsers, updateUser, getLogs, getAllLogs, banUser, unbanUser};
