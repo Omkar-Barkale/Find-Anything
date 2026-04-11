@@ -112,7 +112,12 @@ function BookModal(props){
     
     async function getFile(){
         setDownloadError("");
+        if(!token){
+            alert("You must be logged in to download files");
+            return;
+        }
         try{
+            if(user)
             console.log("Attempting to download file with token:", token , "for Book ID:", props.id);
        
             const response = await fetch(`http://localhost:3000/search/file/${props.id}`, {

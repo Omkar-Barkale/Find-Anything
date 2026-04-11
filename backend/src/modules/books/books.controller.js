@@ -81,6 +81,12 @@ export async function deleteBooks(req, res){
 
 export async function downloadBook(req, res){
     try{
+
+        const token = req.headers['authorization']?.split(' ')[1]
+
+        if (!token) 
+            return res.status(401).json({ message: "No token found" });
+
         const {id} = req.params;
         const book = await bookService.getBookFileById(id);
         if(!book) return res.status(404).json({message: 'Book not found'});
@@ -92,6 +98,7 @@ export async function downloadBook(req, res){
         res.download(filepath, (err) => {
             if(err){
                 console.error('Download error', err);
+                return res.status(500).json({message: 'Error downloading file'});
                 // If headers already sent, cannot send JSON
             } else {
                 // increment downloads asynchronously
