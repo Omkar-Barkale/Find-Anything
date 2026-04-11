@@ -40,3 +40,7 @@
 #delete:hover{
     cursor: pointer;
 }
+
+#ban:hover{
+    cursor: pointer;
+}

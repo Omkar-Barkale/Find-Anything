@@ -123,7 +123,54 @@ async function getAllLogs(req, res){
     }
 }
 
+async function banUser(req, res){
+    try{
+        const id = req.params.id;
+        const data = await userServices.banUser(id);
+        if(!data){
+            console.log("did not ban user");
+            res.status(400).json({error: "Failed to ban user"});
+        }
+        console.log("user banned");
+        res.status(200).json({
+            message: "User banned successfully"
+        });
+    }catch(err){
+        res.status(400).json({error: err.message });
+    }
+}
 
+async function unbanUser(req, res){
+    try{
+        const id = req.params.id;  
+        const data = await userServices.unbanUser(id);
+        if(!data){
+            console.log("did not unban user");
+            res.status(400).json({error: "Failed to unban user"});
+        }
+        console.log("user unbanned");
+        res.status(200).json({
+            message: "User unbanned successfully"
+        });
+    }catch(err){
+        res.status(400).json({error: err.message });
+    }   
+} 
 
+async function searchUsers(req, res){
+    try{
+        const search = req.params.search;
 
-export {getAllUsers,getUserById,getUserByEmail, deleteUsers, updateUser, getLogs, getAllLogs};
+        const data = await userServices.searchUsers(search);
+        if(!data){
+            console.log("did not find any users");
+            res.status(400).json({error: "No Users found"});
+        }
+        console.log("found users");
+        res.status(200).json(data);
+    }catch(err){
+        res.status(400).json({error: err.message });
+    }
+}
+
+export {getAllUsers,getUserById,getUserByEmail, deleteUsers, updateUser, getLogs, getAllLogs, banUser, unbanUser, searchUsers};

@@ -2,7 +2,6 @@ import { useState, useEffect} from 'react'
 import {Link} from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 import "../components/styles/Profile.css"
-import NavBar from './NavBar.jsx';
 import * as Validation from '../util/frontendValidation.js'
 import { useNavigate } from 'react-router-dom';
 
@@ -152,7 +151,6 @@ function Profile()
 
     return(
         <>
-        <NavBar/>
         <div id = "profileOverlay">
             <div id = "profileModal">
                 <div id = "profileSidebar">

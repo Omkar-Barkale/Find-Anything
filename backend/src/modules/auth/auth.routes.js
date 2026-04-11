@@ -15,7 +15,7 @@ const upload = multer({ storage }); //stores image in storage with key-value pai
 //authenticateAdmin does NOT have token validation and checks i user is admin
 //authenticateUser checks if the request id matches the user id being gotten or deleted
 //log adds a log in the database with who called the route and what they did with it
-
+//ban/unban routes change the role of the user to banned or user, they do not delete the user from the database
 
 authRoutes.post('/token', auth.sendToken); 
 
@@ -24,4 +24,7 @@ authRoutes.get('/users',auth.authenticate, auth.authenticateAdmin, log, authCont
 authRoutes.get('/users/:id',auth.authenticate, auth.authenticateUser, log, authController.getUserById)
 authRoutes.put('/users/update',auth.authenticate, log, upload.single("avatar"), authController.updateUser); 
 authRoutes.get('/logs/:search', authController.getLogs);
-authRoutes.get('/logs', authController.getAllLogs)
+authRoutes.get('/logs', auth.authenticate, auth.authenticateAdmin, authController.getAllLogs);
+authRoutes.get('/ban/:id', auth.authenticate, auth.authenticateAdmin, authController.banUser);
+authRoutes.get('/unban/:id', auth.authenticate, auth.authenticateAdmin, authController.unbanUser);
+authRoutes.get('/users/search/:search', auth.authenticate, auth.authenticateAdmin, authController.searchUsers);

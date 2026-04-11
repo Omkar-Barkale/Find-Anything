@@ -81,7 +81,9 @@ async function getLogs(type){
     const logs = await db.collection('Logs').find({
         $or:[ 
             {log: {$regex: type, $options: 'i'}}, 
-            {username: {$regex: type, $options: 'i'}}]
+            {username: {$regex: type, $options: 'i'}},
+            {timestamp: {$regex: type, $options: 'i'}},
+            {email: {$regex: type, $options: 'i'}}]
     }).toArray();
 
     if(!logs){
@@ -101,5 +103,51 @@ async function getAllLogs(){
     return logs;
 }
 
+async function banUser(id){
+    const db = await connectDB();
+    const result = await db.collection("users").updateOne(
+        {_id : new ObjectId(id)},
+        {$set: {role: "banned"}}
+    );
+    if(result.acknowledged){
+        console.log("User banned successfully");
+        return true;
+    }else{
+        console.log("Failed to ban user");
+        return false;
+    }
+}
 
-export {getAllUsers, getUser,getUserById,deleteUsers, updateUser, getLogs, getAllLogs};
+async function unbanUser(id){
+    const db = await connectDB();
+    const result = await db.collection("users").updateOne(
+        {_id : new ObjectId(id)},
+        {$set: {role: "user"}}
+    );
+    if(result.acknowledged){
+        console.log("User unbanned successfully");
+        return true;
+    }else{
+        console.log("Failed to unban user");
+        return false;
+    }
+}
+
+async function searchUsers(search){
+    const db = await connectDB();
+    const users = await db.collection('users').find({
+        $or: [
+            {username: {$regex: search, $options: 'i'}},
+            {email: {$regex: search, $options: 'i'}},
+            {role: {$regex: search, $options: 'i'}}
+        ]
+    }).toArray();
+    if(!users){
+        console.log("repo could not access users");
+        return false;
+    }
+    return users;
+}
+
+
+export {getAllUsers, getUser,getUserById,deleteUsers, updateUser, getLogs, getAllLogs, banUser, unbanUser, searchUsers};

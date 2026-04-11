@@ -9,8 +9,9 @@ function UserCards(props){
           const avatar = props.avatar;
           const email = props.email;
           const role = props.role;
-          const numPosts = props.numPosts;
           const deleteUser = props.onDelete;
+          const banUser = props.onBan;
+          const unbanUser = props.onUnban;
           const id = props.id; //string
           
 
@@ -22,9 +23,9 @@ function UserCards(props){
                     <img src={avatar} id="pfp"></img>
                     <p className = 'email'>{email}</p>
                     <p className="role">{role}</p>
-                    <p className="numPosts">{numPosts}</p>
                     <button id="delete" onClick={() => deleteUser(id)}>Delete</button>
-                    <button id="ban" onClick={() => banUser(id)}>Ban</button>
+                    <button id="ban" onClick={() => {role === "banned" ? unbanUser(id) : banUser(id)}}>{role === "banned" ? "Unban" : "Ban"}</button>
+               
                </div>
 
           </>);
