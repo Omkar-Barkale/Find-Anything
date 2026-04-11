@@ -150,12 +150,13 @@ function Admin(){
             }
         }
 
-        const interval = setInterval(reloadData, 60000)//reloads data every 10 seconds
+        const interval = setInterval(reloadData, 6000)//reloads data every 10 seconds
         return () => clearInterval(interval);
         }, [menu, path])
 
     function getAvatar(user){
-        return `data:${user.avatarType};base64,${user.avatar}`;
+        //return `data:${user.avatarType};base64,${user.avatar}`;
+        return '/path';
         }
 
     function numPosts(user){
@@ -167,7 +168,8 @@ function Admin(){
     }
 
     function getCover(book){
-         return `data:${book.imgType};base64,${book.image.data}`;
+         //return `data:${book.imgType};base64,${book.image.data}`;
+         return '/path';
     }
 
     function Logout(){

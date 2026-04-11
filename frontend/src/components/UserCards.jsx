@@ -20,7 +20,7 @@ function UserCards(props){
                <div className="Usercard"> 
                     
                     <p className="username">{username}</p>
-                    <img src={avatar} id="pfp"></img>
+
                     <p className = 'email'>{email}</p>
                     <p className="role">{role}</p>
                     <button id="delete" onClick={() => deleteUser(id)}>Delete</button>
@@ -43,7 +43,7 @@ function UserCards(props){
                <div className="Usercard"> 
                     
                     <p className="name">{name}</p>
-                    <img src={cover}></img>
+                
                     <p className = 'author'>{author}</p>
                     <p className="body">{body}</p>
                     <button id="delete" onClick={() => deleteBook(id)}>Delete</button>
