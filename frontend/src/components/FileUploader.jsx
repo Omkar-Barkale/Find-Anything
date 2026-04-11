@@ -15,7 +15,6 @@ export default function FileUploader(props) //we use prop since need to send par
             const newFile = e.target.files[0]; //need this as state updates are async, so cant use file
             if((newFile.type == 'image/png' || newFile.type == 'image/jpeg')) 
             {
-                //TODO SIZE VALIDATION
                 setSelectedImage(newFile ? URL.createObjectURL(newFile) : undefined);
                 props.setFile(newFile); //pass file to parent
                 props.setAvatarError("");
@@ -24,7 +23,7 @@ export default function FileUploader(props) //we use prop since need to send par
             {
                 e.target.value = '';
                 console.log('Only png and jpeg files are supported');
-                props.setAvatarError("Only png and jpeg files are supportedasa")
+                props.setAvatarError("Only png and jpeg files are supported");
             }
         }
 

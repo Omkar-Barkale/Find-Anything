@@ -16,3 +16,14 @@
   opacity: 0.2;
   font-size: 1.3em;
 }   
+#loading {
+  display: inline;
+  background-image: radial-gradient(circle, #7182ff 0, #3cff52 100%);
+  background-clip: text;
+  color: transparent;
+  animation: textGradientAnimation 2s ease-in-out infinite alternate;
+  background-repeat: initial;
+  font-size:3em;
+  margin: auto;  
+  font-weight: 500;
+}
