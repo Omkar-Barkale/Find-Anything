@@ -5,12 +5,24 @@ function Breadcrumb() {
 
   const location = useLocation();
   let pathSegments = location.pathname.split('/').filter(Boolean);
+  const validRoutes = [
+    /^\/$/,
+    /^\/home$/,
+    /^\/login\/?$/,
+    /^\/upload$/,
+    /^\/admindashboard$/,
+    /^\/register$/,
+    /^\/profile$/,
+    /^\/book\/edit\/.+$/
+  ];
 
   if (pathSegments[0] === 'home') {
     pathSegments = pathSegments.slice(1);
   }
 
-
+  if (!validRoutes.some((pattern) => pattern.test(location.pathname))) {
+    return null;
+  }
 
   if (location.pathname === '/' || location.pathname === '/home') {
     return null;

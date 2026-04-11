@@ -68,7 +68,7 @@ function User(props){
 
   return(
     <>
-    <li className = "upload"><Link to = "/test">Upload</Link> </li>
+    <li className = "upload"><Link to = "/upload">Upload</Link> </li>
     <li className = "profile"><Link to ="/profile" > Profile </Link></li>
     <li className = "logout"> <a href = "#" onClick={()=>{localStorage.removeItem('token'); props.setToken(null); navigate('/')}}>Logout</a> </li>
 
@@ -82,7 +82,7 @@ function Admin(props){
 
   return(  
   <>
-        <li className = "upload"><Link to = "/test">Upload</Link> </li>
+        <li className = "upload"><Link to = "/upload">Upload</Link> </li>
         <li id = "mod"> <Link to="/admindashboard">Moderation Dashboard</Link> </li>
         <li className = "profile"><Link to ="/profile" > Profile </Link></li>
         <li className = "logout"> <a href = "#" onClick={()=>{localStorage.removeItem('token'); props.setToken(null); navigate('/')}}>Logout</a>    </li>

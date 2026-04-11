@@ -1,6 +1,5 @@
 import request from "supertest";
 import { createApp } from "../../src/index.js";
-import React from 'react'
 const app = createApp();
 
 describe("Registration Integration Tests", () => {
