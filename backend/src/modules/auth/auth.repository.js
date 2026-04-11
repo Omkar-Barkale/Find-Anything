@@ -101,5 +101,34 @@ async function getAllLogs(){
     return logs;
 }
 
+async function banUser(id){
+    const db = await connectDB();
+    const result = await db.collection("users").updateOne(
+        {_id : new ObjectId(id)},
+        {$set: {role: "banned"}}
+    );
+    if(result.acknowledged){
+        console.log("User banned successfully");
+        return true;
+    }else{
+        console.log("Failed to ban user");
+        return false;
+    }
+}
 
-export {getAllUsers, getUser,getUserById,deleteUsers, updateUser, getLogs, getAllLogs};
+async function unbanUser(id){
+    const db = await connectDB();
+    const result = await db.collection("users").updateOne(
+        {_id : new ObjectId(id)},
+        {$set: {role: "user"}}
+    );
+    if(result.acknowledged){
+        console.log("User unbanned successfully");
+        return true;
+    }else{
+        console.log("Failed to unban user");
+        return false;
+    }
+}
+
+export {getAllUsers, getUser,getUserById,deleteUsers, updateUser, getLogs, getAllLogs, banUser, unbanUser};
