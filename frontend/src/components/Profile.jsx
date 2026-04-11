@@ -133,6 +133,12 @@ function Profile()
         if(e.target.files)//checks filelist object
         { 
             const newFile = e.target.files[0]; //need this as state updates are async, so cant use file
+            if (newFile.size > 1024 * 1024) 
+            {
+                e.target.value = '';
+                setAvatarError("File must be under 1 MB");
+                return;
+            }
             if((newFile.type == 'image/png' || newFile.type == 'image/jpeg')) 
             {
                 setAvatar(newFile ? URL.createObjectURL(newFile) : undefined); //preview
