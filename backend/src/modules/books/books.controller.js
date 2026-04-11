@@ -30,7 +30,7 @@ export async function getBookByKeyword(req, res) {
   export async function createPost(req, res){
     try{
         const token = req.headers['authorization']?.split(' ')[1]
-        const decoded = jwt.verify(token, process.env.jwt_secret);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         
         console.log("Decoded JWT:", decoded._id);
        
@@ -113,7 +113,7 @@ export async function createComment(req, res){
         if (!token) 
             return res.status(401).json({ message: "No token found" });
 
-        const decoded = jwt.verify(token, process.env.jwt_secret);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         console.log("Decoded JWT:", decoded._id);
 
         const comment = req.body.comment;

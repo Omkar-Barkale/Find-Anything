@@ -6,13 +6,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    env_file:
-    - ./backend/.env
     environment:
       - NODE_ENV=production
       - PORT=3000
-      - MONGO_URI=${MONGO_URI}
-      - CORS_ORIGIN=http://localhost
+      - MONGO_URI=mongodb://chanyeeyoon_db_user:findanything@ac-dcnfyha-shard-00-00.1kbvxc3.mongodb.net:27017,ac-dcnfyha-shard-00-01.1kbvxc3.mongodb.net:27017,ac-dcnfyha-shard-00-02.1kbvxc3.mongodb.net:27017/?ssl=true&replicaSet=atlas-e8w7gs-shard-0&authSource=admin&appName=Cluster0
+      - JWT_SECRET=xd123
+      - CORS_ORIGIN=http://localhost:4000
     volumes:
       - ./backend/uploads:/app/uploads
     networks:
@@ -22,13 +21,14 @@ services:
   frontend:
     build:
       context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:3000
       dockerfile: Dockerfile
+      
     ports:
-      - "80:80"
+      - "4000:80"
     depends_on:
       - backend
-    environment:
-      - VITE_API_URL=http://backend:3000
     networks:
       - find-anything-network
  
